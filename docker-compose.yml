@@ -1,0 +1,30 @@
+version: '3'
+services:
+  api-courses-store-admin:
+    build:
+      dockerfile: ./api-courses-store-admin/api-courses-store-admin.dockerfile
+      context: .
+    image: henrique/api-courses-store-admin
+    container_name: api-courses-store-admin
+    ports:
+      - '8081:8081'    
+    networks:
+      -  rede-courses-store-admin
+  ui-courses-store-admin:
+    build:
+      dockerfile: ./ui-courses-store-admin/ui-courses-store-admin.dockerfile
+      context: .
+    image: henrique/ui-courses-store-admin
+    container_name: ui-courses-store-admin
+    ports:
+      - '8080:8080'
+    networks:
+      -  rede-courses-store-admin
+    volumes:
+      - './ui-courses-store-admin:/var/www'
+      - '/var/www/node_modules'
+    depends_on:
+      - "api-courses-store-admin"
+networks: 
+    rede-courses-store-admin:
+        driver: bridge

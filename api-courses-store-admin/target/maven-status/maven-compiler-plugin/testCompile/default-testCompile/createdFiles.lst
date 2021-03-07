@@ -1,0 +1,7 @@
+com\example\adapters\database\customer\FindCustomerTest.class
+com\example\adapters\database\customer\CustomerConverterTest.class
+com\example\adapters\database\customer\DeleteCustomerTest.class
+com\example\core\usecases\RegisterNewCustomerTest.class
+com\example\demo\ApplicationTests.class
+com\example\adapters\database\customer\CreateCustomerTest.class
+com\example\adapters\database\customer\UpdateCustomerTest.class
