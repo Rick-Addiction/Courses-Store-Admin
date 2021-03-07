@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @Validated
-@RequestMapping("online-courses/customer")
+@RequestMapping("courses-store/customer")
 public class PostCustomerController {
 
     private final RegisterNewCustomer registerNewCustomer;

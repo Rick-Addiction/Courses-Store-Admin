@@ -48,6 +48,17 @@ div:focus {
   outline: none;
 }
 
+.table-options-container {
+  padding-bottom: 10px;
+
+  .table-option {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+  }
+}
+
+
 .clearfix {
   &:after {
     visibility: hidden;

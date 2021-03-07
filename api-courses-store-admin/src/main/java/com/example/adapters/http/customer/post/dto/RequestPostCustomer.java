@@ -12,19 +12,19 @@ public class RequestPostCustomer {
 
     }
 
-    @JsonProperty("firstname")
+    @JsonProperty("firstName")
     @NotBlank
     private String firstName;
 
-    @JsonProperty("lastname")
+    @JsonProperty("lastName")
     @NotBlank
     private String lastName;
 
-    @JsonProperty("doctype")
+    @JsonProperty("docType")
     @NotBlank
     private String docType;
 
-    @JsonProperty("docnumber")
+    @JsonProperty("docNumber")
     @NotNull
     @Size(min = 9, max = 14)
     private String docNumber;
