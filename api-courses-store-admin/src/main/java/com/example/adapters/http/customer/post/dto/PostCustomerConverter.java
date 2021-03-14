@@ -6,10 +6,12 @@ public class PostCustomerConverter {
 
     public static Customer toDomain (RequestPostCustomer body){
         Customer customer = new Customer();
-        customer.setFirstName(body.getFirstName());
-        customer.setLastName(body.getLastName());
-        customer.setDocType(body.getDocType());
-        customer.setDocNumber(body.getDocNumber());
+        customer.setFirstname(body.getFirstname());
+        customer.setLastname(body.getFirstname());
+        customer.setPhone(body.getPhone());
+        customer.setEmail(body.getEmail());
+        customer.setCompany(body.getCompany());
+        customer.setPosition(body.getPosition());
 
         return customer;
     }

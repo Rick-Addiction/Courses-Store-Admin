@@ -43,36 +43,87 @@
           {{ scope.row.docNumber }}
         </template>
       </el-table-column>
+      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
+        <template slot-scope="{row,$index}">
+          <el-button type="primary" size="mini" @click="handleMoreDetails(row)">
+            More Details
+          </el-button>          
+          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
+            Delete
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="90px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="firstname">
-          <el-input v-model="temp.firstName" type="textarea" placeholder="firstname" />
-        </el-form-item>
-        <el-form-item label="lastname">
-          <el-input v-model="temp.lastName" type="textarea" placeholder="lastname" />
-        </el-form-item>
-        <el-form-item label="doctype">
-          <el-input v-model="temp.docType" type="textarea" placeholder="doctype" />
-        </el-form-item>
-        <el-form-item label="docnumber">
-          <el-input v-model="temp.docNumber" type="textarea" placeholder="docnumber" />
-        </el-form-item>
+    <el-dialog center width="90%" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="Customer" name="Customer">
+      <el-form ref="dataForm" :rules="rules" :model="temp" >
+        <div class="dialog-line"> 
+          <label class="dialog-label" for="firstName">Firstname</label>
+          <el-input class="dialog-input" v-model="temp.firstName" :disabled="dialogStatus!=='edit'" placeholder="Firstname" />        
+  
+          <label class="dialog-label" for="Lastname">LastName</label>
+          <el-input class="dialog-input" v-model="temp.lastName" :disabled="dialogStatus!=='edit'" placeholder="lastname" />
+        </div>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          Cancel
-        </el-button>
-        <el-button type="primary" @click="createData()">
-          Confirm
-        </el-button>
-      </div>
+        <div class="dialog-footer">
+          <el-button :disabled="dialogStatus==='edit'" @click="changeDialogMode('edit')">
+            Edit
+          </el-button>
+          <el-button :disabled="dialogStatus!=='edit'" @click="dialogFormVisible = false">
+            Cancel
+          </el-button>
+          <el-button :disabled="dialogStatus!=='edit'" type="primary" @click="editData()">
+            Confirm
+          </el-button>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Courses" name="Courses">
+        <el-table
+        :data="users"
+        style="width: 100%"
+        height="50%">
+          <el-table-column
+            fixed
+            prop="firstName"
+            label="Date"
+            width="150">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="Name"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="state"
+            label="State"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="city"
+            label="City"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="Address"
+            width="300">
+          </el-table-column>
+          <el-table-column
+            prop="zip"
+            label="Zip"
+            width="120">
+          </el-table-column>
+      </el-table>
+      </el-tab-pane>
+      </el-tabs>
     </el-dialog>  
   </div>
 </template>
 
 <script>
-import { getAllCustomers, createNewCustomer } from '/src/services/TestService'
+import { getAllCustomers, createNewCustomer, editCustomer } from '/src/services/TestService'
 
 export default {
   filters: {
@@ -88,6 +139,7 @@ export default {
   data() {
     return {
       users: [],
+      activeName: 'Customer',
       dialogStatus: '',
       dialogFormVisible: false,
       temp: {
@@ -138,6 +190,38 @@ export default {
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
+      })
+    },
+    handleMoreDetails(row) {
+      this.temp = Object.assign({}, row) // copy obj
+      this.temp.timestamp = new Date(this.temp.timestamp)
+      this.dialogStatus = 'read'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    changeDialogMode(dialogMode) {
+      this.dialogStatus = dialogMode
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    editData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          editCustomer(this.temp).then(() => {
+            console.log(this.temp)
+            this.getAllUsers()
+            this.dialogFormVisible = false
+            this.$notify({
+              title: 'Success',
+              message: 'Created Successfully',
+              type: 'success',
+              duration: 2000
+            })
+          })
+        }
       })
     },
     createData() {

@@ -26,10 +26,13 @@ public class UpdateCustomerTest {
 
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.randomUUID());
-        customer.setFirstName("Bruno");
-        customer.setLastName("Salgado");
-        customer.setDocType("1");
-        customer.setDocNumber("111111111");
+        customer.setFirstname("Ellie");
+        customer.setLastname("Laster");
+        customer.setPhone("+55 11 99999-9999");
+        customer.setEmail("email_test@testdomain.com");
+        customer.setLinkedIn("linkedin.com/EllieLaster");
+        customer.setCompany("Robots with Love");
+        customer.setPosition("CEO");
 
         CreateCustomer createCustomer = new CreateCustomer(customerRepository);
         createCustomer.createCustomer(customer);
@@ -40,10 +43,13 @@ public class UpdateCustomerTest {
 
         Customer customerToUpdate = new Customer();
         customerToUpdate.setIdCustomer(customer.getIdCustomer());
-        customerToUpdate.setFirstName("Cesar");
-        customerToUpdate.setLastName("Rocha");
-        customerToUpdate.setDocType("2");
-        customerToUpdate.setDocNumber("222222222");
+        customer.setFirstname("Joel");
+        customer.setLastname("Laster");
+        customer.setPhone("+55 11 99999-9999");
+        customer.setEmail("email_test@testdomain.com");
+        customer.setLinkedIn("linkedin.com/JoelLaster");
+        customer.setCompany("Robots with Love");
+        customer.setPosition("CEO");
 
         UpdateCustomer updateCustomer = new UpdateCustomer(customerRepository);
         updateCustomer.updateCustomer(customerToUpdate);
@@ -55,35 +61,14 @@ public class UpdateCustomerTest {
         CustomerModel customerModelUpdated = optionalCustomerModelUpdated.get();
         Customer customerUpdated = CustomerConverter.toEntity(customerModelUpdated);
 
-        assertNotEquals(customerUpdated.getFirstName(), customer.getFirstName());
-        assertNotEquals(customerUpdated.getLastName(), customer.getLastName());
-        assertNotEquals(customerUpdated.getDocType(), customer.getDocType());
-        assertNotEquals(customerUpdated.getDocNumber(), customer.getDocNumber());
-
-        assertEquals(customerUpdated.getFirstName(), customerToUpdate.getFirstName());
-        assertEquals(customerUpdated.getLastName(), customerToUpdate.getLastName());
-        assertEquals(customerUpdated.getDocType(), customerToUpdate.getDocType());
-        assertEquals(customerUpdated.getDocNumber(), customerToUpdate.getDocNumber());
+        assertEquals(customerUpdated.getIdCustomer(), customerToUpdate.getIdCustomer());
+        assertEquals(customerUpdated.getFirstname(),customerToUpdate.getFirstname());
+        assertEquals(customerUpdated.getLastname(),customerToUpdate.getLastname());
+        assertEquals(customerUpdated.getPhone(),customerToUpdate.getPhone());
+        assertEquals(customerUpdated.getEmail(),customerToUpdate.getEmail());
+        assertEquals(customerUpdated.getLinkedIn(),customerToUpdate.getLinkedIn());
+        assertEquals(customerUpdated.getCompany(),customerToUpdate.getCompany());
+        assertEquals(customerUpdated.getPosition(),customerToUpdate.getPosition());
 
     }
-
-/*    @Test
-    @DisplayName("Not update when there is customer for the id")
-    public void Not_update_when_there_is_customer_for_the_id(){
-
-        Customer customerToUpdate = new Customer();
-        customerToUpdate.setIdCustomer(UUID.randomUUID());
-        customerToUpdate.setFirstName("Cesar");
-        customerToUpdate.setLastName("Rocha");
-        customerToUpdate.setDocType("2");
-        customerToUpdate.setDocNumber("222222222");
-
-        UpdateCustomer updateCustomer = new UpdateCustomer(customerRepository);
-        updateCustomer.updateCustomer(customerToUpdate);
-
-        Optional<CustomerModel> optionalCustomerModelUpdated = customerRepository.findByIdCustomer(String.valueOf(customerToUpdate.getIdCustomer()));
-
-        Assertions.assertFalse(optionalCustomerModelUpdated.isPresent());
-
-    }*/
 }

@@ -13,3 +13,12 @@ export async function createNewCustomer(newCustomer) {
         headers: {"Content-type": "application/json; charset=UTF-8"}
       });
 }
+
+export async function editCustomer(customerToEdit) {
+    console.log(JSON.stringify(customerToEdit));
+    await fetch('/courses-store/customer/update', {
+        method: "PUT",
+        body: JSON.stringify(customerToEdit),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      });
+}

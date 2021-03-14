@@ -26,10 +26,12 @@ class CreateCustomerTest {
 
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.randomUUID());
-        customer.setFirstName("Henrique");
-        customer.setLastName("Assumpção");
-        customer.setDocType("1");
-        customer.setDocNumber("123456789");
+        customer.setFirstname("John");
+        customer.setLastname("Laster");
+        customer.setPhone("+55 11 99999-9999");
+        customer.setEmail("email_test@testdomain.com");
+        customer.setCompany("Robots with Love");
+        customer.setPosition("CEO");
 
         CreateCustomer createCustomer = new CreateCustomer(customerRepository);
         createCustomer.createCustomer(customer);
@@ -41,10 +43,13 @@ class CreateCustomerTest {
         CustomerModel customerModel = optionalCustomerModel.get();
         Customer customerCreated = CustomerConverter.toEntity(customerModel);
 
-        assertEquals(customer.getFirstName(),customerCreated.getFirstName());
-        assertEquals(customer.getLastName(),customerCreated.getLastName());
-        assertEquals(customer.getDocType(),customerCreated.getDocType());
-        assertEquals(customer.getDocNumber(),customerCreated.getDocNumber());
+        assertEquals(customer.getFirstname(),customerCreated.getFirstname());
+        assertEquals(customer.getLastname(),customerCreated.getLastname());
+        assertEquals(customer.getPhone(),customerCreated.getPhone());
+        assertEquals(customer.getEmail(),customerCreated.getEmail());
+        assertEquals(customer.getLinkedIn(),customerCreated.getLinkedIn());
+        assertEquals(customer.getCompany(),customerCreated.getCompany());
+        assertEquals(customer.getPosition(),customerCreated.getPosition());
 
     }
 

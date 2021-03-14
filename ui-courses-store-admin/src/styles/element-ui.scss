@@ -18,10 +18,35 @@
 
 // to fixed https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
-  transform: none;
-  left: 0;
-  position: relative;
-  margin: 0 auto;
+  .dialog-label{
+    display: block;
+    text-align: center;
+  }
+  .dialog-input{
+    display: block;
+    width: 100%;
+    margin: 0 10px;
+  }
+  .dialog-line{
+    white-space:nowrap;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction:row;
+    -webkit-justify-content: center; 
+    justify-content:center;
+    align-items:baseline;
+    width: 100%;
+  }
+  .dialog-footer{
+    margin: 10px;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction:row;
+    -webkit-justify-content: flex-end; 
+    justify-content:flex-end;
+    align-items:flex-end;
+  }
+  
 }
 
 // refine element ui upload

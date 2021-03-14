@@ -21,18 +21,24 @@ public class CustomerConverterTest {
 
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.randomUUID());
-        customer.setFirstName("Bruno");
-        customer.setLastName("Salgado");
-        customer.setDocType("1");
-        customer.setDocNumber("111111111");
+        customer.setFirstname("Samanta");
+        customer.setLastname("Laster");
+        customer.setPhone("+55 11 99999-9999");
+        customer.setEmail("email_test@testdomain.com");
+        customer.setCompany("Robots with Love");
+        customer.setPosition("CEO");
 
         CustomerModel customerModel = CustomerConverter.toModel(customer);
 
-        assertEquals(UUID.fromString(customerModel.getIdCustomer()), customer.getIdCustomer());
-        assertEquals(customerModel.getFirstName(), customer.getFirstName());
-        assertEquals(customerModel.getLastName(), customer.getLastName());
-        assertEquals(customerModel.getDocType(), customer.getDocType());
-        assertEquals(customerModel.getDocNumber(), customer.getDocNumber());
+        assertEquals(customerModel.getIdCustomer(), String.valueOf(customer.getIdCustomer()));
+        assertEquals(customerModel.getFirstname(),customer.getFirstname());
+        assertEquals(customerModel.getLastname(),customer.getLastname());
+        assertEquals(customerModel.getPhone(),customer.getPhone());
+        assertEquals(customerModel.getEmail(),customer.getEmail());
+        assertEquals(customerModel.getLinkedIn(),customer.getLinkedIn());
+        assertEquals(customerModel.getCompany(),customer.getCompany());
+        assertEquals(customerModel.getPosition(),customer.getPosition());
+
 
     }
 
@@ -42,18 +48,23 @@ public class CustomerConverterTest {
 
         CustomerModel customerModel = new CustomerModel();
         customerModel.setIdCustomer(String.valueOf(UUID.randomUUID()));
-        customerModel.setFirstName("Bruno");
-        customerModel.setLastName("Salgado");
-        customerModel.setDocType("1");
-        customerModel.setDocNumber("111111111");
+        customerModel.setFirstname("Samanta");
+        customerModel.setLastname("Laster");
+        customerModel.setPhone("+55 11 99999-9999");
+        customerModel.setEmail("email_test@testdomain.com");
+        customerModel.setCompany("Robots with Love");
+        customerModel.setPosition("CEO");
 
         Customer customer = CustomerConverter.toEntity(customerModel);
 
         assertEquals(String.valueOf(customer.getIdCustomer()), customerModel.getIdCustomer());
-        assertEquals(customer.getFirstName(), customerModel.getFirstName());
-        assertEquals(customer.getLastName(), customerModel.getLastName());
-        assertEquals(customer.getDocType(), customerModel.getDocType());
-        assertEquals(customer.getDocNumber(), customerModel.getDocNumber());
+        assertEquals(customer.getFirstname(),customerModel.getFirstname());
+        assertEquals(customer.getLastname(),customerModel.getLastname());
+        assertEquals(customer.getPhone(),customerModel.getPhone());
+        assertEquals(customer.getEmail(),customerModel.getEmail());
+        assertEquals(customer.getLinkedIn(),customerModel.getLinkedIn());
+        assertEquals(customer.getCompany(),customerModel.getCompany());
+        assertEquals(customer.getPosition(),customerModel.getPosition());
 
     }
 

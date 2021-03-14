@@ -27,10 +27,12 @@ public class FindCustomerTest {
 
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.randomUUID());
-        customer.setFirstName("Bruno");
-        customer.setLastName("Salgado");
-        customer.setDocType("1");
-        customer.setDocNumber("111111111");
+        customer.setFirstname("Dina");
+        customer.setLastname("Laster");
+        customer.setPhone("+55 11 99999-9999");
+        customer.setEmail("email_test@testdomain.com");
+        customer.setCompany("Robots with Love");
+        customer.setPosition("CEO");
 
         CreateCustomer createCustomer = new CreateCustomer(customerRepository);
         createCustomer.createCustomer(customer);

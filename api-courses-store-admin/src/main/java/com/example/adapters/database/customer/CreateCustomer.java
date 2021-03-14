@@ -5,8 +5,6 @@ import com.example.core.domain.customer.Customer;
 import com.example.exceptions.CustomerConflictException;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class CreateCustomer implements CreateCustomerPort {
 

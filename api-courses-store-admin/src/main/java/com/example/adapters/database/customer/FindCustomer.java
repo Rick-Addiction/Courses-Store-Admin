@@ -32,10 +32,12 @@ public class FindCustomer implements FindCustomerPort {
         for (CustomerModel c : listCustomersModel) {
             Customer customer = new Customer();
             customer.setIdCustomer(UUID.fromString(c.getIdCustomer()));
-            customer.setFirstName(c.getFirstName());
-            customer.setLastName(c.getLastName());
-            customer.setDocType(c.getDocType());
-            customer.setDocNumber(c.getDocNumber());
+            customer.setFirstname(c.getFirstname());
+            customer.setLastname(c.getFirstname());
+            customer.setPhone(c.getPhone());
+            customer.setEmail(c.getEmail());
+            customer.setCompany(c.getCompany());
+            customer.setPosition(c.getPosition());
 
             listCustomers.add(customer);
         }

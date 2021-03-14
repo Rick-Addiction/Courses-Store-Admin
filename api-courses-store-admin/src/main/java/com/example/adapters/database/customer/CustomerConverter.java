@@ -6,14 +6,15 @@ import java.util.UUID;
 
 public class CustomerConverter {
 
-
     public static CustomerModel toModel(Customer customer){
         CustomerModel customerModel = new CustomerModel();
-        customerModel.setIdCustomer(String.valueOf(customer.getIdCustomer()));
-        customerModel.setFirstName(customer.getFirstName());
-        customerModel.setLastName(customer.getLastName());
-        customerModel.setDocNumber(customer.getDocNumber());
-        customerModel.setDocType(customer.getDocType());
+        customerModel.setIdCustomer(String.valueOf(customer.getIdCustomer()))   ;
+        customerModel.setFirstname(customer.getFirstname());
+        customerModel.setLastname(customer.getLastname());
+        customerModel.setPhone(customer.getPhone());
+        customerModel.setEmail(customer.getEmail());
+        customerModel.setCompany(customer.getCompany());
+        customerModel.setPosition(customer.getPosition());
 
         return customerModel;
     }
@@ -21,14 +22,14 @@ public class CustomerConverter {
     public static Customer toEntity(CustomerModel customerModel){
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.fromString(customerModel.getIdCustomer()));
-        customer.setFirstName(customerModel.getFirstName());
-        customer.setLastName(customerModel.getLastName());
-        customer.setDocNumber(customerModel.getDocNumber());
-        customer.setDocType(customerModel.getDocType());
+        customer.setFirstname(customerModel.getFirstname());
+        customer.setLastname(customerModel.getLastname());
+        customer.setPhone(customerModel.getPhone());
+        customer.setEmail(customerModel.getEmail());
+        customer.setCompany(customerModel.getCompany());
+        customer.setPosition(customerModel.getPosition());
 
         return customer;
     }
-
-
 
 }

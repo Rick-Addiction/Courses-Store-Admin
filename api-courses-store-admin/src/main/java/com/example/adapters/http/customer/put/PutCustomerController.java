@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("online-courses/customer")
+@RequestMapping("courses-store/customer")
 public class PutCustomerController {
 
     private final UpdateCustomerRegistration updateCustomerRegistration;

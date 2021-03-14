@@ -13,46 +13,64 @@ public class RequestPutCustomer {
 
         }
 
-        @JsonProperty("id")
+        @JsonProperty("idCustomer")
         @NotNull
-        private UUID id;
+        private UUID idCustomer;
 
         @JsonProperty("firstname")
         @NotBlank
-        private String firstName;
+        private String firstname;
 
         @JsonProperty("lastname")
         @NotBlank
-        private String lastName;
+        private String lastname;
 
-        @JsonProperty("doctype")
+        @JsonProperty("phone")
         @NotBlank
-        private String docType;
+        private String phone;
 
-        @JsonProperty("docnumber")
-        @NotNull
-        @Size(min = 9, max = 14)
-        private String docNumber;
+        @JsonProperty("email")
+        private String email;
 
+        @JsonProperty("linkedIn")
+        private String linkedIn;
 
-        public UUID getId() {
-            return id;
+        @JsonProperty("company")
+        private String company;
+
+        @JsonProperty("position")
+        private String position;
+
+        public UUID getIdCustomer() {
+                return idCustomer;
         }
 
-        public String getFirstName() {
-            return firstName;
+        public String getFirstname() {
+                return firstname;
         }
 
-        public String getLastName() {
-            return lastName;
+        public String getLastname() {
+                return lastname;
         }
 
-        public String getDocType() {
-            return docType;
+        public String getPhone() {
+                return phone;
         }
 
-        public String getDocNumber() {
-            return docNumber;
+        public String getEmail() {
+                return email;
+        }
+
+        public String getLinkedIn() {
+                return linkedIn;
+        }
+
+        public String getCompany() {
+                return company;
+        }
+
+        public String getPosition() {
+                return position;
         }
 }
 

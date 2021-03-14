@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 public class RequestPostCustomer {
 
@@ -12,37 +13,56 @@ public class RequestPostCustomer {
 
     }
 
-    @JsonProperty("firstName")
+    @JsonProperty("firstname")
     @NotBlank
-    private String firstName;
+    private String firstname;
 
-    @JsonProperty("lastName")
+    @JsonProperty("lastname")
     @NotBlank
-    private String lastName;
+    private String lastname;
 
-    @JsonProperty("docType")
+    @JsonProperty("phone")
     @NotBlank
-    private String docType;
+    private String phone;
 
-    @JsonProperty("docNumber")
-    @NotNull
-    @Size(min = 9, max = 14)
-    private String docNumber;
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty("linkedIn")
+    private String linkedIn;
+
+    @JsonProperty("company")
+    private String company;
+
+    @JsonProperty("position")
+    private String position;
 
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public String getDocType() {
-        return docType;
+    public String getPhone() {
+        return phone;
     }
 
-    public String getDocNumber() {
-        return docNumber;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public String getPosition() {
+        return position;
     }
 }

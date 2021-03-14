@@ -26,10 +26,12 @@ public class DeleteCustomerTest {
 
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.randomUUID());
-        customer.setFirstName("Bruno");
-        customer.setLastName("Salgado");
-        customer.setDocType("1");
-        customer.setDocNumber("987654321");
+        customer.setFirstname("Tom");
+        customer.setLastname("Laster");
+        customer.setPhone("+55 11 99999-9999");
+        customer.setEmail("email_test@testdomain.com");
+        customer.setCompany("Robots with Love");
+        customer.setPosition("CEO");
 
         CreateCustomer createCustomer = new CreateCustomer(customerRepository);
         createCustomer.createCustomer(customer);
