@@ -1,4 +1,4 @@
-package com.example.adapters.http.customer;
+package com.example.adapters.http;
 
 import com.example.exceptions.CustomerConflictException;
 import com.example.exceptions.DataNotFoundException;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
-public class CustomerControllerAdvice extends ResponseEntityExceptionHandler {
+public class CustomerController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {

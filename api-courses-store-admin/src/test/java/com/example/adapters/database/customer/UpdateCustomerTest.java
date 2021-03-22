@@ -1,5 +1,7 @@
 package com.example.adapters.database.customer;
 
+import com.example.adapters.database.customer.model.CustomerConverter;
+import com.example.adapters.database.customer.model.CustomerModel;
 import com.example.core.domain.customer.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

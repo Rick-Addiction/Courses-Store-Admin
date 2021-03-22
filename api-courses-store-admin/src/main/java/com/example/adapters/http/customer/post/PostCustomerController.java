@@ -20,12 +20,12 @@ import java.util.UUID;
 public class PostCustomerController {
 
     private final RegisterNewCustomer registerNewCustomer;
-    private final RequestPostValidator requestPostValidator;
+    private final RequestPostCustomerValidator requestPostCustomerValidator;
 
     public PostCustomerController(RegisterNewCustomer registerNewCustomer,
-                                  RequestPostValidator requestPostValidator){
+                                  RequestPostCustomerValidator requestPostCustomerValidator){
         this.registerNewCustomer = registerNewCustomer;
-        this.requestPostValidator = requestPostValidator;
+        this.requestPostCustomerValidator = requestPostCustomerValidator;
     }
 
     private static final Logger log = LoggerFactory.getLogger(PostCustomerController.class);
@@ -33,10 +33,9 @@ public class PostCustomerController {
     @PostMapping(value = "/register", consumes = "application/json")
     public ResponseEntity<Object> registerCustomer (@RequestBody RequestPostCustomer body) {
 
-            requestPostValidator.valid(body);
+            requestPostCustomerValidator.valid(body);
 
             Customer customer = PostCustomerConverter.toDomain(body);
-            customer.setIdCustomer(UUID.randomUUID());
 
             registerNewCustomer.execute(customer);
             log.info("Customer has been registered: {}", customer);

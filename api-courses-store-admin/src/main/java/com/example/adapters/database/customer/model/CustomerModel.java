@@ -1,4 +1,4 @@
-package com.example.adapters.database.customer;
+package com.example.adapters.database.customer.model;
 
 import javax.persistence.*;
 import java.util.UUID;

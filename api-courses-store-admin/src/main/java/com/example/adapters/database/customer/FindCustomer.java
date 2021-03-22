@@ -1,8 +1,8 @@
 package com.example.adapters.database.customer;
 
+import com.example.adapters.database.customer.model.CustomerModel;
 import com.example.core.domain.customer.Customer;
 import com.example.core.domain.customer.FindCustomerPort;
-import com.example.exceptions.DataNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

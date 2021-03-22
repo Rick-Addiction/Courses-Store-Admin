@@ -1,5 +1,8 @@
 package com.example.core.domain.customer;
 
+import com.example.core.domain.course.Course;
+
+import java.util.Set;
 import java.util.UUID;
 
 public class Customer {
@@ -16,6 +19,7 @@ public class Customer {
     private String linkedIn;
     private String company;
     private String position;
+    private Set<Course> coursesAquired;
 
     public UUID getIdCustomer() {
         return idCustomer;

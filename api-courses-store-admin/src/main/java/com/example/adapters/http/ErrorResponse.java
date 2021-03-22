@@ -1,4 +1,4 @@
-package com.example.adapters.http.customer;
+package com.example.adapters.http;
 
 import org.springframework.http.HttpStatus;
 

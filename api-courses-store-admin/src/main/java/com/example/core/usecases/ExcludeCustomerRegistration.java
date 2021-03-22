@@ -6,11 +6,11 @@ import com.example.core.domain.customer.DeleteCustomerPort;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExcludeCustomer {
+public class ExcludeCustomerRegistration {
 
     private final DeleteCustomerPort deleteCustomerPort;
 
-    public ExcludeCustomer(DeleteCustomerPort deleteCustomerPort){ this.deleteCustomerPort=deleteCustomerPort; }
+    public ExcludeCustomerRegistration(DeleteCustomerPort deleteCustomerPort){ this.deleteCustomerPort=deleteCustomerPort; }
 
     public void execute(Customer customer) { deleteCustomerPort.deleteCustomer(customer); }
 

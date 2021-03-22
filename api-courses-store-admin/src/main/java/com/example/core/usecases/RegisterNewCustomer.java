@@ -4,6 +4,8 @@ import com.example.core.domain.customer.CreateCustomerPort;
 import com.example.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class RegisterNewCustomer {
 
@@ -14,6 +16,7 @@ public class RegisterNewCustomer {
     }
 
     public void execute(Customer customer) {
+        customer.setIdCustomer(UUID.randomUUID());
         createCustomerPort.createCustomer(customer);
     }
 

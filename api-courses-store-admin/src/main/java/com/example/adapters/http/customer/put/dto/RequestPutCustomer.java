@@ -15,7 +15,7 @@ public class RequestPutCustomer {
 
         @JsonProperty("idCustomer")
         @NotNull
-        private UUID idCustomer;
+        private String idCustomer;
 
         @JsonProperty("firstname")
         @NotBlank
@@ -41,7 +41,7 @@ public class RequestPutCustomer {
         @JsonProperty("position")
         private String position;
 
-        public UUID getIdCustomer() {
+        public String getIdCustomer() {
                 return idCustomer;
         }
 

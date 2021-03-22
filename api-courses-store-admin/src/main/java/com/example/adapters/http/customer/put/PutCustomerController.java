@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class PutCustomerController {
 
     private final UpdateCustomerRegistration updateCustomerRegistration;
-    private final RequestPutValidator requestPutValidator;
+    private final RequestPutCustomerValidator requestPutCustomerValidator;
 
 
-    public PutCustomerController(UpdateCustomerRegistration updateCustomerRegistration, RequestPutValidator requestPutValidator) {
+    public PutCustomerController(UpdateCustomerRegistration updateCustomerRegistration, RequestPutCustomerValidator requestPutCustomerValidator) {
         this.updateCustomerRegistration = updateCustomerRegistration;
-        this.requestPutValidator = requestPutValidator;
+        this.requestPutCustomerValidator = requestPutCustomerValidator;
     }
 
     private static final Logger log = LoggerFactory.getLogger(PutCustomerController.class);
@@ -27,7 +27,7 @@ public class PutCustomerController {
     @PutMapping("/update")
     public ResponseEntity<Object> updateCustomer (@RequestBody RequestPutCustomer body) {
 
-        requestPutValidator.valid(body);
+        requestPutCustomerValidator.valid(body);
 
         Customer customer = PutCustomerConverter.toDomain(body);
 

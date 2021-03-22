@@ -1,5 +1,6 @@
-package com.example.adapters.database.customer;
+package com.example.adapters.database.customer.model;
 
+import com.example.adapters.database.customer.model.CustomerModel;
 import com.example.core.domain.customer.Customer;
 
 import java.util.UUID;
