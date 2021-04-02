@@ -1,12 +1,12 @@
-package com.coursesstore.admin.adapters.http.course.post.dto;
+package com.coursesstore.admin.adapters.http.customer.post.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 
-public class RequestPostAcquiredCourse {
+public class RequestPostAcquiredCourseByCustomer {
 
-    public RequestPostAcquiredCourse(){
+    public RequestPostAcquiredCourseByCustomer(){
 
     }
 

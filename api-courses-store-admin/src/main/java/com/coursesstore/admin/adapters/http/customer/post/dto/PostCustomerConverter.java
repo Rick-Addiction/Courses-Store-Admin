@@ -1,7 +1,5 @@
 package com.coursesstore.admin.adapters.http.customer.post.dto;
 
-import com.coursesstore.admin.adapters.http.course.post.dto.RequestPostAcquiredCourse;
-import com.coursesstore.admin.adapters.http.course.post.dto.RequestPostDesiredCourse;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
@@ -21,6 +19,7 @@ public class PostCustomerConverter {
         customer.setFirstname(body.getFirstname());
         customer.setLastname(body.getFirstname());
         customer.setPhone(body.getPhone());
+        customer.setLinkedIn(body.getLinkedIn());
         customer.setEmail(body.getEmail());
         customer.setCompany(body.getCompany());
         customer.setPosition(body.getPosition());
@@ -28,7 +27,7 @@ public class PostCustomerConverter {
         return customer;
     }
 
-    public static Customer toDomain (String idCustomer, RequestPostAcquiredCourse body){
+    public static Customer toDomain (String idCustomer, RequestPostAcquiredCourseByCustomer body){
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.fromString(idCustomer));
 
@@ -49,7 +48,7 @@ public class PostCustomerConverter {
         return customer;
     }
 
-    public static Customer toDomain (String idCustomer, RequestPostDesiredCourse body){
+    public static Customer toDomain (String idCustomer, RequestPostDesiredCourseByCustomer body){
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.fromString(idCustomer));
 

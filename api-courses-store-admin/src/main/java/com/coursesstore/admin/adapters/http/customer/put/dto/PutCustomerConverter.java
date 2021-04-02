@@ -10,7 +10,8 @@ public class PutCustomerConverter {
         Customer customer = new Customer();
         customer.setIdCustomer(UUID.fromString(body.getIdCustomer()));
         customer.setFirstname(body.getFirstname());
-        customer.setLastname(body.getFirstname());
+        customer.setLastname(body.getLastname());
+        customer.setLinkedIn(body.getLinkedIn());
         customer.setPhone(body.getPhone());
         customer.setEmail(body.getEmail());
         customer.setCompany(body.getCompany());

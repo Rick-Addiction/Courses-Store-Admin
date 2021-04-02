@@ -4,98 +4,114 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class ResponseGetCustomer {
 
-    @JsonProperty("idCustomer")
+
+    @JsonProperty("customers")
     @NotNull
-    private String idCustomer;
+    private List<Customer> customers;
 
-    @JsonProperty("firstname")
-    @NotBlank
-    private String firstname;
-
-    @JsonProperty("lastname")
-    @NotBlank
-    private String lastname;
-
-    @JsonProperty("phone")
-    @NotBlank
-    private String phone;
-
-    @JsonProperty("email")
-    private String email;
-
-    @JsonProperty("linkedIn")
-    private String linkedIn;
-
-    @JsonProperty("company")
-    private String company;
-
-    @JsonProperty("position")
-    private String position;
-
-    public String getIdCustomer() {
-        return idCustomer;
+    public List<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setIdCustomer(String idCustomer) {
-        this.idCustomer = idCustomer;
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
+    public static class  Customer {
+        @JsonProperty("idCustomer")
+        @NotNull
+        private String idCustomer;
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+        @JsonProperty("firstname")
+        @NotBlank
+        private String firstname;
 
-    public String getLastname() {
-        return lastname;
-    }
+        @JsonProperty("lastname")
+        @NotBlank
+        private String lastname;
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+        @JsonProperty("phone")
+        @NotBlank
+        private String phone;
 
-    public String getPhone() {
-        return phone;
-    }
+        @JsonProperty("email")
+        private String email;
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+        @JsonProperty("linkedin")
+        private String linkedIn;
 
-    public String getEmail() {
-        return email;
-    }
+        @JsonProperty("company")
+        private String company;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        @JsonProperty("position")
+        private String position;
 
-    public String getLinkedIn() {
-        return linkedIn;
-    }
+        public String getIdCustomer() {
+            return idCustomer;
+        }
 
-    public void setLinkedIn(String linkedIn) {
-        this.linkedIn = linkedIn;
-    }
+        public void setIdCustomer(String idCustomer) {
+            this.idCustomer = idCustomer;
+        }
 
-    public String getCompany() {
-        return company;
-    }
+        public String getFirstname() {
+            return firstname;
+        }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
+        public void setFirstname(String firstname) {
+            this.firstname = firstname;
+        }
 
-    public String getPosition() {
-        return position;
-    }
+        public String getLastname() {
+            return lastname;
+        }
 
-    public void setPosition(String position) {
-        this.position = position;
+        public void setLastname(String lastname) {
+            this.lastname = lastname;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getLinkedIn() {
+            return linkedIn;
+        }
+
+        public void setLinkedIn(String linkedIn) {
+            this.linkedIn = linkedIn;
+        }
+
+        public String getCompany() {
+            return company;
+        }
+
+        public void setCompany(String company) {
+            this.company = company;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public void setPosition(String position) {
+            this.position = position;
+        }
     }
 }

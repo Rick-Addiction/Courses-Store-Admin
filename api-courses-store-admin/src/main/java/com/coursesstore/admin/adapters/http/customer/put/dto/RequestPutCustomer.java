@@ -32,7 +32,7 @@ public class RequestPutCustomer {
         @JsonProperty("email")
         private String email;
 
-        @JsonProperty("linkedIn")
+        @JsonProperty("linkedin")
         private String linkedIn;
 
         @JsonProperty("company")

@@ -14,12 +14,12 @@ public class DeleteDesiredCourse implements DeleteDesiredCoursePort {
     { this.desiredCourseRepository = desiredCourseRepository; }
 
     @Override
-    public void deleteDesiredCourse(DesiredCourse desiredCourse) {
+    public void deleteDesiredCourse(String idDesiredCourse) {
 
         DesiredCourseModel desiredCourseToDelete = null;
 
-        if (desiredCourse.getIdDesiredCourse() != null)
-            desiredCourseToDelete = desiredCourseRepository.findByIdDesiredCourse(desiredCourse.getIdDesiredCourse().toString()).get();
+        if (idDesiredCourse != null)
+            desiredCourseToDelete = desiredCourseRepository.findByIdDesiredCourse(idDesiredCourse).get();
 
         desiredCourseRepository.delete(desiredCourseToDelete);
     }

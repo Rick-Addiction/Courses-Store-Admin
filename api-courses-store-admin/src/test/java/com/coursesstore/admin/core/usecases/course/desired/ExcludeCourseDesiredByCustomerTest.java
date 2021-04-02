@@ -25,9 +25,9 @@ public class ExcludeCourseDesiredByCustomerTest {
         ExcludeCourseDesiredByCustomer excludeCourseDesiredByCustomer = new ExcludeCourseDesiredByCustomer(deleteDesiredCoursePort);
 
         ///Act
-        excludeCourseDesiredByCustomer.execute(new DesiredCourse());
+        excludeCourseDesiredByCustomer.execute("id_desired_course");
 
         ///Assert
-        verify(deleteDesiredCoursePort, times(1)).deleteDesiredCourse(any(DesiredCourse.class));
+        verify(deleteDesiredCoursePort, times(1)).deleteDesiredCourse(any(String.class));
     }
 }

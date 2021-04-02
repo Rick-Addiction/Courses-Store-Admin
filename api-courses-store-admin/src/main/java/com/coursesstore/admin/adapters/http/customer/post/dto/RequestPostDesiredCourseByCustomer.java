@@ -1,22 +1,18 @@
-package com.coursesstore.admin.adapters.http.course.post.dto;
+package com.coursesstore.admin.adapters.http.customer.post.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 
-public class RequestPostDesiredCourse {
+public class RequestPostDesiredCourseByCustomer {
 
-    public RequestPostDesiredCourse(){
+    public RequestPostDesiredCourseByCustomer(){
 
     }
 
     @JsonProperty("id_course")
     @NotBlank
     private String idCourse;
-
-    @JsonProperty("id_customer")
-    @NotBlank
-    private String idCustomer;
 
     @JsonProperty("desire_date")
     @NotBlank
@@ -32,14 +28,6 @@ public class RequestPostDesiredCourse {
 
     public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
-    }
-
-    public String getIdCustomer() {
-        return idCustomer;
-    }
-
-    public void setIdCustomer(String idCustomer) {
-        this.idCustomer = idCustomer;
     }
 
     public String getDesireDate() {

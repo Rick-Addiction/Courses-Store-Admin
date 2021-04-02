@@ -43,24 +43,4 @@ public class DeleteCourseController {
         excludeCourseRegistration.execute(course);
     }
 
-    @DeleteMapping("/acquired/delete")
-    public void deleteAcquiredCourse (@RequestParam(value = "id_acquired_course", required = false) String idAcquiredCourse) {
-
-        AcquiredCourse acquiredCourse = new AcquiredCourse();
-
-        acquiredCourse.setIdAcquiredCourse(UUID.fromString(idAcquiredCourse));
-
-        excludeCourseAcquisitionByCustomer.execute(acquiredCourse);
-    }
-
-    @DeleteMapping("/desired/delete")
-    public void deleteDesiredCourse (@RequestParam(value = "id_desired_course", required = false) String idDesiredCourse) {
-
-        DesiredCourse desiredCourse = new DesiredCourse();
-
-        desiredCourse.setIdDesiredCourse(UUID.fromString(idDesiredCourse));
-
-        excludeCourseDesiredByCustomer.execute(desiredCourse);
-    }
-
 }

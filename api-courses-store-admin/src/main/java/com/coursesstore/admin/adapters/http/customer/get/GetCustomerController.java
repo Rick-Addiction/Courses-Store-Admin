@@ -29,8 +29,9 @@ public class GetCustomerController {
     @GetMapping("/search")
     public ResponseEntity<ResponseGetCustomer> getCustomer() {
 
-        Customer customer = searchForCustomer.execute("").get(0);
-        ResponseGetCustomer responseGetCustomer = GetCustomerConverter.toResponseGetCustomer(customer);
+        List<Customer> listCustomers = searchForCustomer.execute("");
+
+        ResponseGetCustomer responseGetCustomer = GetCustomerConverter.toResponseGetCustomer(listCustomers);
 
         return ResponseEntity.ok(responseGetCustomer);
     }

@@ -25,9 +25,9 @@ public class ExcludeCourseAcquisitionByCustomerTest {
         ExcludeCourseAcquisitionByCustomer excludeCourseAcquisitionByCustomer = new ExcludeCourseAcquisitionByCustomer(deleteAcquiredCoursePort);
 
         ///Act
-        excludeCourseAcquisitionByCustomer.execute(new AcquiredCourse());
+        excludeCourseAcquisitionByCustomer.execute("id_acquired_course");
 
         ///Assert
-        verify(deleteAcquiredCoursePort, times(1)).deleteAcquiredCourse(any(AcquiredCourse.class));
+        verify(deleteAcquiredCoursePort, times(1)).deleteAcquiredCourse(any(String.class));
     }
 }

@@ -1,19 +1,32 @@
 package com.coursesstore.admin.adapters.http.customer.get.dto;
-
 import com.coursesstore.admin.core.domain.customer.Customer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GetCustomerConverter {
 
-    public static ResponseGetCustomer toResponseGetCustomer (Customer customer) {
+    public static ResponseGetCustomer toResponseGetCustomer (List<Customer> listCustomers) {
         ResponseGetCustomer responseGetCustomer = new ResponseGetCustomer();
-        responseGetCustomer.setIdCustomer(String.valueOf(customer.getIdCustomer()));
-        responseGetCustomer.setFirstname(customer.getFirstname());
-        responseGetCustomer.setLastname(customer.getLastname());
-        responseGetCustomer.setPhone(customer.getPhone());
-        responseGetCustomer.setEmail(customer.getEmail());
-        responseGetCustomer.setCompany(customer.getCompany());
-        responseGetCustomer.setPosition(customer.getPosition());
-        responseGetCustomer.setLinkedIn(customer.getLinkedIn());
+
+        if(!listCustomers.isEmpty()) {
+
+            responseGetCustomer.setCustomers(new ArrayList<>());
+
+            for (Customer c : listCustomers) {
+                ResponseGetCustomer.Customer customer = new ResponseGetCustomer.Customer();
+                customer.setIdCustomer(String.valueOf(c.getIdCustomer()));
+                customer.setFirstname(c.getFirstname());
+                customer.setLastname(c.getLastname());
+                customer.setPhone(c.getPhone());
+                customer.setEmail(c.getEmail());
+                customer.setCompany(c.getCompany());
+                customer.setPosition(c.getPosition());
+                customer.setLinkedIn(c.getLinkedIn());
+
+                responseGetCustomer.getCustomers().add(customer);
+            }
+        }
 
         return responseGetCustomer;
     }

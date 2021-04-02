@@ -5,7 +5,8 @@ import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCo
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
-import com.coursesstore.admin.adapters.http.course.post.dto.RequestPostAcquiredCourse;
+import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostAcquiredCourseByCustomer;
+import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutCourse;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostCustomer;
 import com.coursesstore.admin.adapters.http.customer.put.dto.RequestPutCustomer;
@@ -222,15 +223,24 @@ public class DomainUtils {
         return requestPutCourse;
     }
 
-    public static RequestPostAcquiredCourse generateRequestPostAcquiredCourse(String idCourse){
+    public static RequestPostAcquiredCourseByCustomer generateRequestPostAcquiredCourse(String idCourse){
 
-        RequestPostAcquiredCourse requestPostAcquiredCourse = new RequestPostAcquiredCourse();
-        requestPostAcquiredCourse.setIdCourse(idCourse);
-        requestPostAcquiredCourse.setValuePaid("50.50");
-        requestPostAcquiredCourse.setAcquisitionDate("01/01/2021");
+        RequestPostAcquiredCourseByCustomer requestPostAcquiredCourseByCustomer = new RequestPostAcquiredCourseByCustomer();
+        requestPostAcquiredCourseByCustomer.setIdCourse(idCourse);
+        requestPostAcquiredCourseByCustomer.setValuePaid("50.50");
+        requestPostAcquiredCourseByCustomer.setAcquisitionDate("01/01/2021");
 
-        return requestPostAcquiredCourse;
+        return requestPostAcquiredCourseByCustomer;
+    }
 
+    public static RequestPostDesiredCourseByCustomer generateRequestPostDesiredCourse(String idCourse){
+
+        RequestPostDesiredCourseByCustomer requestPostDesiredCourseByCustomer = new RequestPostDesiredCourseByCustomer();
+        requestPostDesiredCourseByCustomer.setIdCourse(idCourse);
+        requestPostDesiredCourseByCustomer.setDesireDescription("He asked for a discount");
+        requestPostDesiredCourseByCustomer.setDesireDate("01/01/2021");
+
+        return requestPostDesiredCourseByCustomer;
     }
 
 

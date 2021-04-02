@@ -49,13 +49,13 @@ public class GetCustomerControllerTest {
                 get(REQUEST_PATH+ "/search")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.idCustomer").exists())
-                .andExpect(jsonPath("$.firstname").value("Dina"))
-                .andExpect(jsonPath("$.lastname").value("Laster"))
-                .andExpect(jsonPath("$.phone").value("+55 11 99999-9999"))
-                .andExpect(jsonPath("$.email").value("email_test@testdomain.com"))
-                .andExpect(jsonPath("$.linkedIn").value("linkedIn.com/DinaLaster"))
-                .andExpect(jsonPath("$.company").value("Robots with Love"))
-                .andExpect(jsonPath("$.position").value("CEO"));
+                .andExpect(jsonPath("$.customers[0].idCustomer").exists())
+                .andExpect(jsonPath("$.customers[0].firstname").value("Dina"))
+                .andExpect(jsonPath("$.customers[0].lastname").value("Laster"))
+                .andExpect(jsonPath("$.customers[0].phone").value("+55 11 99999-9999"))
+                .andExpect(jsonPath("$.customers[0].email").value("email_test@testdomain.com"))
+                .andExpect(jsonPath("$.customers[0].linkedin").value("linkedIn.com/DinaLaster"))
+                .andExpect(jsonPath("$.customers[0].company").value("Robots with Love"))
+                .andExpect(jsonPath("$.customers[0].position").value("CEO"));
     }
 }

@@ -60,7 +60,7 @@ public class DeleteAcquiredCourseTest {
 
         ///Act
         DeleteAcquiredCourse deleteAcquiredCourse = new DeleteAcquiredCourse(acquiredCourseRepository);
-        deleteAcquiredCourse.deleteAcquiredCourse(acquiredCourse);
+        deleteAcquiredCourse.deleteAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
 
         ///Assert
         Optional<AcquiredCourseModel> optionalDeletedAcquiredCourseModel = acquiredCourseRepository.findByIdAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));

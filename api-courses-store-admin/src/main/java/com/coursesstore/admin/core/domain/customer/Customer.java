@@ -16,7 +16,7 @@ public class Customer {
     private UUID idCustomer;
     private String firstname;
     private String lastname;
-    private String phone;
+        private String phone;
     private String email;
     private String linkedIn;
     private String company;

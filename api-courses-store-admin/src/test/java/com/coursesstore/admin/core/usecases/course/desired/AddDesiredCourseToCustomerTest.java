@@ -1,5 +1,7 @@
 package com.coursesstore.admin.core.usecases.course.desired;
 
+import com.coursesstore.admin.core.domain.DomainUtils;
+import com.coursesstore.admin.core.domain.course.FindCoursePort;
 import com.coursesstore.admin.core.domain.course.desired.AddDesiredCoursePort;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
@@ -18,15 +20,18 @@ public class AddDesiredCourseToCustomerTest {
     @Mock
     private AddDesiredCoursePort addDesiredCoursePort;
 
+    @Mock
+    private FindCoursePort findCoursePort;
+
     @Test
     @DisplayName("Given a Desired Course domain object, When its requested to be registered, Then it should be done successfully")
     public void Given_a_DesiredCourse_domain_object_When_its_requested_to_be_registered_Then_it_should_be_done_successfully(){
 
         ///Arrange
-        AddDesiredCourseToCustomer addDesiredCourseToCustomer = new AddDesiredCourseToCustomer(addDesiredCoursePort);
+        AddDesiredCourseToCustomer addDesiredCourseToCustomer = new AddDesiredCourseToCustomer(addDesiredCoursePort,findCoursePort);
 
         ///Act
-        addDesiredCourseToCustomer.execute(new Customer());
+        addDesiredCourseToCustomer.execute(DomainUtils.generateCustomerWithADesiredCourse());
 
         ///Assert
         verify(addDesiredCoursePort, times(1)).addNewDesiredCourseByCustomer(any(Customer.class));

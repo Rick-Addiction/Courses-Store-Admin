@@ -1,7 +1,6 @@
 com\coursesstore\admin\core\domain\customer\UpdateCustomerPort.class
 com\coursesstore\admin\adapters\http\CustomerController.class
 com\coursesstore\admin\adapters\database\course\desired\model\DesiredCourseConverter.class
-com\coursesstore\admin\adapters\http\course\post\dto\RequestPostAcquiredCourse.class
 com\coursesstore\admin\core\domain\course\acquired\AddAcquiredCoursePort.class
 com\coursesstore\admin\adapters\http\customer\put\RequestPutCustomerValidator.class
 com\coursesstore\admin\adapters\database\course\acquired\model\AcquiredCourseModel.class
@@ -12,6 +11,7 @@ com\coursesstore\admin\adapters\database\teacher\DeleteTeacher.class
 com\coursesstore\admin\adapters\database\teacher\model\TeacherModel.class
 com\coursesstore\admin\core\usecases\course\desired\ExcludeCourseDesiredByCustomer.class
 com\coursesstore\admin\adapters\http\customer\put\dto\RequestPutCustomer.class
+com\coursesstore\admin\adapters\http\customer\get\dto\ResponseGetCustomer$Customer.class
 com\coursesstore\admin\adapters\http\customer\post\dto\RequestPostCustomer.class
 com\coursesstore\admin\core\usecases\course\acquired\AddAcquiredCourseToCustomer.class
 com\coursesstore\admin\adapters\database\course\FindCourse.class
@@ -41,6 +41,7 @@ com\coursesstore\admin\adapters\http\customer\delete\DeleteCustomerController.cl
 com\coursesstore\admin\core\usecases\course\ExcludeCourseRegistration.class
 com\coursesstore\admin\core\usecases\course\acquired\SearchForAcquiredCoursesByCustomer.class
 com\coursesstore\admin\adapters\database\course\desired\DesiredCourseRepository.class
+com\coursesstore\admin\adapters\http\customer\get\dto\GetCustomerConverter.class
 com\coursesstore\admin\exceptions\CustomerConflictException.class
 com\coursesstore\admin\adapters\database\customer\model\CustomerModel.class
 com\coursesstore\admin\core\domain\course\desired\AddDesiredCoursePort.class
@@ -55,6 +56,7 @@ com\coursesstore\admin\adapters\http\customer\put\dto\PutCustomerConverter.class
 com\coursesstore\admin\core\domain\course\acquired\AcquiredCourse.class
 com\coursesstore\admin\core\usecases\customer\UpdateCustomerRegistration.class
 com\coursesstore\admin\core\domain\course\DeleteCoursePort.class
+com\coursesstore\admin\adapters\http\customer\post\dto\RequestPostDesiredCourseByCustomer.class
 com\coursesstore\admin\core\domain\course\FindCoursePort.class
 com\coursesstore\admin\adapters\database\teacher\FindTeacher.class
 com\coursesstore\admin\adapters\database\course\acquired\UpdateAcquiredCourse.class
@@ -64,7 +66,6 @@ com\coursesstore\admin\adapters\database\course\desired\UpdateDesiredCourse.clas
 com\coursesstore\admin\core\domain\course\desired\DesiredCourse.class
 com\coursesstore\admin\adapters\database\course\UpdateCourse.class
 com\coursesstore\admin\adapters\database\course\desired\exception\DesiredCourseConflictException.class
-com\coursesstore\admin\adapters\http\customer\post\RequestPostCustomerValidator.class
 com\coursesstore\admin\core\domain\course\acquired\DeleteAcquiredCoursePort.class
 com\coursesstore\admin\core\domain\customer\FindCustomerPort.class
 com\coursesstore\admin\core\domain\teacher\DeleteTeacherPort.class
@@ -98,12 +99,13 @@ com\coursesstore\admin\core\usecases\course\desired\UpdateCourseDesiredByCustome
 com\coursesstore\admin\adapters\database\teacher\exception\TeacherConflictException.class
 com\coursesstore\admin\adapters\http\course\put\dto\RequestPutCourse.class
 com\coursesstore\admin\adapters\database\course\acquired\DeleteAcquiredCourse.class
+com\coursesstore\admin\adapters\http\customer\get\dto\ResponseGetCustomer.class
 com\coursesstore\admin\adapters\database\course\acquired\exception\AcquiredCourseConflictException.class
 com\coursesstore\admin\core\domain\teacher\FindTeacherPort.class
 com\coursesstore\admin\adapters\database\course\desired\AddDesiredCourse.class
 com\coursesstore\admin\adapters\database\teacher\model\TeacherConverter.class
 com\coursesstore\admin\core\domain\course\acquired\UpdateAcquiredCoursePort.class
-com\coursesstore\admin\adapters\http\course\post\dto\RequestPostDesiredCourse.class
+com\coursesstore\admin\adapters\http\customer\post\dto\RequestPostAcquiredCourseByCustomer.class
 com\coursesstore\admin\adapters\http\course\put\dto\PutCourseConverter.class
 com\coursesstore\admin\core\domain\customer\Customer.class
 com\coursesstore\admin\adapters\database\teacher\CreateTeacher.class

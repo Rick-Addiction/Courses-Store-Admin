@@ -13,8 +13,8 @@ public class ExcludeCourseDesiredByCustomer {
         this.deleteDesiredCoursePort = deleteDesiredCoursePort;
     }
 
-    public void execute(DesiredCourse course) {
-        deleteDesiredCoursePort.deleteDesiredCourse(course);
+    public void execute(String idDesiredCourse) {
+        deleteDesiredCoursePort.deleteDesiredCourse(idDesiredCourse);
     }
 
 }

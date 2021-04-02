@@ -1,8 +1,6 @@
 package com.coursesstore.admin.adapters.database.course.acquired;
 
-import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
-import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.DeleteAcquiredCoursePort;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +15,12 @@ public class DeleteAcquiredCourse implements DeleteAcquiredCoursePort {
     { this.acquiredCourseRepository = acquiredCourseRepository; }
 
     @Override
-    public void deleteAcquiredCourse(AcquiredCourse acquiredCourse) {
+    public void deleteAcquiredCourse(String idAcquiredCourse) {
 
         Optional<AcquiredCourseModel> acquiredCourseToDelete = null;
 
-        if (acquiredCourse.getIdAcquiredCourse() != null) {
-            acquiredCourseToDelete = acquiredCourseRepository.findByIdAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
+        if (idAcquiredCourse != null) {
+            acquiredCourseToDelete = acquiredCourseRepository.findByIdAcquiredCourse(idAcquiredCourse);
         }
 
         if(acquiredCourseToDelete.isEmpty()){
