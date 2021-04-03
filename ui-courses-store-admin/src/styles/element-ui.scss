@@ -73,3 +73,25 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.button_group {
+  .button_s {
+    width: 78px;
+    margin: 5px 10px 5px 5px;
+  }
+  .button_m {
+    width: 100px;
+    margin: 5px 10px 5px 5px;
+  }
+  .my_file {
+    position: relative;
+    .my_input {
+      position: absolute;
+      opacity: 0;
+      width: 78px;
+      height: 30px;
+      top: 0;
+      left: 0;
+    }
+  }
+}

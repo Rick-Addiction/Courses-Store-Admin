@@ -4,6 +4,16 @@
       <el-button class="table-option" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         Add
       </el-button>
+      <el-upload class="table-option" style="margin-left: 10px;"
+      action=""
+       :on-change="handleImportFile"
+       :multiple="false" 
+       :limit="1"
+       :auto-upload = "false">
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-download">
+          Import
+        </el-button>
+      </el-upload>
     </div>
     <el-table
       v-loading="listLoading"
@@ -138,6 +148,7 @@
 
 <script>
 import { getAllCustomers, createNewCustomer, editCustomer, deleteCustomer } from '/src/services/CustomerService'
+import xlsx from 'xlsx'
 
 export default {
   filters: {
@@ -187,7 +198,7 @@ export default {
   methods: {
     getAllUsers() {
       getAllCustomers().then(response => {
-        console.log(response)
+        console.log("UPDATING CUSTOMERS:",response)
         if(response.customers != null){
           this.users = response.customers
           this.numberOfUsers = this.users.length
@@ -281,6 +292,104 @@ export default {
               duration: 2000
             })
       })
+    },
+    async handleImportFile(e) {      
+      const file = e.raw;
+      console.log(file);
+      if (!/\.(xls|xlsx)$/.test(file.name.toLowerCase())) {
+        this.$notify({
+              title: 'Error',
+              message: 'The upload format is incorrect. Please upload xls or xlsx format',
+              type: 'error',
+              duration: 2000
+            })
+        return ;
+      }
+            
+      const readUploadedFileAsText = (inputFile) => {
+       const fileReader = new FileReader();
+
+        return new Promise((resolve) => {
+          fileReader.onload = async ev => {
+        try {
+          const data = ev.target.result;
+          const XLSX = xlsx;
+          const excellist = []; 
+          const workbook = XLSX.read(data, {
+            type: "binary"
+          });
+          const wsname = workbook.SheetNames[0]; // Take the first sheet，wb.SheetNames[0] :Take the name of the first sheet in the sheets
+          const ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname]); // Generate JSON table content，wb.Sheets[Sheet名]    Get the data of the first sheet
+           // Clear received data
+          // Edit data
+          for (var i = 0; i < ws.length; i++) {
+            this.resetTemp();
+            this.temp.firstname= ws[i].firstname;
+            this.temp.lastname= ws[i].lastname;
+            this.temp.phone= ws[i].phone;
+            this.temp.email= ws[i].email;
+            this.temp.linkedin= ws[i].linkedin;
+            this.temp.company=ws[i].company;
+            this.temp.position= ws[i].position;
+            excellist.push(this.temp);         
+          }
+          resolve(excellist);
+          // At this point, you get an array containing objects that need to be processed
+        } catch (e) {
+          console.log("Read failure", e);
+          return alert("Read failure!");;
+        }
+      };
+        fileReader.readAsBinaryString(inputFile);
+        });
+      };
+
+      const registerCostumers = (constumer) => {
+        return new Promise((resolve) => {
+          resolve(createNewCustomer(constumer));
+        });
+    };
+
+        this.listLoading= true;
+        
+        const fileContents = await readUploadedFileAsText(file)  
+        console.log("START");
+        for (var i = 0; i < fileContents.length; i++) {
+               console.log("EXECUTING");
+               var response = await registerCostumers(fileContents[i])
+        }
+         console.log("DONE");
+        this.getAllUsers();
+        this.listLoading= false;
+
+
+
+
+      
+      // fileReader.onloadend = x =>
+      //   {
+      //       console.log(excellist);
+      //       console.log(Object.keys(excellist).length);
+      //       for (var i = 0; i < excellist.length; i++) {
+      //         console.log("EXECUTING");
+      //         createNewCustomer(excellist[i]);
+      //       }
+      //       console.log("DONE");
+      //       this.getAllUsers();
+      //       this.listLoading= false;
+      //       //here we call some other functions which most likely don't cause any problems
+      //   }
+      
+      
+          // this.listLoading= false;
+          // this.getAllUsers();
+      
+          // this.$notify({
+          //     title: 'Success',
+          //     message: 'Import Successfully Done',
+          //     type: 'success',
+          //     duration: 2000
+          //   });
     }
   }
 }

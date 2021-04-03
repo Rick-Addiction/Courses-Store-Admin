@@ -8,11 +8,15 @@ export async function getAllCustomers() {
 
 export async function createNewCustomer(newCustomer) {
 
-    await fetch('/courses-store/customer/register', {
+    const response = await fetch('/courses-store/customer/register', {
         method: "POST",
         body: JSON.stringify(newCustomer),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       });
+
+      console.log("new customer", response);
+
+      
 }
 
 export async function editCustomer(customerToEdit) {
