@@ -21,7 +21,7 @@ public class SearchForCourse {
 
     private static final Logger log = LoggerFactory.getLogger(SearchForCustomer.class);
 
-    public Course execute(String courseSearchValues){
+    public List<Course>  execute(String courseSearchValues){
 
         return findCoursePort.findCourse(courseSearchValues);
 

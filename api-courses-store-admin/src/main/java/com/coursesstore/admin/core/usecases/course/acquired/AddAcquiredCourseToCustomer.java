@@ -23,7 +23,7 @@ public class AddAcquiredCourseToCustomer {
 
     public void execute(Customer customer) {
 
-        Course course = findCoursePort.findCourse(String.valueOf(customer.getAcquiredCourses().iterator().next().getCourse().getIdCourse()));
+        Course course = findCoursePort.findCourse(String.valueOf(customer.getAcquiredCourses().iterator().next().getCourse().getIdCourse())).get(0);
         customer.getAcquiredCourses().iterator().next().setCourse(course);
         customer.getAcquiredCourses().iterator().next().setIdAcquiredCourse(UUID.randomUUID());
 

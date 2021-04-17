@@ -1,5 +1,6 @@
 package com.coursesstore.admin.adapters.http.customer.put;
 
+import com.coursesstore.admin.adapters.http.RequestValidator;
 import com.coursesstore.admin.adapters.http.customer.put.dto.PutCustomerConverter;
 import com.coursesstore.admin.adapters.http.customer.put.dto.RequestPutCustomer;
 import com.coursesstore.admin.core.domain.customer.Customer;
@@ -14,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class PutCustomerController {
 
     private final UpdateCustomerRegistration updateCustomerRegistration;
-    private final RequestPutCustomerValidator requestPutCustomerValidator;
+    private final RequestValidator requestValidator;
 
 
-    public PutCustomerController(UpdateCustomerRegistration updateCustomerRegistration, RequestPutCustomerValidator requestPutCustomerValidator) {
+    public PutCustomerController(UpdateCustomerRegistration updateCustomerRegistration, RequestValidator requestValidator) {
         this.updateCustomerRegistration = updateCustomerRegistration;
-        this.requestPutCustomerValidator = requestPutCustomerValidator;
+        this.requestValidator = requestValidator;
     }
 
     private static final Logger log = LoggerFactory.getLogger(PutCustomerController.class);
@@ -27,7 +28,7 @@ public class PutCustomerController {
     @PutMapping("/update")
     public ResponseEntity<Object> updateCustomer (@RequestBody RequestPutCustomer body) {
 
-        requestPutCustomerValidator.valid(body);
+        requestValidator.valid(body);
 
         Customer customer = PutCustomerConverter.toDomain(body);
 

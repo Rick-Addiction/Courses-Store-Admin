@@ -12,7 +12,7 @@ public class RequestPutCourse {
 
         }
 
-        @JsonProperty("id-course")
+        @JsonProperty("id_course")
         @NotNull
         private String idCourse;
 

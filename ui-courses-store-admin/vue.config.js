@@ -31,7 +31,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     proxy: {
-      '^/courses-store/customer': {
+      '^/courses-store/*': {
         target: 'http://api-courses-store-admin:8081',
         changeOrigin: true
       },

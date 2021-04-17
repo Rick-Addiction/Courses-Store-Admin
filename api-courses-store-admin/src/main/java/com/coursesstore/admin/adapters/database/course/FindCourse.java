@@ -25,7 +25,7 @@ public class FindCourse implements FindCoursePort {
     private static final Logger log = LoggerFactory.getLogger(FindCourse.class);
 
     @Override
-    public Course findCourse(String courseSearchValues) {
+    public List<Course>  findCourse(String courseSearchValues) {
         Iterable<CourseModel> listCoursesModel;
 
         //TODO Refine the search for Courses
@@ -48,6 +48,6 @@ public class FindCourse implements FindCoursePort {
             listCourses.add(course);
         }
 
-        return listCourses.get(0);
+        return listCourses;
     }
 }

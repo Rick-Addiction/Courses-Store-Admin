@@ -4,6 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface FindTeacherPort {
-    public List<Teacher> findTeacher(Map<String,String> teacherSearchValues);
+    public List<Teacher> findTeacher(String teacherSearchValues);
 
 }

@@ -25,19 +25,9 @@
     >
       <el-table-column label="Name">
         <template slot-scope="scope">
-          {{ scope.row.firstname + " " + scope.row.lastname }}
+          {{ scope.row.name }}
         </template>
-      </el-table-column>
-      <el-table-column label="email" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.email }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="phone" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.phone }}
-        </template>
-      </el-table-column>      
+      </el-table-column>   
       <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleMoreDetails(row)">
@@ -53,39 +43,12 @@
     <el-dialog center width="90%" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">    
       
   <el-tabs v-model="activeName">  
-  <el-tab-pane label="Customer" name="Customer">
+  <el-tab-pane label="Teacher" name="Teacher">
       <el-form ref="dataForm" :rules="rules" :model="temp" >
         <div class="dialog-line"> 
-          <label class="dialog-label" for="firstname">Firstname</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'" placeholder="Firstname">{{temp.firstname}}</div>
-          <el-input v-else class="dialog-input" v-model="temp.firstname"  placeholder="Firstname" />        
-
-          <label class="dialog-label" for="lastname">LastName</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'">{{temp.lastname}}</div>
-          <el-input v-else class="dialog-input" v-model="temp.lastname" placeholder="LastName" />
-        </div>
-        <div class="dialog-line"> 
-          <label class="dialog-label" for="phone">Phone</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'">{{temp.phone}}</div>
-          <el-input v-else class="dialog-input" v-model="temp.phone" placeholder="Phone" />        
-  
-          <label class="dialog-label" for="email">Email</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'">{{temp.email}}</div>
-          <el-input v-else class="dialog-input" v-model="temp.email" placeholder="Email" />
-        </div>
-        <div class="dialog-line"> 
-          <label class="dialog-label" for="linkedin">LinkedIn</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'">{{temp.linkedin}}</div>
-          <el-input v-else class="dialog-input" v-model="temp.linkedin" placeholder="LinkedIn" />        
-        </div>
-        <div class="dialog-line"> 
-          <label class="dialog-label" for="company">Company</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'">{{temp.company}}</div>
-          <el-input v-else class="dialog-input" v-model="temp.company" placeholder="Company" />
-          
-          <label class="dialog-label" for="position">Position</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'">{{temp.position}}</div>
-          <el-input v-else class="dialog-input" v-model="temp.position" placeholder="Position" />
+          <label class="dialog-label" for="name">Name</label>
+          <div class="dialog-input" v-if="dialogStatus==='read'" placeholder="Name">{{temp.name}}</div>
+          <el-input v-else class="dialog-input" v-model="temp.name"  placeholder="Name" />
         </div>
       </el-form>
         <div class="dialog-footer">
@@ -147,7 +110,7 @@
 </template>
 
 <script>
-import { getAllCustomers, createNewCustomer, editCustomer, deleteCustomer } from '/src/services/CustomerService'
+import { getAllTeachers, createNewTeacher, editTeacher, deleteTeacher } from '/src/services/TeacherService'
 import xlsx from 'xlsx'
 
 export default {
@@ -164,18 +127,12 @@ export default {
   data() {
     return {
       users: [],
-      activeName: 'Customer',
+      activeName: 'Teacher',
       dialogStatus: '',
       dialogFormVisible: false,
       temp: {
-        idCustomer: '',
-        firstname: '',
-        lastName: '',
-        phone: '',
-        email: '',
-        linkedin:'',
-        company:'',
-        position:''
+        idTeacher: '',
+        name: ''
       },
       listLoading: false,
       textMap: {
@@ -197,10 +154,10 @@ export default {
   },
   methods: {
     getAllUsers() {
-      getAllCustomers().then(response => {
-        console.log("UPDATING CUSTOMERS:",response)
-        if(response.customers != null){
-          this.users = response.customers
+      getAllTeachers().then(response => {
+        console.log("UPDATING Teachers:",response)
+        if(response.teachers != null){
+          this.users = response.teachers
           this.numberOfUsers = this.users.length
         } 
         else{
@@ -212,14 +169,8 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        idCustomer: '',
-        firstname: '',
-        lastname: '',
-        phone: '',
-        email: '',
-        linkedin:'',
-        company:'',
-        position:''
+        idTeacher: '',
+        name: ''
       }
     },
     handleCreate() {
@@ -248,7 +199,7 @@ export default {
     editData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          editCustomer(this.temp).then(() => {
+          editTeacher(this.temp).then(() => {
             console.log(this.temp)
             this.getAllUsers()
             this.dialogFormVisible = false
@@ -265,7 +216,7 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createNewCustomer(this.temp).then(() => {
+          createNewTeacher(this.temp).then(() => {
             console.log(this.temp)
             this.getAllUsers()
             this.dialogFormVisible = false
@@ -283,7 +234,7 @@ export default {
       console.log('YUPPPP')
       console.log(row)
       this.temp = Object.assign({}, row)
-      deleteCustomer(this.temp.idCustomer).then(() =>{        
+      deleteTeacher(this.temp.idTeacher).then(() =>{        
             this.getAllUsers()
             this.$notify({
               title: 'Success',
@@ -324,13 +275,7 @@ export default {
           // Edit data
           for (var i = 0; i < ws.length; i++) {
             this.resetTemp();
-            this.temp.firstname= ws[i].firstname;
-            this.temp.lastname= ws[i].lastname;
-            this.temp.phone= ws[i].phone;
-            this.temp.email= ws[i].email;
-            this.temp.linkedin= ws[i].linkedin;
-            this.temp.company=ws[i].company;
-            this.temp.position= ws[i].position;
+            this.temp.name= ws[i].name;
             excellist.push(this.temp);         
           }
           resolve(excellist);
@@ -344,9 +289,9 @@ export default {
         });
       };
 
-      const registerCostumers = (customer) => {
+      const registerTeachers = (teacher) => {
         return new Promise((resolve) => {
-          resolve(createNewCustomer(customer));
+          resolve(createNewTeacher(teacher));
         });
     };
 
@@ -356,46 +301,18 @@ export default {
         console.log("START");
         for (var i = 0; i < fileContents.length; i++) {
                console.log("EXECUTING");
-               var response = await registerCostumers(fileContents[i])
+               var response = await registerTeachers(fileContents[i])
         }
          console.log("DONE");
         this.getAllUsers();
         this.listLoading= false;
         this.$notify({
               title: 'Success',
-              message: fileContents.length + ' Customers imported successfully ',
+              message: fileContents.length + ' Teachers imported successfully ',
               type: 'success',
               duration: 2000
             });
 
-
-
-
-      
-      // fileReader.onloadend = x =>
-      //   {
-      //       console.log(excellist);
-      //       console.log(Object.keys(excellist).length);
-      //       for (var i = 0; i < excellist.length; i++) {
-      //         console.log("EXECUTING");
-      //         createNewCustomer(excellist[i]);
-      //       }
-      //       console.log("DONE");
-      //       this.getAllUsers();
-      //       this.listLoading= false;
-      //       //here we call some other functions which most likely don't cause any problems
-      //   }
-      
-      
-          // this.listLoading= false;
-          // this.getAllUsers();
-      
-          // this.$notify({
-          //     title: 'Success',
-          //     message: 'Import Successfully Done',
-          //     type: 'success',
-          //     duration: 2000
-          //   });
     }
   }
 }

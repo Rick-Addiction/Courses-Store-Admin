@@ -26,7 +26,7 @@ public class FindTeacher implements FindTeacherPort {
     private static final Logger log = LoggerFactory.getLogger(FindTeacher.class);
 
     @Override
-    public List<Teacher> findTeacher(Map<String, String> teacherSearchValues) {
+    public List<Teacher> findTeacher(String teacherSearchValues) {
         Iterable<TeacherModel> listTeachersModel;
 
         listTeachersModel = teacherRepository.findAll();

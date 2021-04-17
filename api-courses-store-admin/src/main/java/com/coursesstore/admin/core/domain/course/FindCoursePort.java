@@ -4,6 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface FindCoursePort {
-    public Course findCourse(String courseSearchValues);
+    public List<Course>  findCourse(String courseSearchValues);
 
 }

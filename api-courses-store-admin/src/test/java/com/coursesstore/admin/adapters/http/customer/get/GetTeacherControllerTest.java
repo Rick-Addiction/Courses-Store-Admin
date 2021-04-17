@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8102"})
 @AutoConfigureMockMvc
-public class GetCustomerControllerTest {
+public class GetTeacherControllerTest {
 
     final String REQUEST_PATH = "/courses-store/customer";
 

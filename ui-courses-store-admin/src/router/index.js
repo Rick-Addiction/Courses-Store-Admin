@@ -42,7 +42,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'Courses',
-        component: () => import('@/views/customers/index'),
+        component: () => import('@/views/courses/index'),
         meta: { title: 'Courses', icon: 'course' }
       }
     ]
@@ -54,7 +54,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'Teachers',
-        component: () => import('@/views/customers/index'),
+        component: () => import('@/views/teachers/index'),
         meta: { title: 'Teachers', icon: 'teacher' }
       }
     ]

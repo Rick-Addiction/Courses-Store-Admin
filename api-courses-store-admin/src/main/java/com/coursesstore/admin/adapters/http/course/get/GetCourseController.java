@@ -1,5 +1,7 @@
 package com.coursesstore.admin.adapters.http.course.get;
 
+import com.coursesstore.admin.adapters.http.course.get.dto.GetCourseConverter;
+import com.coursesstore.admin.adapters.http.course.get.dto.ResponseGetCourse;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
@@ -12,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("courses-store/course")
@@ -33,10 +34,13 @@ public class GetCourseController {
     private static final Logger log = LoggerFactory.getLogger(GetCourseController.class);
 
     @GetMapping("/search")
-    public ResponseEntity<Course> getCourse(@RequestParam String courseSearchValues) {
+    public ResponseEntity<ResponseGetCourse> getCourse() {
 
-        Course listCourses = searchForCourse.execute(courseSearchValues);
-        return ResponseEntity.ok(listCourses);
+        List<Course> listCourses = searchForCourse.execute("");
+
+        ResponseGetCourse responseGetCourse = GetCourseConverter.toResponseGetCourse(listCourses);
+
+        return ResponseEntity.ok(responseGetCourse);
     }
 
     @GetMapping("/acquired/{id-customer}")

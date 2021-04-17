@@ -21,7 +21,7 @@ public class AddDesiredCourseToCustomer {
     }
 
     public void execute(Customer customer) {
-        Course course = findCoursePort.findCourse(String.valueOf(customer.getDesiredCourses().iterator().next().getCourse().getIdCourse()));
+        Course course = findCoursePort.findCourse(String.valueOf(customer.getDesiredCourses().iterator().next().getCourse().getIdCourse())).get(0);
         customer.getDesiredCourses().iterator().next().setCourse(course);
         customer.getDesiredCourses().iterator().next().setIdDesiredCourse(UUID.randomUUID());
 
