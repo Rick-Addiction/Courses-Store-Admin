@@ -111,7 +111,6 @@ public class DomainUtils {
 
     public static AcquiredCourseModel generateAcquiredCourseModel(){
         AcquiredCourseModel acquiredCourseModel = new AcquiredCourseModel();
-        acquiredCourseModel.setIdAcquiredCourse(String.valueOf(UUID.randomUUID()));
         acquiredCourseModel.setValuePaid(BigDecimal.valueOf(50.50f).setScale(2));
         acquiredCourseModel.setAcquisitionDate(LocalDate.of(2021,03,27));
         acquiredCourseModel.setCourse(generateCourseModel());
@@ -150,7 +149,6 @@ public class DomainUtils {
 
     public static DesiredCourseModel generateDesiredCourseModel(){
         DesiredCourseModel desiredCourseModel = new DesiredCourseModel();
-        desiredCourseModel.setIdDesiredCourse(String.valueOf(UUID.randomUUID()));
         desiredCourseModel.setDesireDescription("He asked for a discoule");
         desiredCourseModel.setDesireDate(LocalDate.of(2021,03,27));
         desiredCourseModel.setCourse(generateCourseModel());

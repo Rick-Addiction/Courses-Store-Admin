@@ -32,7 +32,6 @@ public class DesiredCourseConverterTest {
         DesiredCourseModel desiredCourseModel = DesiredCourseConverter.toModel(desiredCourse);
 
         ///Assert
-        assertEquals(desiredCourseModel.getIdDesiredCourse(), String.valueOf(desiredCourse.getIdDesiredCourse()));
         assertEquals(desiredCourseModel.getDesireDate(),desiredCourse.getDesireDate());
         assertEquals(desiredCourseModel.getDesireDescription(),desiredCourse.getDesireDescription());
 
@@ -57,7 +56,6 @@ public class DesiredCourseConverterTest {
         DesiredCourse desiredCourse = customerWithADesiredCourse.getDesiredCourses().iterator().next();
 
         ///Assert
-        assertEquals(String.valueOf(desiredCourse.getIdDesiredCourse()), desiredCourseModel.getIdDesiredCourse());
         assertEquals(desiredCourse.getDesireDate(),desiredCourseModel.getDesireDate());
         assertEquals(desiredCourse.getDesireDescription(),desiredCourseModel.getDesireDescription());
 

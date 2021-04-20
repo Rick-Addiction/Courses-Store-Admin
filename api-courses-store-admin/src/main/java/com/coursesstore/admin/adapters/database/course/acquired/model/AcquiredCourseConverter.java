@@ -15,7 +15,10 @@ public class AcquiredCourseConverter {
 
         if(!customer.getAcquiredCourses().isEmpty()) {
             AcquiredCourse acquiredCourse = customer.getAcquiredCourses().iterator().next();
-            acquiredCourseModel.setIdAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
+            AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(
+                    String.valueOf(customer.getIdCustomer()),
+                    String.valueOf(acquiredCourse.getCourse().getIdCourse()));
+            acquiredCourseModel.setIdAcquiredCourse(acquiredCourseKey);
             acquiredCourseModel.setAcquisitionDate(acquiredCourse.getAcquisitionDate());
             acquiredCourseModel.setValuePaid(acquiredCourse.getValuePaid());
             acquiredCourseModel.setCourse(CourseConverter.toModel(acquiredCourse.getCourse()));
@@ -28,7 +31,6 @@ public class AcquiredCourseConverter {
     public static AcquiredCourseModel toModel(AcquiredCourse acquiredCourse){
         AcquiredCourseModel acquiredCourseModel = new AcquiredCourseModel();
 
-            acquiredCourseModel.setIdAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
             acquiredCourseModel.setAcquisitionDate(acquiredCourse.getAcquisitionDate());
             acquiredCourseModel.setValuePaid(acquiredCourse.getValuePaid());
             acquiredCourseModel.setCourse(CourseConverter.toModel(acquiredCourse.getCourse()));
@@ -40,7 +42,6 @@ public class AcquiredCourseConverter {
         Customer customer = CustomerConverter.toEntity(acquiredCourseModel.getCustomer());
 
         AcquiredCourse acquiredCourse = new AcquiredCourse();
-        acquiredCourse.setIdAcquiredCourse(UUID.fromString(acquiredCourseModel.getIdAcquiredCourse()));
         acquiredCourse.setAcquisitionDate(acquiredCourseModel.getAcquisitionDate());
         acquiredCourse.setValuePaid(acquiredCourseModel.getValuePaid());
         acquiredCourse.setCourse(CourseConverter.toEntity(acquiredCourseModel.getCourse()));

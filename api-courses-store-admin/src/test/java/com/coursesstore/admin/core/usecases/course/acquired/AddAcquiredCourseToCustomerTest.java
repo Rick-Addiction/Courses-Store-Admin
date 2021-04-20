@@ -32,7 +32,7 @@ public class AddAcquiredCourseToCustomerTest {
         ///Arrange
         AddAcquiredCourseToCustomer addAcquiredCourseToCustomer = new AddAcquiredCourseToCustomer(addAcquiredCoursePort,findCoursePort);
 
-        when(findCoursePort.findCourse(anyString())).thenReturn(List.of(DomainUtils.generateCourse()));
+        when(findCoursePort.findCourse(anyString())).thenReturn(DomainUtils.generateCourse());
 
         ///Act
         addAcquiredCourseToCustomer.execute(DomainUtils.generateCustomerWithAnAcquiredCourse());

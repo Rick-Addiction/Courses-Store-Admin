@@ -1,16 +1,22 @@
 package com.coursesstore.admin.adapters.http.customer.get;
 
 import com.coursesstore.admin.adapters.http.customer.get.dto.GetCustomerConverter;
+import com.coursesstore.admin.adapters.http.customer.get.dto.ResponseGetAcquiredCoursesByCustomer;
 import com.coursesstore.admin.adapters.http.customer.get.dto.ResponseGetCustomer;
+import com.coursesstore.admin.adapters.http.customer.get.dto.ResponseGetDesiredCoursesByCustomer;
+import com.coursesstore.admin.core.domain.course.Course;
+import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
+import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
+import com.coursesstore.admin.core.usecases.course.acquired.SearchForAcquiredCoursesByCustomer;
+import com.coursesstore.admin.core.usecases.course.acquired.SearchForNotAcquiredCoursesByCustomer;
+import com.coursesstore.admin.core.usecases.course.desired.SearchForDesiredCoursesByCustomer;
+import com.coursesstore.admin.core.usecases.course.desired.SearchForNotDesiredCoursesByCustomer;
 import com.coursesstore.admin.core.usecases.customer.SearchForCustomer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -19,9 +25,21 @@ import java.util.*;
 public class GetCustomerController {
 
     private final SearchForCustomer searchForCustomer;
+    private final SearchForDesiredCoursesByCustomer searchForDesiredCoursesByCustomer;
+    private final SearchForAcquiredCoursesByCustomer searchForAcquiredCoursesByCustomer;
+    private final SearchForNotDesiredCoursesByCustomer searchForNotDesiredCoursesByCustomer;
+    private final SearchForNotAcquiredCoursesByCustomer searchForNotAcquiredCoursesByCustomer;
 
-    public GetCustomerController(SearchForCustomer searchForCustomer){
+    public GetCustomerController(SearchForCustomer searchForCustomer,
+                                 SearchForDesiredCoursesByCustomer searchForDesiredCoursesByCustomer,
+                                 SearchForAcquiredCoursesByCustomer searchForAcquiredCoursesByCustomer,
+                                 SearchForNotDesiredCoursesByCustomer searchForNotDesiredCoursesByCustomer,
+                                 SearchForNotAcquiredCoursesByCustomer searchForNotAcquiredCoursesByCustomer) {
         this.searchForCustomer = searchForCustomer;
+        this.searchForAcquiredCoursesByCustomer = searchForAcquiredCoursesByCustomer;
+        this.searchForDesiredCoursesByCustomer = searchForDesiredCoursesByCustomer;
+        this.searchForNotDesiredCoursesByCustomer=searchForNotDesiredCoursesByCustomer;
+        this.searchForNotAcquiredCoursesByCustomer=searchForNotAcquiredCoursesByCustomer;
     }
 
     private static final Logger log = LoggerFactory.getLogger(GetCustomerController.class);
@@ -31,9 +49,34 @@ public class GetCustomerController {
 
         List<Customer> listCustomers = searchForCustomer.execute("");
 
-        ResponseGetCustomer responseGetCustomer = GetCustomerConverter.toResponseGetCustomer(listCustomers);
+        ResponseGetCustomer responseGetCustomer =
+                GetCustomerConverter.toResponseGetCustomer(listCustomers);
 
         return ResponseEntity.ok(responseGetCustomer);
+    }
+
+    @GetMapping("/{id_customer}/acquired-courses")
+    public ResponseEntity<ResponseGetAcquiredCoursesByCustomer> getAcquiredCourseByCustomer(@PathVariable(value = "id_customer") String idCustomer) {
+
+        List<AcquiredCourse> listAcquiredCourses = searchForAcquiredCoursesByCustomer.execute(idCustomer);
+        List<Course> listNotAcquiredCourses = searchForNotAcquiredCoursesByCustomer.execute(idCustomer);
+
+        ResponseGetAcquiredCoursesByCustomer responseGetAcquiredCoursesByCustomer =
+                GetCustomerConverter.toResponseGetAcquiredCoursesByCustomer(listAcquiredCourses,listNotAcquiredCourses);
+
+        return ResponseEntity.ok(responseGetAcquiredCoursesByCustomer);
+    }
+
+    @GetMapping("/{id_customer}/desired-courses")
+    public ResponseEntity<ResponseGetDesiredCoursesByCustomer> getDesiredCourseByCustomer(@PathVariable(value = "id_customer") String idCustomer) {
+
+        List<DesiredCourse> listDesiredCourses = searchForDesiredCoursesByCustomer.execute(idCustomer);
+        List<Course> listNotDesiredCourses = searchForNotDesiredCoursesByCustomer.execute(idCustomer);
+
+        ResponseGetDesiredCoursesByCustomer responseGetDesiredCoursesByCustomer =
+                GetCustomerConverter.toResponseGetDesiredCoursesByCustomer(listDesiredCourses,listNotDesiredCourses);
+
+        return ResponseEntity.ok(responseGetDesiredCoursesByCustomer);
     }
 
 }

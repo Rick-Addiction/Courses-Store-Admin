@@ -31,7 +31,7 @@ public class AddDesiredCourseToCustomerTest {
         ///Arrange
         AddDesiredCourseToCustomer addDesiredCourseToCustomer = new AddDesiredCourseToCustomer(addDesiredCoursePort,findCoursePort);
 
-        when(findCoursePort.findCourse(anyString())).thenReturn(List.of(DomainUtils.generateCourse()));
+        when(findCoursePort.findCourse(anyString())).thenReturn(DomainUtils.generateCourse());
 
         ///Act
         addDesiredCourseToCustomer.execute(DomainUtils.generateCustomerWithADesiredCourse());

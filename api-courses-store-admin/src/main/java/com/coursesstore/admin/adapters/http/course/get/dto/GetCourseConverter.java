@@ -18,6 +18,7 @@ public class GetCourseConverter {
                 course.setIdCourse(String.valueOf(c.getIdCourse()));
                 course.setName(c.getName());
                 course.setOriginalValue(String.valueOf(c.getOriginalValue()));
+                course.setIdTeacherResponsible(String.valueOf(c.getTeacherResponsible().getIdTeacher()));
                 course.setTeacherResponsibleName(c.getTeacherResponsible().getName());
 
                 responseGetCourse.getCourses().add(course);

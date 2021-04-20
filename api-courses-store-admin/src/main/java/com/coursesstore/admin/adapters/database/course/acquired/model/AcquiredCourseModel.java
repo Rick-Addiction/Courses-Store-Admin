@@ -13,22 +13,27 @@ import java.time.LocalDate;
 @DynamicUpdate
 public class AcquiredCourseModel {
 
-    @Id
-    private String idAcquiredCourse;
+    @EmbeddedId
+    private AcquiredCourseKey idAcquiredCourse;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @MapsId("customerId")
+    @JoinColumn(name = "customer_id")
+    private CustomerModel customer;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @MapsId("courseId")
+    @JoinColumn(name = "course_id")
+    private CourseModel course;
+
     private LocalDate acquisitionDate;
     private BigDecimal valuePaid;
 
-    @OneToOne
-    private CustomerModel customer;
-
-    @OneToOne
-    private CourseModel course;
-
-    public String getIdAcquiredCourse() {
+    public AcquiredCourseKey getIdAcquiredCourse() {
         return idAcquiredCourse;
     }
 
-    public void setIdAcquiredCourse(String idAcquiredCourse) {
+    public void setIdAcquiredCourse(AcquiredCourseKey idAcquiredCourse) {
         this.idAcquiredCourse = idAcquiredCourse;
     }
 

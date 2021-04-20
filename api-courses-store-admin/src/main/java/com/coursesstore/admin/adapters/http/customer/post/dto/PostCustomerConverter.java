@@ -17,7 +17,7 @@ public class PostCustomerConverter {
     public static Customer toDomain (RequestPostCustomer body){
         Customer customer = new Customer();
         customer.setFirstname(body.getFirstname());
-        customer.setLastname(body.getFirstname());
+        customer.setLastname(body.getLastname());
         customer.setPhone(body.getPhone());
         customer.setLinkedIn(body.getLinkedIn());
         customer.setEmail(body.getEmail());

@@ -25,9 +25,9 @@ public class SearchForCourseTest {
         SearchForCourse searchForCourse = new SearchForCourse(findCoursePort);
 
         ///Act
-        searchForCourse.execute("id_course");
+        searchForCourse.execute();
 
         ///Assert
-        verify(findCoursePort, times(1)).findCourse(any(String.class));
+        verify(findCoursePort, times(1)).findCourse();
     }
 }

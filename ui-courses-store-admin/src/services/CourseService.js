@@ -7,11 +7,11 @@ export async function getAllCourses() {
 }
 
 export async function createNewCourse(newCourse) {
-
+  console.log("new courseeeeeeeee", newCourse);
     var newCoursePayload= {
         name: newCourse.name,
         original_value: newCourse.originalValue,
-        id_teacher_responsible: newCourse.idTeacher
+        id_teacher_responsible: newCourse.teacher.idTeacher
       }
 
     const response = await fetch('/courses-store/course/register', {
@@ -20,7 +20,6 @@ export async function createNewCourse(newCourse) {
         headers: {"Content-type": "application/json; charset=UTF-8"}
       });
 
-      console.log("new course", response);
 }
 
 export async function editCourse(courseToEdit) {
@@ -30,7 +29,7 @@ export async function editCourse(courseToEdit) {
         id_course: courseToEdit.idCourse,
         name: courseToEdit.name,
         original_value: courseToEdit.originalValue,
-        id_teacher_responsible: courseToEdit.idTeacher
+        id_teacher_responsible: courseToEdit.teacher.idTeacher
       }
 
 

@@ -46,9 +46,9 @@
         </div>
         <div class="dialog-line"> 
           <label class="dialog-label" for="teacher">Teacher</label>
-          <div class="dialog-input" v-if="dialogStatus==='read'" placeholder="Teacher Responsible">{{temp.teacherName}}</div>
+          <div class="dialog-input" v-if="dialogStatus==='read'" placeholder="Teacher Responsible">{{temp.teacher.teacherName}}</div>
           <el-select v-else
-            v-model="temp.idTeacher" class="dialog-input"
+            v-model=temp.teacher class="dialog-input"
             filterable
             remote
             reserve-keyword
@@ -57,9 +57,9 @@
             :loading="listLoading">
             <el-option
               v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+              :key="item.idTeacher"
+              :label="item.teacherName"
+              :value="item">
             </el-option>
           </el-select>
         </div>
@@ -109,8 +109,7 @@ export default {
         idCourse: '',
         name: '',
         originalValue: '',
-        idTeacher: '',
-        teacherName: ''
+        teacher: {}
       },
       listLoading: false,
       textMap: {
@@ -136,15 +135,14 @@ export default {
     remoteMethod(query) {
         if (query !== '') {
           this.listLoading = true;
+          this.options=[];
           setTimeout(() => {
             this.listLoading = false;
             this.options = this.list.filter(item => {
-              return item.label.toLowerCase()
+              return item.teacherName.toLowerCase()
                 .indexOf(query.toLowerCase()) > -1;
             });
           }, 200);
-        } else {
-          this.options = [];
         }
       },
     getAllUsers() {
@@ -166,41 +164,40 @@ export default {
         idCourse: '',        
         name: '',
         originalValue: '',
-        idTeacher: '',
-        teacherName: ''
+        teacher: {}
       }
+      this.options=[]
     },
     handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      
+      this.dialogFormVisible = true      
       getAllTeachers().then(response => {
-        console.log("teachers",response)
         this.list = response.teachers.map(item => {
-        return { value: `${item.idTeacher}`, label: `${item.name}` }});
+        return { idTeacher: `${item.idTeacher}`, teacherName: `${item.name}` }});
       })
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
     },
     handleMoreDetails(row) {
-      console.log("row",row)
+      this.resetTemp()
+      getAllTeachers().then(response => {
+        this.list = response.teachers.map(item => {
+        return { idTeacher: `${item.idTeacher}`, teacherName: `${item.name}` }});
+      })
       this.temp= {
         idCourse: Object.assign({}, row).id_course,
         name: Object.assign({}, row).name,
-        idTeacher: "6767765e-90af-4753-bef5-00cc7dd3518a",
         originalValue: Object.assign({}, row).original_value,
-        teacherName: Object.assign({}, row).teacher_responsible_name
+        teacher: {
+          idTeacher:Object.assign({}, row).id_teacher_responsible,
+          teacherName:Object.assign({}, row).teacher_responsible_name
+        }
       }
-      this.temp.timestamp = new Date(this.temp.timestamp)
+      this.options.push(this.temp.teacher)
       this.dialogStatus = 'read'
       this.dialogFormVisible = true
-      getAllTeachers().then(response => {
-        console.log("teachers",response)
-        this.list = response.teachers.map(item => {
-        return { value: `${item.idTeacher}`, label: `${item.name}` }});
-      })
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -247,8 +244,6 @@ export default {
       })
     },
     deleteData(row){
-      console.log('YUPPPP')
-      console.log(row)
       this.temp = Object.assign({}, row)
       deleteCourse(this.temp.idCourse).then(() =>{        
             this.getAllUsers()

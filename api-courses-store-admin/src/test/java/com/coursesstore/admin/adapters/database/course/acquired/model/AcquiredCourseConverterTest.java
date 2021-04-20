@@ -30,7 +30,6 @@ public class AcquiredCourseConverterTest {
         AcquiredCourseModel acquiredCourseModel = AcquiredCourseConverter.toModel(acquiredCourse);
 
         ///Assert
-        assertEquals(acquiredCourseModel.getIdAcquiredCourse(), String.valueOf(acquiredCourse.getIdAcquiredCourse()));
         assertEquals(acquiredCourseModel.getAcquisitionDate(),acquiredCourse.getAcquisitionDate());
         assertEquals(acquiredCourseModel.getValuePaid(),acquiredCourse.getValuePaid());
 
@@ -56,7 +55,6 @@ public class AcquiredCourseConverterTest {
         AcquiredCourse acquiredCourse = customerThatAcquiredACourse.getAcquiredCourses().iterator().next();
 
         ///Assert
-        assertEquals(String.valueOf(acquiredCourse.getIdAcquiredCourse()), acquiredCourseModel.getIdAcquiredCourse());
         assertEquals(acquiredCourse.getAcquisitionDate(),acquiredCourseModel.getAcquisitionDate());
         assertEquals(acquiredCourse.getValuePaid(),acquiredCourseModel.getValuePaid());
 

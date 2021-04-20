@@ -34,9 +34,21 @@ public class ResponseGetCourse {
         @NotBlank
         private String originalValue;
 
+        @JsonProperty("id_teacher_responsible")
+        @NotBlank
+        private String idTeacherResponsible;
+
         @JsonProperty("teacher_responsible_name")
         @NotBlank
         private String teacherResponsibleName;
+
+        public String getIdTeacherResponsible() {
+            return idTeacherResponsible;
+        }
+
+        public void setIdTeacherResponsible(String idTeacherResponsible) {
+            this.idTeacherResponsible = idTeacherResponsible;
+        }
 
         public String getIdCourse() {
             return idCourse;

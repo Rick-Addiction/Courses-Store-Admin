@@ -20,15 +20,11 @@ import java.util.List;
 public class GetCourseController {
 
     private final SearchForCourse searchForCourse;
-    private final SearchForAcquiredCoursesByCustomer searchForAcquiredCoursesByCustomer;
-    private final SearchForDesiredCoursesByCustomer searchForDesiredCoursesByCustomer;
 
     public GetCourseController(SearchForCourse searchForCourse,
                                SearchForAcquiredCoursesByCustomer searchForAcquiredCoursesByCustomer,
                                SearchForDesiredCoursesByCustomer searchForDesiredCoursesByCustomer){
         this.searchForCourse = searchForCourse;
-        this.searchForAcquiredCoursesByCustomer = searchForAcquiredCoursesByCustomer;
-        this.searchForDesiredCoursesByCustomer=searchForDesiredCoursesByCustomer;
     }
 
     private static final Logger log = LoggerFactory.getLogger(GetCourseController.class);
@@ -36,25 +32,13 @@ public class GetCourseController {
     @GetMapping("/search")
     public ResponseEntity<ResponseGetCourse> getCourse() {
 
-        List<Course> listCourses = searchForCourse.execute("");
+        List<Course> listCourses = searchForCourse.execute();
 
         ResponseGetCourse responseGetCourse = GetCourseConverter.toResponseGetCourse(listCourses);
 
         return ResponseEntity.ok(responseGetCourse);
     }
 
-    @GetMapping("/acquired/{id-customer}")
-    public ResponseEntity<List<AcquiredCourse>> getAcquiredCourseByCustomer(@PathVariable String idCustomer) {
 
-        List<AcquiredCourse> listAcquiredCourses = searchForAcquiredCoursesByCustomer.execute(idCustomer);
-        return ResponseEntity.ok(listAcquiredCourses);
-    }
-
-    @GetMapping("/desired/{id-customer}")
-    public ResponseEntity<List<DesiredCourse>> getDesiredCourseByCustomer(@PathVariable String idCustomer) {
-
-        List<DesiredCourse> listDesiredCourses = searchForDesiredCoursesByCustomer.execute(idCustomer);
-        return ResponseEntity.ok(listDesiredCourses);
-    }
 
 }

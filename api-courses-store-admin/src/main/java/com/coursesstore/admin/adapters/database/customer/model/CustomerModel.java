@@ -1,6 +1,11 @@
 package com.coursesstore.admin.adapters.database.customer.model;
 
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
+import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -8,6 +13,7 @@ import java.util.UUID;
 public class CustomerModel {
 
     @Id
+    @Column(name = "id_customer")
     private String idCustomer;
     private String firstname;
     private String lastname;
@@ -16,6 +22,28 @@ public class CustomerModel {
     private String linkedIn;
     private String company;
     private String position;
+
+    @OneToMany(mappedBy = "customer",fetch=FetchType.LAZY)
+    private List<AcquiredCourseModel> acquiredCourses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer",fetch=FetchType.LAZY)
+    private List<DesiredCourseModel> desiredCourses = new ArrayList<>();
+
+    public List<AcquiredCourseModel> getAcquiredCourses() {
+        return acquiredCourses;
+    }
+
+    public void addAcquiredCourses(AcquiredCourseModel acquiredCourse) {
+        this.acquiredCourses.add(acquiredCourse);
+    }
+
+    public List<DesiredCourseModel> getDesiredCourses() {
+        return desiredCourses;
+    }
+
+    public void addDesiredCourses(DesiredCourseModel desiredCourse) {
+        this.desiredCourses.add(desiredCourse);
+    }
 
     public String getIdCustomer() {
         return idCustomer;

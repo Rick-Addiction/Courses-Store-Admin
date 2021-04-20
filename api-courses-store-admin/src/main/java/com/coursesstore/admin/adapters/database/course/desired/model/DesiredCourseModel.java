@@ -1,36 +1,40 @@
 package com.coursesstore.admin.adapters.database.course.desired.model;
 
 import com.coursesstore.admin.adapters.database.course.CourseModel;
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_DESIRED_COURSE")
 public class DesiredCourseModel {
 
-    @Id
-    private String idDesiredCourse;
+    @EmbeddedId
+    private AcquiredCourseKey idDesiredCourse;
+
     private LocalDate desireDate;
     private String desireDescription;
 
-    @OneToOne
+    @ManyToOne(fetch=FetchType.EAGER)
+    @MapsId("customerId")
+    @JoinColumn(name = "customer_id")
     private CustomerModel customer;
 
-    @OneToOne
+    @ManyToOne(fetch=FetchType.EAGER)
+    @MapsId("courseId")
+    @JoinColumn(name = "course_id")
     private CourseModel course;
 
-    public String getIdDesiredCourse() {
+    public AcquiredCourseKey getIdAcquiredCourse() {
         return idDesiredCourse;
     }
 
-    public void setIdDesiredCourse(String idDesiredCourse) {
+    public void setIdAcquiredCourse(AcquiredCourseKey idDesiredCourse) {
         this.idDesiredCourse = idDesiredCourse;
     }
+
     public LocalDate getDesireDate() {
         return desireDate;
     }

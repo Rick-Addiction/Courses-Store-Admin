@@ -25,7 +25,27 @@ public class FindCourse implements FindCoursePort {
     private static final Logger log = LoggerFactory.getLogger(FindCourse.class);
 
     @Override
-    public List<Course>  findCourse(String courseSearchValues) {
+    public Course findCourse(String idCourse) {
+        //TODO Refine the search for Courses
+
+        CourseModel courseModel = CourseRepository.findByIdCourse(idCourse).get();
+
+            Course course = new Course();
+            course.setIdCourse(UUID.fromString(courseModel.getIdCourse()));
+            course.setName(courseModel.getName());
+            course.setOriginalValue(courseModel.getOriginalValue());
+
+            Teacher teacherResponsible = new Teacher();
+            teacherResponsible.setIdTeacher(UUID.fromString(courseModel.getTeacherResponsible().getIdTeacher()));
+            teacherResponsible.setName(courseModel.getTeacherResponsible().getName());
+            course.setTeacherResponsible(teacherResponsible);
+
+
+        return course;
+    }
+
+    @Override
+    public List<Course>  findCourse() {
         Iterable<CourseModel> listCoursesModel;
 
         //TODO Refine the search for Courses
