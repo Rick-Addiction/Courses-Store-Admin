@@ -40,7 +40,7 @@ public class DeleteCustomerTest {
 
         ///Act
         DeleteCustomer deleteCustomer = new DeleteCustomer(customerRepository);
-        deleteCustomer.deleteCustomer(customerToBeDeleted);
+        deleteCustomer.deleteCustomer(String.valueOf(customerToBeDeleted.getIdCustomer()));
 
         ///Assert
         Optional<CustomerModel> optionalDeletedCustomerModel = customerRepository.findByIdCustomer(String.valueOf(customer.getIdCustomer()));

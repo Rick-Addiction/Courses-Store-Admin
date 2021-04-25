@@ -33,6 +33,7 @@ public class DeleteCustomerControllerTest {
     private CustomerRepository customerRepository;
 
     Customer customerCreated;
+    Customer customerCreatedToAcquireAndDesire;
     AcquiredCourse acquiredCourse;
     DesiredCourse desiredCourse;
 
@@ -40,12 +41,12 @@ public class DeleteCustomerControllerTest {
     @BeforeEach
     public void setUp(){
         customerCreated = registerANewCustomer();
-        Customer customerToAcquireAndDesire = registerANewCustomer();
+        customerCreatedToAcquireAndDesire=registerANewCustomer();
         Teacher teacher = registerANewTeacher();
         Course courseToAcquire = registerANewCourse(teacher);
         Course courseToDesire = registerANewCourse(teacher);
-        acquiredCourse = registerANewAcquiredCourse(customerToAcquireAndDesire,courseToAcquire).getAcquiredCourses().iterator().next();
-        desiredCourse = registerANewDesiredCourse(customerToAcquireAndDesire,courseToDesire).getDesiredCourses().iterator().next();
+        acquiredCourse = registerANewAcquiredCourse(customerCreatedToAcquireAndDesire,courseToAcquire).getAcquiredCourses().iterator().next();
+        desiredCourse = registerANewDesiredCourse(customerCreatedToAcquireAndDesire,courseToDesire).getDesiredCourses().iterator().next();
     }
 
     @Autowired
@@ -69,9 +70,9 @@ public class DeleteCustomerControllerTest {
 
         ///Act
         mockMvc.perform(
-                delete(REQUEST_PATH+ "/{id_customer}/acquire-course/{id_acquired_course}"
-                        ,String.valueOf(customerCreated.getIdCustomer())
-                        ,String.valueOf(acquiredCourse.getIdAcquiredCourse()))
+                delete(REQUEST_PATH+ "/{id_customer}/acquire-course/{id_course}"
+                        ,String.valueOf(customerCreatedToAcquireAndDesire.getIdCustomer())
+                        ,String.valueOf(acquiredCourse.getCourse().getIdCourse()))
                         .accept(MediaType.APPLICATION_JSON))
                 ///Assert
                 .andExpect(status().isOk());
@@ -83,9 +84,9 @@ public class DeleteCustomerControllerTest {
 
         ///Act
         mockMvc.perform(
-                delete(REQUEST_PATH+ "/{id_customer}/desire-course/{id_desired_course}"
-                        ,String.valueOf(customerCreated.getIdCustomer())
-                        ,String.valueOf(desiredCourse.getIdDesiredCourse()))
+                delete(REQUEST_PATH+ "/{id_customer}/desire-course/{id_course}"
+                        ,String.valueOf(customerCreatedToAcquireAndDesire.getIdCustomer())
+                        ,String.valueOf(desiredCourse.getCourse().getIdCourse()))
                         .accept(MediaType.APPLICATION_JSON))
                 ///Assert
                 .andExpect(status().isOk());

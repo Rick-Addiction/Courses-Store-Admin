@@ -7,7 +7,9 @@ services:
     image: henrique/api-courses-store-admin
     container_name: api-courses-store-admin
     ports:
-      - '8081:8081'    
+      - '8081:8081'
+    volumes:
+      - './api-courses-store-admin/data:./api-courses-store-admin/data'
     networks:
       -  rede-courses-store-admin
   ui-courses-store-admin:

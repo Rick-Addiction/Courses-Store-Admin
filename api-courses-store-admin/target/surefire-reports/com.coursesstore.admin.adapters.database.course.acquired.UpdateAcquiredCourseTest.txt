@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: com.coursesstore.admin.adapters.database.course.acquired.UpdateAcquiredCourseTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.158 s - in com.coursesstore.admin.adapters.database.course.acquired.UpdateAcquiredCourseTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.162 s <<< FAILURE! - in com.coursesstore.admin.adapters.database.course.acquired.UpdateAcquiredCourseTest
+Given_a_valid_AcquiredCourse_stored_in_the_database_When_its_requested_to_update_the_AcquiredCourse_Then_it_should_be_done_successfully  Time elapsed: 0.031 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_ACQUIRED_COURSE WHERE id_acquired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.acquired.UpdateAcquiredCourseTest.Given_a_valid_AcquiredCourse_stored_in_the_database_When_its_requested_to_update_the_AcquiredCourse_Then_it_should_be_done_successfully(UpdateAcquiredCourseTest.java:69)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.acquired.UpdateAcquiredCourseTest.Given_a_valid_AcquiredCourse_stored_in_the_database_When_its_requested_to_update_the_AcquiredCourse_Then_it_should_be_done_successfully(UpdateAcquiredCourseTest.java:69)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Column "ID_ACQUIRED_COURSE" not found; SQL statement:
+SELECT * FROM TB_ACQUIRED_COURSE WHERE id_acquired_course = ? [42122-200]
+	at com.coursesstore.admin.adapters.database.course.acquired.UpdateAcquiredCourseTest.Given_a_valid_AcquiredCourse_stored_in_the_database_When_its_requested_to_update_the_AcquiredCourse_Then_it_should_be_done_successfully(UpdateAcquiredCourseTest.java:69)
+

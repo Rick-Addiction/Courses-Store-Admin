@@ -5,6 +5,8 @@ import com.coursesstore.admin.core.domain.customer.DeleteCustomerPort;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class DeleteCustomer implements DeleteCustomerPort {
 
@@ -13,13 +15,10 @@ public class DeleteCustomer implements DeleteCustomerPort {
     public DeleteCustomer(CustomerRepository customerRepository) { this.customerRepository = customerRepository; }
 
     @Override
-    public void deleteCustomer(Customer customer) {
+    public void deleteCustomer(String idCustomer) {
 
-        CustomerModel customerToDelete = null;
+        Optional<CustomerModel> customerToDelete = customerRepository.findByIdCustomer(idCustomer);
 
-        if (customer.getIdCustomer() != null)
-            customerToDelete = customerRepository.findByIdCustomer(customer.getIdCustomer().toString()).get();
-
-        customerRepository.delete(customerToDelete);
+        customerRepository.delete(customerToDelete.get());
     }
 }

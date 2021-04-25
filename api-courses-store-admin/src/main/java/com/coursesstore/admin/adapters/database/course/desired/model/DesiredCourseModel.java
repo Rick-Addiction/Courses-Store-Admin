@@ -1,7 +1,6 @@
 package com.coursesstore.admin.adapters.database.course.desired.model;
 
 import com.coursesstore.admin.adapters.database.course.CourseModel;
-import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 public class DesiredCourseModel {
 
     @EmbeddedId
-    private AcquiredCourseKey idDesiredCourse;
+    private DesiredCourseKey idDesiredCourse;
 
     private LocalDate desireDate;
     private String desireDescription;
@@ -27,11 +26,11 @@ public class DesiredCourseModel {
     @JoinColumn(name = "course_id")
     private CourseModel course;
 
-    public AcquiredCourseKey getIdAcquiredCourse() {
+    public DesiredCourseKey getIdDesiredCourse() {
         return idDesiredCourse;
     }
 
-    public void setIdAcquiredCourse(AcquiredCourseKey idDesiredCourse) {
+    public void setIdDesiredCourse(DesiredCourseKey idDesiredCourse) {
         this.idDesiredCourse = idDesiredCourse;
     }
 

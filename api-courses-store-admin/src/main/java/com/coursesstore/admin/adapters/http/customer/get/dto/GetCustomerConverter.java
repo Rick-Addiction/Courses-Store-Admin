@@ -44,7 +44,6 @@ public class GetCustomerConverter {
 
             for (AcquiredCourse ac : listAcquiredCoursesByCustomer) {
                 ResponseGetAcquiredCoursesByCustomer.AcquiredCourse acquiredCourse = new ResponseGetAcquiredCoursesByCustomer.AcquiredCourse();
-                acquiredCourse.setIdAcquiredCourse(String.valueOf(ac.getIdAcquiredCourse()));
                 acquiredCourse.setCourseName(ac.getCourse().getName());
                 acquiredCourse.setAcquisitionDate(String.valueOf(ac.getAcquisitionDate()));
                 acquiredCourse.setValuePaid(String.valueOf(ac.getValuePaid()));
@@ -77,7 +76,6 @@ public class GetCustomerConverter {
 
             for (DesiredCourse dc : listDesiredCoursesByCustomer) {
                 ResponseGetDesiredCoursesByCustomer.DesiredCourse desiredCourse = new ResponseGetDesiredCoursesByCustomer.DesiredCourse();
-                desiredCourse.setIdDesiredCourse(String.valueOf(dc.getIdDesiredCourse()));
                 desiredCourse.setCourseName(dc.getCourse().getName());
                 desiredCourse.setDesireDate(String.valueOf(dc.getDesireDate()));
                 desiredCourse.setDesireDescription(dc.getDesireDescription());

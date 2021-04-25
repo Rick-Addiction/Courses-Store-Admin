@@ -2,7 +2,6 @@ com\coursesstore\admin\core\domain\customer\UpdateCustomerPort.class
 com\coursesstore\admin\adapters\http\CustomerController.class
 com\coursesstore\admin\adapters\database\course\desired\model\DesiredCourseConverter.class
 com\coursesstore\admin\core\domain\course\acquired\AddAcquiredCoursePort.class
-com\coursesstore\admin\adapters\http\customer\put\RequestPutCustomerValidator.class
 com\coursesstore\admin\adapters\database\course\acquired\model\AcquiredCourseModel.class
 com\coursesstore\admin\adapters\database\customer\CreateCustomer.class
 com\coursesstore\admin\adapters\http\course\post\dto\PostCourseConverter.class

@@ -1,8 +1,7 @@
 package com.coursesstore.admin.core.usecases.course.acquired;
 
-import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.UpdateAcquiredCoursePort;
-import com.coursesstore.admin.core.usecases.customer.RegisterNewCustomer;
+import com.coursesstore.admin.core.domain.customer.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,9 +25,9 @@ public class UpdateCourseAcquisitionByCustomerTest {
         UpdateCourseAcquisitionByCustomer updateCourseAcquisitionByCustomer = new UpdateCourseAcquisitionByCustomer(updateAcquiredCoursePort);
 
         ///Act
-        updateCourseAcquisitionByCustomer.execute(new AcquiredCourse());
+        updateCourseAcquisitionByCustomer.execute(new Customer());
 
         ///Assert
-        verify(updateAcquiredCoursePort, times(1)).updateAcquiredCourse(any(AcquiredCourse.class));
+        verify(updateAcquiredCoursePort, times(1)).updateAcquiredCourse(any(Customer.class));
     }
 }

@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: com.coursesstore.admin.adapters.database.course.acquired.AddAcquiredCourseTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.812 s - in com.coursesstore.admin.adapters.database.course.acquired.AddAcquiredCourseTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 16.16 s <<< FAILURE! - in com.coursesstore.admin.adapters.database.course.acquired.AddAcquiredCourseTest
+Given_a_valid_AcquiredCourse_domain_object_When_the_acquiredCourse_is_not_in_the_database_Then_create_a_new_acquiredCourse  Time elapsed: 0.848 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_ACQUIRED_COURSE WHERE id_acquired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.acquired.AddAcquiredCourseTest.Given_a_valid_AcquiredCourse_domain_object_When_the_acquiredCourse_is_not_in_the_database_Then_create_a_new_acquiredCourse(AddAcquiredCourseTest.java:65)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.acquired.AddAcquiredCourseTest.Given_a_valid_AcquiredCourse_domain_object_When_the_acquiredCourse_is_not_in_the_database_Then_create_a_new_acquiredCourse(AddAcquiredCourseTest.java:65)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Column "ID_ACQUIRED_COURSE" not found; SQL statement:
+SELECT * FROM TB_ACQUIRED_COURSE WHERE id_acquired_course = ? [42122-200]
+	at com.coursesstore.admin.adapters.database.course.acquired.AddAcquiredCourseTest.Given_a_valid_AcquiredCourse_domain_object_When_the_acquiredCourse_is_not_in_the_database_Then_create_a_new_acquiredCourse(AddAcquiredCourseTest.java:65)
+

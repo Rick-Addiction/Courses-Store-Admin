@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: com.coursesstore.admin.adapters.database.course.desired.DeleteDesiredCourseTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 s - in com.coursesstore.admin.adapters.database.course.desired.DeleteDesiredCourseTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.121 s <<< FAILURE! - in com.coursesstore.admin.adapters.database.course.desired.DeleteDesiredCourseTest
+Given_a_DesiredCourse_stored_in_the_database_When_its_requested_to_delete_the_DesiredCourse_Then_it_should_be_done_successfully  Time elapsed: 0.07 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_DESIRED_COURSE WHERE id_desired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.desired.DeleteDesiredCourseTest.Given_a_DesiredCourse_stored_in_the_database_When_its_requested_to_delete_the_DesiredCourse_Then_it_should_be_done_successfully(DeleteDesiredCourseTest.java:62)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.desired.DeleteDesiredCourseTest.Given_a_DesiredCourse_stored_in_the_database_When_its_requested_to_delete_the_DesiredCourse_Then_it_should_be_done_successfully(DeleteDesiredCourseTest.java:62)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Column "ID_DESIRED_COURSE" not found; SQL statement:
+SELECT * FROM TB_DESIRED_COURSE WHERE id_desired_course = ? [42122-200]
+	at com.coursesstore.admin.adapters.database.course.desired.DeleteDesiredCourseTest.Given_a_DesiredCourse_stored_in_the_database_When_its_requested_to_delete_the_DesiredCourse_Then_it_should_be_done_successfully(DeleteDesiredCourseTest.java:62)
+

@@ -14,8 +14,8 @@ public class ExcludeCourseAcquisitionByCustomer {
         this.deleteAcquiredCoursePort = deleteAcquiredCoursePort;
     }
 
-    public void execute(String idAcquiredCourse) {
-        deleteAcquiredCoursePort.deleteAcquiredCourse(idAcquiredCourse);
+    public void execute(String idCustomer,String idCourse) {
+        deleteAcquiredCoursePort.deleteAcquiredCourse(idCustomer,idCourse);
     }
 
 }

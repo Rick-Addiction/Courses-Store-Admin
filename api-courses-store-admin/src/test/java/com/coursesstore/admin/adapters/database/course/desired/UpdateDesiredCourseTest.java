@@ -2,7 +2,9 @@ package com.coursesstore.admin.adapters.database.course.desired;
 
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.CreateCourse;
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
+import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
@@ -65,10 +67,12 @@ public class UpdateDesiredCourseTest {
         desiredCourseToUpdate.setDesireDescription("He wants to increase his knowledge");
 
         UpdateDesiredCourse updateDesiredCourse = new UpdateDesiredCourse(desiredCourseRepository);
-        updateDesiredCourse.updateDesiredCourse(desiredCourseToUpdate);
+        updateDesiredCourse.updateDesiredCourse(customerWithADesiredCourse);
 
         ///Assert
-        Optional<DesiredCourseModel> optionalDesiredCourseModelUpdated = desiredCourseRepository.findByIdDesiredCourse(String.valueOf(desiredCourse.getIdDesiredCourse()));
+        DesiredCourseKey desiredCourseKey = new DesiredCourseKey(String.valueOf(customerWithADesiredCourse.getIdCustomer()),
+                String.valueOf(desiredCourse.getCourse().getIdCourse()));
+        Optional<DesiredCourseModel> optionalDesiredCourseModelUpdated = desiredCourseRepository.findById(desiredCourseKey);
 
         assertTrue(optionalDesiredCourseModelUpdated.isPresent());
 
@@ -76,10 +80,8 @@ public class UpdateDesiredCourseTest {
         Customer customerThatDesiredCourse = DesiredCourseConverter.toEntity(desiredCourseModelUpdated);
         DesiredCourse desiredCourseUpdated = customerThatDesiredCourse.getDesiredCourses().iterator().next();
 
-        assertEquals(desiredCourse.getIdDesiredCourse(), desiredCourseUpdated.getIdDesiredCourse());
         assertEquals(desiredCourse.getDesireDate(), desiredCourseUpdated.getDesireDate());
         assertEquals(desiredCourse.getDesireDescription(), desiredCourseUpdated.getDesireDescription());
-
 
         Course course = desiredCourse.getCourse();
         Course courseCreated = desiredCourseUpdated.getCourse();
@@ -88,7 +90,6 @@ public class UpdateDesiredCourseTest {
         assertEquals(course.getOriginalValue(), courseCreated.getOriginalValue());
         assertEquals(course.getTeacherResponsible().getIdTeacher(), courseCreated.getTeacherResponsible().getIdTeacher());
         assertEquals(course.getTeacherResponsible().getName(), courseCreated.getTeacherResponsible().getName());
-
 
         assertEquals(customerWithADesiredCourse.getIdCustomer(), customerThatDesiredCourse.getIdCustomer());
         assertEquals(customerWithADesiredCourse.getFirstname(), customerThatDesiredCourse.getFirstname());

@@ -35,31 +35,27 @@ public class DeleteCustomerController {
     @DeleteMapping("/{id_customer}")
     public ResponseEntity deleteCustomer (@PathVariable(value = "id_customer", required = false) String idCustomer) {
 
-        Customer customer = new Customer();
-
-        customer.setIdCustomer(UUID.fromString(idCustomer));
-
-        excludeCustomerRegistration.execute(customer);
+        excludeCustomerRegistration.execute(idCustomer);
 
         return new ResponseEntity(new HttpHeaders(), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id_customer}/acquire-course/{id_acquired_course}")
+    @DeleteMapping(value = "/{id_customer}/acquire-course/{id_course}")
     public ResponseEntity<Object> deleteAcquiredCourseByCustomer (@PathVariable(value = "id_customer") String idCustomer,
-                                                               @PathVariable(value = "id_acquired_course") String idAcquiredCourse) {
+                                                               @PathVariable(value = "id_course") String idCourse) {
 
-        excludeCourseAcquisitionByCustomer.execute(idAcquiredCourse);
-        log.info("Acquired Course has been added to the Customer: {}", idAcquiredCourse);
+        excludeCourseAcquisitionByCustomer.execute(idCustomer,idCourse);
+        log.info("Acquired Course {} by Customer {} has been excluded", idCustomer,idCourse);
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id_customer}/desire-course/{id_desired_course}")
+    @DeleteMapping(value = "/{id_customer}/desire-course/{id_course}")
     public ResponseEntity<Object> deleteDesiredCourseByCustomer (@PathVariable(value = "id_customer") String idCustomer,
-                                                               @PathVariable(value = "id_desired_course") String idDesiredCourse) {
+                                                               @PathVariable(value = "id_course") String idCourse) {
 
-        excludeCourseDesiredByCustomer.execute(idDesiredCourse);
-        log.info("Desired Course has been added to the Customer: {}", idDesiredCourse);
+        excludeCourseDesiredByCustomer.execute(idCustomer,idCourse);
+        log.info("Desired Course {} by Customer {} has been excluded", idCustomer,idCourse);
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.OK);
     }

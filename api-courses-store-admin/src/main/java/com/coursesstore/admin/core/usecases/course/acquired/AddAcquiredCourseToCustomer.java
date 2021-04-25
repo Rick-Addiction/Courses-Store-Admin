@@ -25,7 +25,6 @@ public class AddAcquiredCourseToCustomer {
 
         Course course = findCoursePort.findCourse(String.valueOf(customer.getAcquiredCourses().iterator().next().getCourse().getIdCourse()));
         customer.getAcquiredCourses().iterator().next().setCourse(course);
-        customer.getAcquiredCourses().iterator().next().setIdAcquiredCourse(UUID.randomUUID());
 
         addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
     }

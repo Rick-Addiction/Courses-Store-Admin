@@ -3,7 +3,9 @@ package com.coursesstore.admin.adapters.database.course.acquired;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.CreateCourse;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
+import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
@@ -66,10 +68,12 @@ public class UpdateAcquiredCourseTest {
         acquiredCourseToUpdate.setValuePaid(BigDecimal.valueOf(10L).setScale(2));
 
         UpdateAcquiredCourse updateAcquiredCourse = new UpdateAcquiredCourse(acquiredCourseRepository);
-        updateAcquiredCourse.updateAcquiredCourse(acquiredCourseToUpdate);
+        updateAcquiredCourse.updateAcquiredCourse(customerThatAcquiredACourse);
 
         ///Assert
-        Optional<AcquiredCourseModel> optionalAcquiredCourseModelUpdated = acquiredCourseRepository.findByIdAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
+        AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(String.valueOf(customerThatAcquiredACourse.getIdCustomer()),
+                String.valueOf(acquiredCourse.getCourse().getIdCourse()));
+        Optional<AcquiredCourseModel> optionalAcquiredCourseModelUpdated = acquiredCourseRepository.findById(acquiredCourseKey);
 
         assertTrue(optionalAcquiredCourseModelUpdated.isPresent());
 
@@ -77,7 +81,6 @@ public class UpdateAcquiredCourseTest {
         Customer customerThatUpdatedTheAcquiredACourse = AcquiredCourseConverter.toEntity(acquiredCourseModelUpdated);
         AcquiredCourse acquiredCourseUpdated = customerThatUpdatedTheAcquiredACourse.getAcquiredCourses().iterator().next();
 
-        assertEquals(acquiredCourse.getIdAcquiredCourse(), acquiredCourseUpdated.getIdAcquiredCourse());
         assertEquals(acquiredCourse.getAcquisitionDate(), acquiredCourseUpdated.getAcquisitionDate());
         assertEquals(acquiredCourse.getValuePaid(), acquiredCourseUpdated.getValuePaid());
 

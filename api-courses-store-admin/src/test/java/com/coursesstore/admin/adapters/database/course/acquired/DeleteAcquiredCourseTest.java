@@ -2,6 +2,7 @@ package com.coursesstore.admin.adapters.database.course.acquired;
 
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.CreateCourse;
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
@@ -60,10 +61,14 @@ public class DeleteAcquiredCourseTest {
 
         ///Act
         DeleteAcquiredCourse deleteAcquiredCourse = new DeleteAcquiredCourse(acquiredCourseRepository);
-        deleteAcquiredCourse.deleteAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
+        deleteAcquiredCourse.deleteAcquiredCourse(
+                String.valueOf(customerThatAcquiredACourse.getIdCustomer()),
+                String.valueOf(acquiredCourse.getCourse().getIdCourse()));
 
         ///Assert
-        Optional<AcquiredCourseModel> optionalDeletedAcquiredCourseModel = acquiredCourseRepository.findByIdAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
+        AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(String.valueOf(customerThatAcquiredACourse.getIdCustomer()),
+                String.valueOf(acquiredCourse.getCourse().getIdCourse()));
+        Optional<AcquiredCourseModel> optionalDeletedAcquiredCourseModel = acquiredCourseRepository.findById(acquiredCourseKey);
         assertTrue(optionalDeletedAcquiredCourseModel.isEmpty());
     }
 

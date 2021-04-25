@@ -5,6 +5,7 @@ import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutCourse;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
+import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.usecases.course.UpdateCourseRegistration;
 import com.coursesstore.admin.adapters.http.RequestValidator;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutAcquiredCourse;
@@ -24,8 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PutCourseController {
 
     private final UpdateCourseRegistration updateCourseRegistration;
-    private final UpdateCourseAcquisitionByCustomer updateCourseAcquisitionByCustomer;
-    private final UpdateCourseDesiredByCustomer updateCourseDesiredByCustomer;
     private final RequestValidator requestValidator;
 
 
@@ -35,8 +34,6 @@ public class PutCourseController {
                                RequestValidator requestValidator) {
         this.updateCourseRegistration = updateCourseRegistration;
         this.requestValidator = requestValidator;
-        this.updateCourseAcquisitionByCustomer=updateCourseAcquisitionByCustomer;
-        this.updateCourseDesiredByCustomer=updateCourseDesiredByCustomer;
     }
 
     private static final Logger log = LoggerFactory.getLogger(PutCourseController.class);
@@ -53,27 +50,4 @@ public class PutCourseController {
         return ResponseEntity.ok("Registro atualizado com sucesso!");
     }
 
-    @PutMapping("/acquired/update")
-    public ResponseEntity<Object> updateAcquiredCourse (@RequestBody RequestPutAcquiredCourse body) {
-
-        requestValidator.valid(body);
-
-        AcquiredCourse course = PutCourseConverter.toDomain(body);
-
-        updateCourseAcquisitionByCustomer.execute(course);
-
-        return ResponseEntity.ok("Registro atualizado com sucesso!");
-    }
-
-    @PutMapping("/desired/update")
-    public ResponseEntity<Object> updateDesiredCourse (@RequestBody RequestPutDesiredCourse body) {
-
-        requestValidator.valid(body);
-
-        DesiredCourse course = PutCourseConverter.toDomain(body);
-
-        updateCourseDesiredByCustomer.execute(course);
-
-        return ResponseEntity.ok("Registro atualizado com sucesso!");
-    }
 }

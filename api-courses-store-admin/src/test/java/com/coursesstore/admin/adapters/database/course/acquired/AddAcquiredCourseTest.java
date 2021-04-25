@@ -4,6 +4,7 @@ package com.coursesstore.admin.adapters.database.course.acquired;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.CreateCourse;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
@@ -62,7 +63,9 @@ public class AddAcquiredCourseTest {
         addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
 
         ///Assert
-        Optional<AcquiredCourseModel> optionalAcquiredCourseModel = acquiredCourseRepository.findByIdAcquiredCourse(String.valueOf(acquiredCourse.getIdAcquiredCourse()));
+        AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(String.valueOf(customer.getIdCustomer()),
+                String.valueOf(acquiredCourse.getCourse().getIdCourse()));
+        Optional<AcquiredCourseModel> optionalAcquiredCourseModel = acquiredCourseRepository.findById(acquiredCourseKey);
 
         assertTrue(optionalAcquiredCourseModel.isPresent());
 
@@ -71,7 +74,6 @@ public class AddAcquiredCourseTest {
         AcquiredCourse acquiredCourseAdded = customerThatAcquiredTheCourse.getAcquiredCourses().iterator().next();
 
 
-        assertEquals(acquiredCourse.getIdAcquiredCourse(), acquiredCourseAdded.getIdAcquiredCourse());
         assertEquals(acquiredCourse.getAcquisitionDate(), acquiredCourseAdded.getAcquisitionDate());
         assertEquals(acquiredCourse.getValuePaid(), acquiredCourseAdded.getValuePaid());
 

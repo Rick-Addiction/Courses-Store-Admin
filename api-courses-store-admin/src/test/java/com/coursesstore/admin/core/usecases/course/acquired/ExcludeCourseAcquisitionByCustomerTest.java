@@ -1,6 +1,5 @@
 package com.coursesstore.admin.core.usecases.course.acquired;
 
-import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.DeleteAcquiredCoursePort;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,9 +24,9 @@ public class ExcludeCourseAcquisitionByCustomerTest {
         ExcludeCourseAcquisitionByCustomer excludeCourseAcquisitionByCustomer = new ExcludeCourseAcquisitionByCustomer(deleteAcquiredCoursePort);
 
         ///Act
-        excludeCourseAcquisitionByCustomer.execute("id_acquired_course");
+        excludeCourseAcquisitionByCustomer.execute("id_customer","id_course");
 
         ///Assert
-        verify(deleteAcquiredCoursePort, times(1)).deleteAcquiredCourse(any(String.class));
+        verify(deleteAcquiredCoursePort, times(1)).deleteAcquiredCourse(any(String.class),any(String.class));
     }
 }

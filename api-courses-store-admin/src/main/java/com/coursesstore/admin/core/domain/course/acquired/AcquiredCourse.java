@@ -10,19 +10,10 @@ import java.util.UUID;
 
 public class AcquiredCourse {
 
-    UUID idAcquiredCourse;
     Course course;
     LocalDate acquisitionDate;
     BigDecimal valuePaid;
 
-
-    public UUID getIdAcquiredCourse() {
-        return idAcquiredCourse;
-    }
-
-    public void setIdAcquiredCourse(UUID idAcquiredCourse) {
-        this.idAcquiredCourse = idAcquiredCourse;
-    }
 
     public Course getCourse() {
         return course;

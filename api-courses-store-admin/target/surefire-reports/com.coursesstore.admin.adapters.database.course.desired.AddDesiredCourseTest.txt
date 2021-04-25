@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: com.coursesstore.admin.adapters.database.course.desired.AddDesiredCourseTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.088 s - in com.coursesstore.admin.adapters.database.course.desired.AddDesiredCourseTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.163 s <<< FAILURE! - in com.coursesstore.admin.adapters.database.course.desired.AddDesiredCourseTest
+Given_a_valid_DesiredCourse_domain_object_When_the_desiredCourse_is_not_in_the_database_Then_create_a_new_desiredCourse  Time elapsed: 0.11 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_DESIRED_COURSE WHERE id_desired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.desired.AddDesiredCourseTest.Given_a_valid_DesiredCourse_domain_object_When_the_desiredCourse_is_not_in_the_database_Then_create_a_new_desiredCourse(AddDesiredCourseTest.java:64)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.database.course.desired.AddDesiredCourseTest.Given_a_valid_DesiredCourse_domain_object_When_the_desiredCourse_is_not_in_the_database_Then_create_a_new_desiredCourse(AddDesiredCourseTest.java:64)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Column "ID_DESIRED_COURSE" not found; SQL statement:
+SELECT * FROM TB_DESIRED_COURSE WHERE id_desired_course = ? [42122-200]
+	at com.coursesstore.admin.adapters.database.course.desired.AddDesiredCourseTest.Given_a_valid_DesiredCourse_domain_object_When_the_desiredCourse_is_not_in_the_database_Then_create_a_new_desiredCourse(AddDesiredCourseTest.java:64)
+

@@ -1,4 +1,28 @@
 -------------------------------------------------------------------------------
 Test set: com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.676 s - in com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest
+Tests run: 3, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 3.19 s <<< FAILURE! - in com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest
+Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK  Time elapsed: 0.137 s  <<< ERROR!
+org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_ACQUIRED_COURSE WHERE id_acquired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:71)
+Caused by: org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_ACQUIRED_COURSE WHERE id_acquired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:71)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:71)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Column "ID_ACQUIRED_COURSE" not found; SQL statement:
+SELECT * FROM TB_ACQUIRED_COURSE WHERE id_acquired_course = ? [42122-200]
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:71)
+
+Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK  Time elapsed: 0.065 s  <<< ERROR!
+org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_DESIRED_COURSE WHERE id_desired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:85)
+Caused by: org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [SELECT * FROM TB_DESIRED_COURSE WHERE id_desired_course = ?]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:85)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:85)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Column "ID_DESIRED_COURSE" not found; SQL statement:
+SELECT * FROM TB_DESIRED_COURSE WHERE id_desired_course = ? [42122-200]
+	at com.coursesstore.admin.adapters.http.customer.delete.DeleteCustomerControllerTest.Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK(DeleteCustomerControllerTest.java:85)
+

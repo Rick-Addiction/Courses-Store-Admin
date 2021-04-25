@@ -13,10 +13,8 @@ com\coursesstore\admin\adapters\database\course\desired\DeleteDesiredCourseTest.
 com\coursesstore\admin\adapters\database\course\acquired\AddAcquiredCourseTest.class
 com\coursesstore\admin\core\usecases\course\desired\SearchForDesiredCoursesByCustomerTest.class
 com\coursesstore\admin\ApplicationTests.class
-com\coursesstore\admin\adapters\http\customer\get\GetCustomerControllerTest.class
 com\coursesstore\admin\adapters\database\course\desired\AddDesiredCourseTest.class
 com\coursesstore\admin\adapters\database\customer\DeleteCustomerTest.class
-com\coursesstore\admin\adapters\http\customer\post\PostCustomerControllerTest.class
 com\coursesstore\admin\adapters\database\course\CreateCourseTest.class
 com\coursesstore\admin\adapters\database\course\acquired\model\AcquiredCourseConverterTest.class
 com\coursesstore\admin\core\usecases\course\acquired\UpdateCourseAcquisitionByCustomerTest.class
@@ -26,7 +24,6 @@ com\coursesstore\admin\adapters\database\course\DeleteCourseTest.class
 com\coursesstore\admin\adapters\database\customer\model\CustomerConverterTest.class
 com\coursesstore\admin\adapters\database\course\desired\UpdateDesiredCourseTest.class
 com\coursesstore\admin\core\domain\DomainUtils.class
-com\coursesstore\admin\adapters\http\customer\put\PutCustomerControllerTest.class
 com\coursesstore\admin\core\usecases\course\ExcludeCourseRegistrationTest.class
 com\coursesstore\admin\core\usecases\customer\SearchForCustomerTest.class
 com\coursesstore\admin\core\usecases\course\desired\UpdateCourseDesiredByCustomerTest.class

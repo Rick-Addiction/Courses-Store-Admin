@@ -2,6 +2,7 @@ package com.coursesstore.admin.adapters.database.course.desired;
 
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.CreateCourse;
+import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
@@ -59,10 +60,16 @@ public class DeleteDesiredCourseTest {
 
         ///Act
         DeleteDesiredCourse deleteDesiredCourse = new DeleteDesiredCourse(desiredCourseRepository);
-        deleteDesiredCourse.deleteDesiredCourse(String.valueOf(desiredCourse.getIdDesiredCourse()));
+        deleteDesiredCourse.deleteDesiredCourse(
+                String.valueOf(customerWithADesiredCourse.getIdCustomer()),
+                String.valueOf(desiredCourse.getCourse().getIdCourse()));
+
 
         ///Assert
-        Optional<DesiredCourseModel> optionalDeletedDesiredCourseModel = desiredCourseRepository.findByIdDesiredCourse(String.valueOf(desiredCourse.getIdDesiredCourse()));
+        DesiredCourseKey desiredCourseKey = new DesiredCourseKey(
+                String.valueOf(customerWithADesiredCourse.getIdCustomer()),
+                String.valueOf(customerWithADesiredCourse.getDesiredCourses().iterator().next().getCourse().getIdCourse()));
+        Optional<DesiredCourseModel> optionalDeletedDesiredCourseModel = desiredCourseRepository.findById(desiredCourseKey);
         assertTrue(optionalDeletedDesiredCourseModel.isEmpty());
     }
 

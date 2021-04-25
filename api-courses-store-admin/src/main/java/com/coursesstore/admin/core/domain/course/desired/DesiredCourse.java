@@ -10,18 +10,9 @@ import java.util.UUID;
 
 public class DesiredCourse {
 
-    UUID idDesiredCourse;
     LocalDate desireDate;
     String desireDescription;
     Course course;
-
-    public UUID getIdDesiredCourse() {
-        return idDesiredCourse;
-    }
-
-    public void setIdDesiredCourse(UUID idDesiredCourse) {
-        this.idDesiredCourse = idDesiredCourse;
-    }
 
     public Course getCourse() {
         return course;

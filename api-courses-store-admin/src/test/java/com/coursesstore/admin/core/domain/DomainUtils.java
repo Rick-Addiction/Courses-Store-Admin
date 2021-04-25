@@ -85,7 +85,6 @@ public class DomainUtils {
         Customer customer = DomainUtils.generateCustomer();
 
         AcquiredCourse acquiredCourse = new AcquiredCourse();
-        acquiredCourse.setIdAcquiredCourse(UUID.randomUUID());
         acquiredCourse.setValuePaid(BigDecimal.valueOf(50.50f).setScale(2));
         acquiredCourse.setAcquisitionDate(LocalDate.of(2021,03,27));
         acquiredCourse.setCourse(generateCourse());
@@ -98,7 +97,6 @@ public class DomainUtils {
 
     public static Customer generateCustomerWithAnAcquiredCourse(Customer customer, Course course){
         AcquiredCourse acquiredCourse = new AcquiredCourse();
-        acquiredCourse.setIdAcquiredCourse(UUID.randomUUID());
         acquiredCourse.setValuePaid(BigDecimal.valueOf(50.50f).setScale(2));
         acquiredCourse.setAcquisitionDate(LocalDate.of(2021,03,27));
         acquiredCourse.setCourse(course);
@@ -123,7 +121,6 @@ public class DomainUtils {
         Customer customer = generateCustomer();
 
         DesiredCourse desiredCourse = new DesiredCourse();
-        desiredCourse.setIdDesiredCourse(UUID.randomUUID());
         desiredCourse.setDesireDescription("He asked for a discount");
         desiredCourse.setDesireDate(LocalDate.of(2021,03,27));
         desiredCourse.setCourse(generateCourse());
@@ -136,7 +133,6 @@ public class DomainUtils {
 
     public static Customer generateCustomerWithADesiredCourse(Customer customer, Course course){
         DesiredCourse desiredCourse = new DesiredCourse();
-        desiredCourse.setIdDesiredCourse(UUID.randomUUID());
         desiredCourse.setDesireDescription("He asked for a discount");
         desiredCourse.setDesireDate(LocalDate.of(2021,03,27));
         desiredCourse.setCourse(course);

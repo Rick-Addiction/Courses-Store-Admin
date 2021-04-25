@@ -28,38 +28,4 @@ public class PutCourseConverter {
 
         return course;
     }
-
-    public static AcquiredCourse toDomain (RequestPutAcquiredCourse body){
-        AcquiredCourse acquiredCourse = new AcquiredCourse();
-
-        acquiredCourse.setIdAcquiredCourse(UUID.fromString(body.getIdAcquiredCourse()));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        acquiredCourse.setAcquisitionDate(LocalDate.parse(body.getAcquisitionDate(),formatter));
-
-        acquiredCourse.setValuePaid(NumberUtils.parseNumber(body.getValuePaid(),BigDecimal.class));
-
-        Course course = new Course();
-        course.setIdCourse(UUID.fromString(body.getIdCourse()));
-        acquiredCourse.setCourse(course);
-
-        return acquiredCourse;
-    }
-
-    public static DesiredCourse toDomain (RequestPutDesiredCourse body){
-        DesiredCourse desiredCourse = new DesiredCourse();
-
-        desiredCourse.setIdDesiredCourse(UUID.fromString(body.getIdDesiredCourse()));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        desiredCourse.setDesireDate(LocalDate.parse(body.getDesireDate(),formatter));
-
-        desiredCourse.setDesireDescription(body.getDesireDescription());
-
-        Course course = new Course();
-        course.setIdCourse(UUID.fromString(body.getIdCourse()));
-        desiredCourse.setCourse(course);
-
-        return desiredCourse;
-    }
 }

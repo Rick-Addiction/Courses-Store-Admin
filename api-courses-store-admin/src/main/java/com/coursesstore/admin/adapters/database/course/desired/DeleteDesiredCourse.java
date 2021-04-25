@@ -1,9 +1,13 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
+import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.core.domain.course.desired.DeleteDesiredCoursePort;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
+import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class DeleteDesiredCourse implements DeleteDesiredCoursePort {
@@ -14,13 +18,15 @@ public class DeleteDesiredCourse implements DeleteDesiredCoursePort {
     { this.desiredCourseRepository = desiredCourseRepository; }
 
     @Override
-    public void deleteDesiredCourse(String idDesiredCourse) {
+    public void deleteDesiredCourse(String idCustomer,String idCourse) {
 
-        DesiredCourseModel desiredCourseToDelete = null;
 
-        if (idDesiredCourse != null)
-            desiredCourseToDelete = desiredCourseRepository.findByIdDesiredCourse(idDesiredCourse).get();
+        Optional<DesiredCourseModel> desiredCourseToDelete = desiredCourseRepository.findById(new DesiredCourseKey(idCustomer,idCourse));
 
-        desiredCourseRepository.delete(desiredCourseToDelete);
+        if(desiredCourseToDelete.isEmpty())
+            throw new RuntimeException(new String("Desired Course not found -  Customer " + idCustomer + ", Course "+idCourse+"!"));
+
+
+        desiredCourseRepository.delete(desiredCourseToDelete.get());
     }
 }

@@ -26,9 +26,9 @@ public class ExcludeCustomerRegistrationTest {
         ExcludeCustomerRegistration excludeCustomerRegistration = new ExcludeCustomerRegistration(deleteCustomerPort);
 
         ///Act
-        excludeCustomerRegistration.execute(new Customer());
+        excludeCustomerRegistration.execute("id_customer");
 
         ///Assert
-        verify(deleteCustomerPort, times(1)).deleteCustomer(any(Customer.class));
+        verify(deleteCustomerPort, times(1)).deleteCustomer(any(String.class));
     }
 }

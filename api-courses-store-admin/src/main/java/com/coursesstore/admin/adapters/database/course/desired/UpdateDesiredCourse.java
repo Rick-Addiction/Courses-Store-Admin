@@ -1,6 +1,9 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
+import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
+import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
 import com.coursesstore.admin.core.domain.course.Course;
@@ -21,19 +24,9 @@ public class UpdateDesiredCourse implements UpdateDesiredCoursePort {
     }
 
     @Override
-    public void updateDesiredCourse(DesiredCourse desiredCourse){
+    public void updateDesiredCourse(Customer customer){
 
-        DesiredCourseModel desiredCourseModel = desiredCourseRepository.findByIdDesiredCourse(
-                String.valueOf(desiredCourse.getIdDesiredCourse())).get();
-
-        if(desiredCourseModel == null)
-            throw new RuntimeException("Cliente não encontrado!");
-
-        Customer customer = CustomerConverter.toEntity(desiredCourseModel.getCustomer());
-        customer.setDesiredCourses(new HashSet<>());
-        customer.getDesiredCourses().add(desiredCourse);
-
-        desiredCourseModel = DesiredCourseConverter.toModel(customer);
+        DesiredCourseModel desiredCourseModel = DesiredCourseConverter.toModel(customer);
 
         desiredCourseRepository.save(desiredCourseModel);
     }

@@ -12,6 +12,6 @@ public class ExcludeCustomerRegistration {
 
     public ExcludeCustomerRegistration(DeleteCustomerPort deleteCustomerPort){ this.deleteCustomerPort=deleteCustomerPort; }
 
-    public void execute(Customer customer) { deleteCustomerPort.deleteCustomer(customer); }
+    public void execute(String idCustomer) { deleteCustomerPort.deleteCustomer(idCustomer); }
 
 }

@@ -3,6 +3,7 @@ package com.coursesstore.admin.adapters.database.course.desired;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.CreateCourse;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
+import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
@@ -61,7 +62,10 @@ public class AddDesiredCourseTest {
         addDesiredCourse.addNewDesiredCourseByCustomer(customerWithADesiredCourse);
 
         ///Assert
-        Optional<DesiredCourseModel> optionalDesiredCourseModel = desiredCourseRepository.findByIdDesiredCourse(String.valueOf(desiredCourse.getIdDesiredCourse()));
+
+        DesiredCourseKey desiredCourseKey = new DesiredCourseKey(String.valueOf(customerWithADesiredCourse.getIdCustomer()),
+                String.valueOf(desiredCourse.getCourse().getIdCourse()));
+        Optional<DesiredCourseModel> optionalDesiredCourseModel = desiredCourseRepository.findById(desiredCourseKey);
 
         assertTrue(optionalDesiredCourseModel.isPresent());
 
@@ -69,7 +73,6 @@ public class AddDesiredCourseTest {
         Customer customerThatDesiredACourse = DesiredCourseConverter.toEntity(desiredCourseModel);
         DesiredCourse desiredCourseAdded = customerThatDesiredACourse.getDesiredCourses().iterator().next();
 
-        assertEquals(desiredCourse.getIdDesiredCourse(), desiredCourseAdded.getIdDesiredCourse());
         assertEquals(desiredCourse.getDesireDate(), desiredCourseAdded.getDesireDate());
         assertEquals(desiredCourse.getDesireDescription(), desiredCourseAdded.getDesireDescription());
 

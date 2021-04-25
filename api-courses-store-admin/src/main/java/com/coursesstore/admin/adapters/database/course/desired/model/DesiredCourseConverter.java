@@ -15,10 +15,10 @@ public class DesiredCourseConverter {
 
         if(!customer.getDesiredCourses().isEmpty()) {
             DesiredCourse desiredCourse = customer.getDesiredCourses().iterator().next();
-            AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(
+            DesiredCourseKey desiredCourseKey = new DesiredCourseKey(
                     String.valueOf(customer.getIdCustomer()),
                     String.valueOf(desiredCourse.getCourse().getIdCourse()));
-            desiredCourseModel.setIdAcquiredCourse(acquiredCourseKey);
+            desiredCourseModel.setIdDesiredCourse(desiredCourseKey);
             desiredCourseModel.setDesireDescription(desiredCourse.getDesireDescription());
             desiredCourseModel.setDesireDate(desiredCourse.getDesireDate());
             desiredCourseModel.setCourse(CourseConverter.toModel(desiredCourse.getCourse()));
