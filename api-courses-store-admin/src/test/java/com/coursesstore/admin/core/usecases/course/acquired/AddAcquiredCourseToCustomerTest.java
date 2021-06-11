@@ -22,17 +22,12 @@ public class AddAcquiredCourseToCustomerTest {
     @Mock
     private AddAcquiredCoursePort addAcquiredCoursePort;
 
-    @Mock
-    private FindCoursePort findCoursePort;
-
     @Test
     @DisplayName("Given a Acquired Course domain object, When its requested to be registered, Then it should be done successfully")
     public void Given_a_AcquiredCourse_domain_object_When_its_requested_to_be_registered_Then_it_should_be_done_successfully(){
 
         ///Arrange
-        AddAcquiredCourseToCustomer addAcquiredCourseToCustomer = new AddAcquiredCourseToCustomer(addAcquiredCoursePort,findCoursePort);
-
-        when(findCoursePort.findCourse(anyString())).thenReturn(DomainUtils.generateCourse());
+        AddAcquiredCourseToCustomer addAcquiredCourseToCustomer = new AddAcquiredCourseToCustomer(addAcquiredCoursePort);
 
         ///Act
         addAcquiredCourseToCustomer.execute(DomainUtils.generateCustomerWithAnAcquiredCourse());

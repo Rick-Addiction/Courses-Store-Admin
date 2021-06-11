@@ -31,7 +31,6 @@ public class PutTeacherController {
 
     @PutMapping("/update")
     public ResponseEntity<Object> updateTeacher (@RequestBody RequestPutTeacher body) {
-        //TODO Unit Test
         requestValidator.valid(body);
 
         Teacher teacher = PutTeacherConverter.toDomain(body);

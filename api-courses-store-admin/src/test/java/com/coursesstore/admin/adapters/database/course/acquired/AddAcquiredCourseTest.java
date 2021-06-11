@@ -59,7 +59,7 @@ public class AddAcquiredCourseTest {
         createCustomer.createCustomer(customer);
 
         ///Act
-        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,customerRepository);
+        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,courseRepository);
         addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
 
         ///Assert

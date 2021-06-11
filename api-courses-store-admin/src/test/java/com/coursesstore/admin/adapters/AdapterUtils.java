@@ -61,7 +61,7 @@ public class AdapterUtils {
 
     public static Customer registerANewAcquiredCourse(Customer customer, Course course){
         customer = DomainUtils.generateCustomerWithAnAcquiredCourse(customer, course);
-        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,customerRepository);
+        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,courseRepository);
         addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
 
         return customer;
@@ -69,7 +69,7 @@ public class AdapterUtils {
 
     public static Customer registerANewDesiredCourse(Customer customer, Course course){
         customer = DomainUtils.generateCustomerWithADesiredCourse(customer, course);
-        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository);
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,courseRepository);
         addDesiredCourse.addNewDesiredCourseByCustomer(customer);
 
         return customer;

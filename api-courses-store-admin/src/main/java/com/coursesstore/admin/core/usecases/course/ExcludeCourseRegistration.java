@@ -1,7 +1,5 @@
 package com.coursesstore.admin.core.usecases.course;
 
-
-import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.DeleteCoursePort;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +10,6 @@ public class ExcludeCourseRegistration {
 
     public ExcludeCourseRegistration(DeleteCoursePort deleteCoursePort){ this.deleteCoursePort=deleteCoursePort; }
 
-    public void execute(Course course) { deleteCoursePort.deleteCourse(course); }
+    public void execute(String idCourse) { deleteCoursePort.deleteCourse(idCourse); }
 
 }

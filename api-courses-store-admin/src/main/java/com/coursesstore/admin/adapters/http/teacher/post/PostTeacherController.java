@@ -29,7 +29,6 @@ public class PostTeacherController {
 
     @PostMapping(value = "/register", consumes = "application/json")
     public ResponseEntity<Object> registerTeacher (@RequestBody RequestPostTeacher body) {
-        //TODO Unit Test
         requestValidator.valid(body);
 
             Teacher teacher = PostTeacherConverter.toDomain(body);

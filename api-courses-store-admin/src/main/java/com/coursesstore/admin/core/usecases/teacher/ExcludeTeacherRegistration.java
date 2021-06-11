@@ -11,6 +11,6 @@ public class ExcludeTeacherRegistration {
 
     public ExcludeTeacherRegistration(DeleteTeacherPort deleteTeacherPort){ this.deleteTeacherPort=deleteTeacherPort; }
 
-    public void execute(Teacher teacher) { deleteTeacherPort.deleteTeacher(teacher); }
+    public void execute(String idTeacher) { deleteTeacherPort.deleteTeacher(idTeacher); }
 
 }

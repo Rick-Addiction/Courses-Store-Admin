@@ -29,12 +29,7 @@ public class DeleteTeacherController {
 
     @DeleteMapping("/{id_teacher}")
     public ResponseEntity deleteTeacher (@PathVariable(value = "id_teacher", required = false) String idTeacher) {
-        //TODO Unit Test
-        Teacher teacher = new Teacher();
-
-        teacher.setIdTeacher(UUID.fromString(idTeacher));
-
-        excludeTeacherRegistration.execute(teacher);
+        excludeTeacherRegistration.execute(idTeacher);
 
         return new ResponseEntity(new HttpHeaders(), HttpStatus.OK);
     }

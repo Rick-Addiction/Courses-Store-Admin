@@ -2,6 +2,6 @@ package com.coursesstore.admin.core.domain.teacher;
 
 public interface DeleteTeacherPort {
 
-    void deleteTeacher(Teacher teacher);
+    void deleteTeacher(String idTeacher);
 
 }

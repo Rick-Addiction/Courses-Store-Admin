@@ -58,7 +58,7 @@ public class AddDesiredCourseTest {
         createCustomer.createCustomer(customerWithADesiredCourse);
 
         ///Act
-        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository);
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,courseRepository);
         addDesiredCourse.addNewDesiredCourseByCustomer(customerWithADesiredCourse);
 
         ///Assert

@@ -43,7 +43,7 @@ public class DeleteTeacherTest {
 
         ///Act
         DeleteTeacher deleteTeacher = new DeleteTeacher(teacherRepository);
-        deleteTeacher.deleteTeacher(teacherToBeDeleted);
+        deleteTeacher.deleteTeacher(String.valueOf(teacherToBeDeleted.getIdTeacher()));
 
         ///Assert
         Optional<TeacherModel> optionalDeletedTeacherModel = teacherRepository.findByIdTeacher(String.valueOf(teacher.getIdTeacher()));

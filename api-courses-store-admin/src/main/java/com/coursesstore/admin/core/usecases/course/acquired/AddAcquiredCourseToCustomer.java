@@ -13,18 +13,12 @@ import java.util.UUID;
 public class AddAcquiredCourseToCustomer {
 
     private final AddAcquiredCoursePort addAcquiredCourse;
-    private final FindCoursePort findCoursePort;
 
-    public AddAcquiredCourseToCustomer(AddAcquiredCoursePort addAcquiredCourse,
-                                       FindCoursePort findCoursePort){
+    public AddAcquiredCourseToCustomer(AddAcquiredCoursePort addAcquiredCourse){
         this.addAcquiredCourse=addAcquiredCourse;
-        this.findCoursePort=findCoursePort;
     }
 
     public void execute(Customer customer) {
-
-        Course course = findCoursePort.findCourse(String.valueOf(customer.getAcquiredCourses().iterator().next().getCourse().getIdCourse()));
-        customer.getAcquiredCourses().iterator().next().setCourse(course);
 
         addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
     }

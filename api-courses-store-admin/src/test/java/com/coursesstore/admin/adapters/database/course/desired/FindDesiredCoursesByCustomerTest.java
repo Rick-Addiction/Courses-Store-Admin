@@ -49,7 +49,7 @@ public class FindDesiredCoursesByCustomerTest {
         CreateCustomer createCustomer = new CreateCustomer(customerRepository);
         createCustomer.createCustomer(customerWithADesiredCourse);
 
-        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository);
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,courseRepository);
         addDesiredCourse.addNewDesiredCourseByCustomer(customerWithADesiredCourse);
 
         ///Act

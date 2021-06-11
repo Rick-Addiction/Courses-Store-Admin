@@ -60,7 +60,7 @@ public class UpdateAcquiredCourseTest {
         CreateCustomer createCustomer = new CreateCustomer(customerRepository);
         createCustomer.createCustomer(customerThatAcquiredACourse);
 
-        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository, customerRepository);
+        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository, courseRepository);
         addAcquiredCourse.addNewAcquiredCourseByCustomer(customerThatAcquiredACourse);
 
         ///Act

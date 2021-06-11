@@ -1,5 +1,6 @@
 package com.coursesstore.admin.adapters.database.course.acquired;
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
 import com.coursesstore.admin.core.domain.course.acquired.DeleteAcquiredCoursePort;
@@ -20,9 +21,8 @@ public class DeleteAcquiredCourse implements DeleteAcquiredCoursePort {
 
         Optional<AcquiredCourseModel> acquiredCourseToDelete = acquiredCourseRepository.findById(new AcquiredCourseKey(idCustomer, idCourse));
 
-
         if(acquiredCourseToDelete.isEmpty()){
-            throw new RuntimeException(new String("Acquired Course not found -  Customer " + idCustomer + ", Course "+idCourse+"!"));
+            throw new ModelException("Acquired Course not found -  Customer " + idCustomer + ", Course "+idCourse+"!");
         }
 
         acquiredCourseRepository.delete(acquiredCourseToDelete.get());

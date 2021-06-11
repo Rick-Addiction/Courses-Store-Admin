@@ -36,6 +36,7 @@ public class DeleteCustomerController {
     public ResponseEntity deleteCustomer (@PathVariable(value = "id_customer", required = false) String idCustomer) {
 
         excludeCustomerRegistration.execute(idCustomer);
+        log.info("Customer {} has been excluded", idCustomer);
 
         return new ResponseEntity(new HttpHeaders(), HttpStatus.OK);
     }

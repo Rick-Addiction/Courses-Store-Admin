@@ -10,6 +10,8 @@ import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesired
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutCourse;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostCustomer;
 import com.coursesstore.admin.adapters.http.customer.put.dto.RequestPutCustomer;
+import com.coursesstore.admin.adapters.http.teacher.post.dto.RequestPostTeacher;
+import com.coursesstore.admin.adapters.http.teacher.put.dto.RequestPutTeacher;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
@@ -206,6 +208,13 @@ public class DomainUtils {
 
         return requestPutCustomer;
     }
+    public static RequestPutTeacher generateRequestPutTeacher(String idTeacher){
+        RequestPutTeacher requestPutTeacher = new RequestPutTeacher();
+        requestPutTeacher.setIdTeacher(idTeacher);
+        requestPutTeacher.setName("Joel");
+
+        return requestPutTeacher;
+    }
 
     public static RequestPutCourse generateRequestPutCourse(String idCourse, String idTeacher){
         RequestPutCourse requestPutCourse = new RequestPutCourse();
@@ -237,6 +246,11 @@ public class DomainUtils {
         return requestPostDesiredCourseByCustomer;
     }
 
+    public static RequestPostTeacher generateRequestPostTeacher(){
+        RequestPostTeacher requestPostTeacher = new RequestPostTeacher();
+        requestPostTeacher.setName("Joel");
 
+        return requestPostTeacher;
+    }
 
 }

@@ -26,9 +26,9 @@ public class ExcludeCourseRegistrationTest {
         ExcludeCourseRegistration excludeCourseRegistration = new ExcludeCourseRegistration(deleteCoursePort);
 
         ///Act
-        excludeCourseRegistration.execute(new Course());
+        excludeCourseRegistration.execute("id_course");
 
         ///Assert
-        verify(deleteCoursePort, times(1)).deleteCourse(any(Course.class));
+        verify(deleteCoursePort, times(1)).deleteCourse(any(String.class));
     }
 }

@@ -48,7 +48,7 @@ public class DeleteCourseTest {
 
         ///Act
         DeleteCourse deleteCourse = new DeleteCourse(courseRepository);
-        deleteCourse.deleteCourse(courseToBeDeleted);
+        deleteCourse.deleteCourse(String.valueOf(courseToBeDeleted.getIdCourse()));
 
         ///Assert
         Optional<CourseModel> optionalDeletedCourseModel = courseRepository.findByIdCourse(String.valueOf(course.getIdCourse()));
