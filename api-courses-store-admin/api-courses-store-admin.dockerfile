@@ -1,7 +1,7 @@
 FROM maven:3.6.1 AS MAVEN_BUILD
 
 WORKDIR /
-COPY api-courses-store-admin api-courses-store-admin
+COPY /api-courses-store-admin /api-courses-store-admin
 WORKDIR /api-courses-store-admin
 
 RUN mvn clean package
