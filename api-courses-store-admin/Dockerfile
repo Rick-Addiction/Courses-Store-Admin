@@ -5,7 +5,7 @@ COPY . .
 
 RUN mvn clean package
 
-FROM adoptopenjdk/openjdk11:jre-11.0.6_10-alpine
+FROM openjdk:8-jdk-alpine
 WORKDIR /
 RUN apk add --no-cache curl tar bash
 ARG MAVEN_VERSION=3.3.9
