@@ -12,3 +12,4 @@ COPY --from=MAVEN_BUILD api-courses-store-admin/target/api-courses-store-admin-0
 WORKDIR /api-courses-store-admin
 CMD ["java", "-jar", "./api-courses-store-admin/api-courses-store-admin.jar"]
 EXPOSE 8081
+
