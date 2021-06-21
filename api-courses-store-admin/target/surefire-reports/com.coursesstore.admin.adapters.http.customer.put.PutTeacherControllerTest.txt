@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.coursesstore.admin.adapters.http.customer.put.PutTeacherControllerTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.541 s - in com.coursesstore.admin.adapters.http.customer.put.PutTeacherControllerTest
