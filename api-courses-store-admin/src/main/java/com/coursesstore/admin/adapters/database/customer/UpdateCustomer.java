@@ -1,10 +1,13 @@
 package com.coursesstore.admin.adapters.database.customer;
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.domain.customer.UpdateCustomerPort;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class UpdateCustomer implements UpdateCustomerPort {
@@ -18,12 +21,15 @@ public class UpdateCustomer implements UpdateCustomerPort {
     @Override
     public void updateCustomer(Customer customer){
 
-        CustomerModel customerModel = customerRepository.findByIdCustomer(String.valueOf(customer.getIdCustomer())).get();
+        var idCustomer = String.valueOf(customer.getIdCustomer());
 
-        if(customerModel == null)
-            throw new RuntimeException("Cliente não encontrado!");
+        Optional<CustomerModel> customerModelOptional = customerRepository.findByIdCustomer(idCustomer);
 
-        customerModel = CustomerConverter.toModel(customer);
+        if(customerModelOptional.isEmpty()){
+            throw new ModelException("Customer not found -  Customer " + idCustomer +"!");
+        }
+
+        var customerModel = CustomerConverter.toModel(customer);
         customerModel.setIdCustomer(String.valueOf(customer.getIdCustomer()));
 
         customerRepository.save(customerModel);

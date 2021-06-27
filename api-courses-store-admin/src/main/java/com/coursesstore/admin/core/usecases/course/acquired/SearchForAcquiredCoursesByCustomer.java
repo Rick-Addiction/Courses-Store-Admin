@@ -2,8 +2,6 @@ package com.coursesstore.admin.core.usecases.course.acquired;
 
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.FindAcquiredCoursesByCustomerPort;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,8 +14,6 @@ public class SearchForAcquiredCoursesByCustomer {
     public SearchForAcquiredCoursesByCustomer(FindAcquiredCoursesByCustomerPort findAcquiredCoursesByCustomerPort){
         this.findAcquiredCoursesByCustomerPort = findAcquiredCoursesByCustomerPort;
     }
-
-    private static final Logger log = LoggerFactory.getLogger(SearchForAcquiredCoursesByCustomer.class);
 
     public List<AcquiredCourse> execute(String customerId){
 

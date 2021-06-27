@@ -18,8 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8101"})
-
-public class UpdateCourseTest {
+class UpdateCourseTest {
 
     @Autowired
     private CourseRepository courseRepository;
@@ -29,7 +28,7 @@ public class UpdateCourseTest {
 
     @Test
     @DisplayName("Given a valid Course stored in the database, When its requested to update the Course, Then it should be done successfully")
-    public void Given_a_valid_Course_stored_in_the_database_When_its_requested_to_update_the_Course_Then_it_should_be_done_successfully() {
+    void Given_a_valid_Course_stored_in_the_database_When_its_requested_to_update_the_Course_Then_it_should_be_done_successfully() {
 
         ///Arrange
         Course course = DomainUtils.generateCourse();

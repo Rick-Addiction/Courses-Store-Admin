@@ -10,15 +10,19 @@ import java.util.List;
 
 public class GetCustomerConverter {
 
+    private GetCustomerConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ResponseGetCustomer toResponseGetCustomer(List<Customer> listCustomers) {
-        ResponseGetCustomer responseGetCustomer = new ResponseGetCustomer();
+        var responseGetCustomer = new ResponseGetCustomer();
 
         if (!listCustomers.isEmpty()) {
 
             responseGetCustomer.setCustomers(new ArrayList<>());
 
             for (Customer c : listCustomers) {
-                ResponseGetCustomer.Customer customer = new ResponseGetCustomer.Customer();
+                var customer = new ResponseGetCustomer.Customer();
                 customer.setIdCustomer(String.valueOf(c.getIdCustomer()));
                 customer.setFirstname(c.getFirstname());
                 customer.setLastname(c.getLastname());
@@ -37,13 +41,13 @@ public class GetCustomerConverter {
 
     public static ResponseGetAcquiredCoursesByCustomer toResponseGetAcquiredCoursesByCustomer
             (List<AcquiredCourse> listAcquiredCoursesByCustomer,List<Course> listNotAcquiredCourses) {
-        ResponseGetAcquiredCoursesByCustomer responseGetAcquiredCoursesByCustomer = new ResponseGetAcquiredCoursesByCustomer();
+        var responseGetAcquiredCoursesByCustomer = new ResponseGetAcquiredCoursesByCustomer();
 
         if (!listAcquiredCoursesByCustomer.isEmpty()) {
             responseGetAcquiredCoursesByCustomer.setAcquiredCourses(new ArrayList<>());
 
             for (AcquiredCourse ac : listAcquiredCoursesByCustomer) {
-                ResponseGetAcquiredCoursesByCustomer.AcquiredCourse acquiredCourse = new ResponseGetAcquiredCoursesByCustomer.AcquiredCourse();
+                var acquiredCourse = new ResponseGetAcquiredCoursesByCustomer.AcquiredCourse();
                 acquiredCourse.setCourseName(ac.getCourse().getName());
                 acquiredCourse.setAcquisitionDate(String.valueOf(ac.getAcquisitionDate()));
                 acquiredCourse.setValuePaid(String.valueOf(ac.getValuePaid()));
@@ -56,7 +60,7 @@ public class GetCustomerConverter {
             responseGetAcquiredCoursesByCustomer.setNotAcquiredCourses(new ArrayList<>());
 
             for (Course c : listNotAcquiredCourses) {
-                ResponseGetAcquiredCoursesByCustomer.Course notAcquiredCourse = new ResponseGetAcquiredCoursesByCustomer.Course();
+                var notAcquiredCourse = new ResponseGetAcquiredCoursesByCustomer.Course();
                 notAcquiredCourse.setIdCourse(String.valueOf(c.getIdCourse()));
                 notAcquiredCourse.setName(c.getName());
 
@@ -69,13 +73,13 @@ public class GetCustomerConverter {
 
     public static ResponseGetDesiredCoursesByCustomer toResponseGetDesiredCoursesByCustomer
             (List<DesiredCourse> listDesiredCoursesByCustomer,List<Course> listNotDesiredCourses) {
-        ResponseGetDesiredCoursesByCustomer responseGetDesiredCoursesByCustomer = new ResponseGetDesiredCoursesByCustomer();
+        var responseGetDesiredCoursesByCustomer = new ResponseGetDesiredCoursesByCustomer();
 
         if (!listDesiredCoursesByCustomer.isEmpty()) {
             responseGetDesiredCoursesByCustomer.setDesiredCourses(new ArrayList<>());
 
             for (DesiredCourse dc : listDesiredCoursesByCustomer) {
-                ResponseGetDesiredCoursesByCustomer.DesiredCourse desiredCourse = new ResponseGetDesiredCoursesByCustomer.DesiredCourse();
+                var desiredCourse = new ResponseGetDesiredCoursesByCustomer.DesiredCourse();
                 desiredCourse.setCourseName(dc.getCourse().getName());
                 desiredCourse.setDesireDate(String.valueOf(dc.getDesireDate()));
                 desiredCourse.setDesireDescription(dc.getDesireDescription());
@@ -88,7 +92,7 @@ public class GetCustomerConverter {
             responseGetDesiredCoursesByCustomer.setNotDesiredCourses(new ArrayList<>());
 
             for (Course c : listNotDesiredCourses) {
-                ResponseGetDesiredCoursesByCustomer.Course notDesiredCourse = new ResponseGetDesiredCoursesByCustomer.Course();
+                var notDesiredCourse = new ResponseGetDesiredCoursesByCustomer.Course();
                 notDesiredCourse.setIdCourse(String.valueOf(c.getIdCourse()));
                 notDesiredCourse.setName(c.getName());
 

@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class CustomerConverterTest {
+class CustomerConverterTest {
 
     @Test
     @DisplayName("Given a valid Customer entity, When the object is converted to a Customer model, Then It should be done successfully")
-    public void Given_a_valid_Customer_entity_When_the_object_is_converted_to_a_Customer_model_Then_It_should_be_done_successfully(){
+    void Given_a_valid_Customer_entity_When_the_object_is_converted_to_a_Customer_model_Then_It_should_be_done_successfully(){
 
         ///Arrange
         Customer customer = DomainUtils.generateCustomer();
@@ -39,7 +39,7 @@ public class CustomerConverterTest {
 
     @Test
     @DisplayName("Given a valid Customer model, When the object is converted to a Customer entity, Then It should be done successfully")
-    public void Given_a_valid_Customer_model_When_the_object_is_converted_to_a_Customer_entity_Then_It_should_be_done_successfully(){
+    void Given_a_valid_Customer_model_When_the_object_is_converted_to_a_Customer_entity_Then_It_should_be_done_successfully(){
 
         ///Arrange
         CustomerModel customerModel = DomainUtils.generateCustomerModel();

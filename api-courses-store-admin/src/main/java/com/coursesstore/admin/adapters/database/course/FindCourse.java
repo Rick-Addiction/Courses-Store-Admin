@@ -1,43 +1,45 @@
 package com.coursesstore.admin.adapters.database.course;
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.FindCoursePort;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
 public class FindCourse implements FindCoursePort {
 
-    private final CourseRepository CourseRepository;
+    private final CourseRepository courseRepository;
 
-    public FindCourse(CourseRepository CourseRepository){
-        this.CourseRepository=CourseRepository;
+    public FindCourse(CourseRepository courseRepository){
+        this.courseRepository=courseRepository;
     }
-
-
-    private static final Logger log = LoggerFactory.getLogger(FindCourse.class);
 
     @Override
     public Course findCourse(String idCourse) {
-        //TODO Refine the search for Courses
 
-        CourseModel courseModel = CourseRepository.findByIdCourse(idCourse).get();
+        Optional<CourseModel> courseModelOptional = courseRepository.findByIdCourse(idCourse);
 
-            Course course = new Course();
-            course.setIdCourse(UUID.fromString(courseModel.getIdCourse()));
-            course.setName(courseModel.getName());
-            course.setOriginalValue(courseModel.getOriginalValue());
+        if(courseModelOptional.isEmpty()){
+            throw new ModelException("Course not found -  Course " + idCourse +"!");
+        }
 
-            Teacher teacherResponsible = new Teacher();
-            teacherResponsible.setIdTeacher(UUID.fromString(courseModel.getTeacherResponsible().getIdTeacher()));
-            teacherResponsible.setName(courseModel.getTeacherResponsible().getName());
-            course.setTeacherResponsible(teacherResponsible);
+        var courseModel = courseModelOptional.get();
+
+        var course = new Course();
+        course.setIdCourse(UUID.fromString(courseModel.getIdCourse()));
+        course.setName(courseModel.getName());
+        course.setOriginalValue(courseModel.getOriginalValue());
+
+        var teacherResponsible = new Teacher();
+        teacherResponsible.setIdTeacher(UUID.fromString(courseModel.getTeacherResponsible().getIdTeacher()));
+        teacherResponsible.setName(courseModel.getTeacherResponsible().getName());
+        course.setTeacherResponsible(teacherResponsible);
 
 
         return course;
@@ -47,19 +49,17 @@ public class FindCourse implements FindCoursePort {
     public List<Course>  findCourse() {
         Iterable<CourseModel> listCoursesModel;
 
-        //TODO Refine the search for Courses
-
-        listCoursesModel = CourseRepository.findAll();
+        listCoursesModel = courseRepository.findAll();
 
         List<Course> listCourses = new ArrayList<>();
 
         for (CourseModel c : listCoursesModel) {
-            Course course = new Course();
+            var course = new Course();
             course.setIdCourse(UUID.fromString(c.getIdCourse()));
             course.setName(c.getName());
             course.setOriginalValue(c.getOriginalValue());
 
-            Teacher teacherResponsible = new Teacher();
+            var teacherResponsible = new Teacher();
             teacherResponsible.setIdTeacher(UUID.fromString(c.getTeacherResponsible().getIdTeacher()));
             teacherResponsible.setName(c.getTeacherResponsible().getName());
             course.setTeacherResponsible(teacherResponsible);

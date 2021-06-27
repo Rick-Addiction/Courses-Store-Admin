@@ -6,15 +6,19 @@ import java.util.List;
 
 public class GetCourseConverter {
 
+    private GetCourseConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ResponseGetCourse toResponseGetCourse(List<Course> listCourses) {
-        ResponseGetCourse responseGetCourse = new ResponseGetCourse();
-//TODO Unit Test
+        var responseGetCourse = new ResponseGetCourse();
+
         if(!listCourses.isEmpty()) {
 
             responseGetCourse.setCourses(new ArrayList<>());
 
             for (Course c : listCourses) {
-                ResponseGetCourse.Course course = new ResponseGetCourse.Course();
+                var course = new ResponseGetCourse.Course();
                 course.setIdCourse(String.valueOf(c.getIdCourse()));
                 course.setName(c.getName());
                 course.setOriginalValue(String.valueOf(c.getOriginalValue()));

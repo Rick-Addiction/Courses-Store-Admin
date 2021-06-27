@@ -12,14 +12,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-public class ExcludeCourseRegistrationTest {
+class ExcludeCourseRegistrationTest {
 
     @Mock
     private DeleteCoursePort deleteCoursePort;
 
     @Test
     @DisplayName("Given a Course domain object, When this Course is excluded, Then it should be done successfully")
-    public void Given_a_Course_domain_object_When_this_Course_is_excluded_Then_it_should_be_done_successfully(){
+    void Given_a_Course_domain_object_When_this_Course_is_excluded_Then_it_should_be_done_successfully(){
 
         ///Arrange
         ExcludeCourseRegistration excludeCourseRegistration = new ExcludeCourseRegistration(deleteCoursePort);

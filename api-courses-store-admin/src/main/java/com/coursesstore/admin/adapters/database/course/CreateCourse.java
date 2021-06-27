@@ -8,17 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateCourse implements CreateCoursePort {
 
-    private final CourseRepository CourseRepository;
+    private final CourseRepository courseRepository;
 
-    public CreateCourse(CourseRepository CourseRepository){
-        this.CourseRepository=CourseRepository;
+    public CreateCourse(CourseRepository courseRepository){
+        this.courseRepository=courseRepository;
     }
 
     @Override
     public void createCourse(Course course) {
         try {
-            CourseModel CourseModel = CourseConverter.toModel(course);
-            CourseRepository.save(CourseModel);
+            var courseModel = CourseConverter.toModel(course);
+            courseRepository.save(courseModel);
         } catch (Exception ex) {
             throw new CourseConflictException();
         }

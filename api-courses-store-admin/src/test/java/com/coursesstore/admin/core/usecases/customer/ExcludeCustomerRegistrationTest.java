@@ -12,14 +12,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-public class ExcludeCustomerRegistrationTest {
+class ExcludeCustomerRegistrationTest {
 
     @Mock
     private DeleteCustomerPort deleteCustomerPort;
 
     @Test
     @DisplayName("Given a Customer domain object, When this customer is excluded, Then it should be done successfully")
-    public void Given_a_Customer_domain_object_When_this_customer_is_excluded_Then_it_should_be_done_successfully(){
+    void Given_a_Customer_domain_object_When_this_customer_is_excluded_Then_it_should_be_done_successfully(){
 
         ///Arrange
         ExcludeCustomerRegistration excludeCustomerRegistration = new ExcludeCustomerRegistration(deleteCustomerPort);

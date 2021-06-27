@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class UpdateAcquiredCourseTest {
+class UpdateAcquiredCourseTest {
 
     @Autowired
     private AcquiredCourseRepository acquiredCourseRepository;
@@ -51,7 +51,7 @@ public class UpdateAcquiredCourseTest {
 
     @Test
     @DisplayName("Given a valid AcquiredCourse stored in the database, When its requested to update the AcquiredCourse, Then it should be done successfully")
-    public void Given_a_valid_AcquiredCourse_stored_in_the_database_When_its_requested_to_update_the_AcquiredCourse_Then_it_should_be_done_successfully() {
+    void Given_a_valid_AcquiredCourse_stored_in_the_database_When_its_requested_to_update_the_AcquiredCourse_Then_it_should_be_done_successfully() {
 
         ///Arrange
         Customer customerThatAcquiredACourse = AdapterUtils.registerANewCustomer();
@@ -105,8 +105,6 @@ public class UpdateAcquiredCourseTest {
         assertEquals(customerThatAcquiredACourse.getLinkedIn(), customerThatUpdatedTheAcquiredACourse.getLinkedIn());
         assertEquals(customerThatAcquiredACourse.getCompany(), customerThatUpdatedTheAcquiredACourse.getCompany());
         assertEquals(customerThatAcquiredACourse.getPosition(), customerThatUpdatedTheAcquiredACourse.getPosition());
-
-
-    }
+}
     
 }

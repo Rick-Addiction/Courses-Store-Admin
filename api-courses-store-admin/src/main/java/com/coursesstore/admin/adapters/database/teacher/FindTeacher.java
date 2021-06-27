@@ -4,8 +4,6 @@ package com.coursesstore.admin.adapters.database.teacher;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
 import com.coursesstore.admin.core.domain.teacher.FindTeacherPort;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,9 +19,6 @@ public class FindTeacher implements FindTeacherPort {
         this.teacherRepository=teacherRepository;
     }
 
-
-    private static final Logger log = LoggerFactory.getLogger(FindTeacher.class);
-
     @Override
     public List<Teacher> findTeacher(String teacherSearchValues) {
         Iterable<TeacherModel> listTeachersModel;
@@ -33,7 +28,7 @@ public class FindTeacher implements FindTeacherPort {
         List<Teacher> listTeachers = new ArrayList<>();
 
         for (TeacherModel c : listTeachersModel) {
-            Teacher teacher = new Teacher();
+            var teacher = new Teacher();
             teacher.setIdTeacher(UUID.fromString(c.getIdTeacher()));
             teacher.setName(c.getName());
 

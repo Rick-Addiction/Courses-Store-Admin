@@ -3,7 +3,6 @@ package com.coursesstore.admin.adapters.http.teacher.post;
 import com.coursesstore.admin.adapters.http.RequestValidator;
 import com.coursesstore.admin.adapters.http.teacher.post.dto.PostTeacherConverter;
 import com.coursesstore.admin.adapters.http.teacher.post.dto.RequestPostTeacher;
-import com.coursesstore.admin.core.domain.teacher.Teacher;
 import com.coursesstore.admin.core.usecases.teacher.RegisterNewTeacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostTeacherController {
 
     private final RegisterNewTeacher registerNewTeacher;
-    private final RequestValidator requestValidator;
+    private final RequestValidator<RequestPostTeacher> requestValidator;
 
     public PostTeacherController(RegisterNewTeacher registerNewTeacher,
-                                 RequestValidator requestValidator){
+                                 RequestValidator<RequestPostTeacher> requestValidator){
         this.registerNewTeacher = registerNewTeacher;
         this.requestValidator = requestValidator;
     }
@@ -34,10 +33,10 @@ public class PostTeacherController {
     public ResponseEntity<Object> registerTeacher (@RequestBody RequestPostTeacher body) {
         requestValidator.valid(body);
 
-            Teacher teacher = PostTeacherConverter.toDomain(body);
+        var teacher = PostTeacherConverter.toDomain(body);
 
-            registerNewTeacher.execute(teacher);
-            log.info("Teacher has been registered: {}", teacher);
+        registerNewTeacher.execute(teacher);
+        log.info("Teacher has been registered: {}", teacher);
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.CREATED);
     }

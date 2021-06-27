@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8105"})
 @AutoConfigureMockMvc
-public class PostTeacherControllerTest {
+class PostTeacherControllerTest {
 
     final String REQUEST_PATH = "/courses-store/teacher";
 
@@ -38,7 +38,7 @@ public class PostTeacherControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to post a Teacher, When its requested to create a Teacher, Then response with the status CREATED")
-    public void Given_a_valid_Request_to_post_a_Teacher_When_its_requested_to_create_a_Teacher_Then_response_with_the_status_CREATED() throws Exception {
+    void Given_a_valid_Request_to_post_a_Teacher_When_its_requested_to_create_a_Teacher_Then_response_with_the_status_CREATED() throws Exception {
 
         mockMvc.perform(
                 post(REQUEST_PATH+ "/register")

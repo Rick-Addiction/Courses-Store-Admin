@@ -21,15 +21,13 @@ public class FindAcquiredCourse implements FindAcquiredCoursePort {
 
     @Override
     public AcquiredCourse findAcquiredCourse(String idCustomer, String idCourse) {
-        AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(
+        var acquiredCourseKey = new AcquiredCourseKey(
                 idCustomer,
                 idCourse
         );
 
         Optional<AcquiredCourseModel> acquiredCourseModel = acquiredCourseRepository.findById(acquiredCourseKey);
 
-        return acquiredCourseModel.isPresent() ?
-                AcquiredCourseConverter.toEntity(acquiredCourseModel.get())
-                : null;
+        return acquiredCourseModel.map(AcquiredCourseConverter::toEntity).orElse(null);
     }
 }

@@ -12,13 +12,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-public class ExcludeCourseDesiredByCustomerTest {
+class ExcludeCourseDesiredByCustomerTest {
     @Mock
     private DeleteDesiredCoursePort deleteDesiredCoursePort;
 
     @Test
     @DisplayName("Given a Desired Course domain object, When this Desired Course is excluded, Then it should be done successfully")
-    public void Given_a_DesiredCourse_domain_object_When_this_DesiredCourse_is_excluded_Then_it_should_be_done_successfully(){
+    void Given_a_DesiredCourse_domain_object_When_this_DesiredCourse_is_excluded_Then_it_should_be_done_successfully(){
 
         ///Arrange
         ExcludeCourseDesiredByCustomer excludeCourseDesiredByCustomer = new ExcludeCourseDesiredByCustomer(deleteDesiredCoursePort);

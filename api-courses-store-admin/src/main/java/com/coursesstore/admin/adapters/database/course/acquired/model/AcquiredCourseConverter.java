@@ -10,9 +10,13 @@ import java.util.HashSet;
 
 public class AcquiredCourseConverter {
 
+    private AcquiredCourseConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static AcquiredCourseModel toModel(CustomerModel customerModel,AcquiredCourse acquiredCourse ){
-        AcquiredCourseModel acquiredCourseModel = new AcquiredCourseModel();
-            AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(
+        var acquiredCourseModel = new AcquiredCourseModel();
+        var acquiredCourseKey = new AcquiredCourseKey(
                     customerModel.getIdCustomer(),
                     String.valueOf(acquiredCourse.getCourse().getIdCourse()));
             acquiredCourseModel.setIdAcquiredCourse(acquiredCourseKey);
@@ -25,7 +29,7 @@ public class AcquiredCourseConverter {
     }
 
     public static AcquiredCourseModel toModel(AcquiredCourse acquiredCourse){
-        AcquiredCourseModel acquiredCourseModel = new AcquiredCourseModel();
+        var acquiredCourseModel = new AcquiredCourseModel();
 
             acquiredCourseModel.setAcquisitionDate(acquiredCourse.getAcquisitionDate());
             acquiredCourseModel.setValuePaid(acquiredCourse.getValuePaid());
@@ -35,9 +39,9 @@ public class AcquiredCourseConverter {
     }
 
     public static Customer toCustomerWithEntity(AcquiredCourseModel acquiredCourseModel){
-        Customer customer = CustomerConverter.toEntity(acquiredCourseModel.getCustomer());
+        var customer = CustomerConverter.toEntity(acquiredCourseModel.getCustomer());
 
-        AcquiredCourse acquiredCourse = new AcquiredCourse();
+        var acquiredCourse = new AcquiredCourse();
         acquiredCourse.setAcquisitionDate(acquiredCourseModel.getAcquisitionDate());
         acquiredCourse.setValuePaid(acquiredCourseModel.getValuePaid());
         acquiredCourse.setCourse(CourseConverter.toEntity(acquiredCourseModel.getCourse()));
@@ -49,7 +53,7 @@ public class AcquiredCourseConverter {
     }
 
     public static AcquiredCourse toEntity(AcquiredCourseModel acquiredCourseModel){
-        AcquiredCourse acquiredCourse = new AcquiredCourse();
+        var acquiredCourse = new AcquiredCourse();
         acquiredCourse.setAcquisitionDate(acquiredCourseModel.getAcquisitionDate());
         acquiredCourse.setValuePaid(acquiredCourseModel.getValuePaid());
         acquiredCourse.setCourse(CourseConverter.toEntity(acquiredCourseModel.getCourse()));

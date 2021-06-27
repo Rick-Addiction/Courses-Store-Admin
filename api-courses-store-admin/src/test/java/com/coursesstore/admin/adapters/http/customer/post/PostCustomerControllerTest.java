@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8105"})
 @AutoConfigureMockMvc
-public class PostCustomerControllerTest {
+class PostCustomerControllerTest {
 
     final String REQUEST_PATH = "/courses-store/customer";
 
@@ -39,7 +39,7 @@ public class PostCustomerControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to post a Customer, When its requested to create a Customer, Then response with the status CREATED")
-    public void Given_a_valid_Request_to_post_a_Customer_When_its_requested_to_create_a_Customer_Then_response_with_the_status_CREATED() throws Exception {
+    void Given_a_valid_Request_to_post_a_Customer_When_its_requested_to_create_a_Customer_Then_response_with_the_status_CREATED() throws Exception {
 
         mockMvc.perform(
                 post(REQUEST_PATH+ "/register")
@@ -51,7 +51,7 @@ public class PostCustomerControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to post an Acquired Course by Customer, When its requested to add a Acquired Course, Then response with the status CREATED")
-    public void Given_a_valid_Request_to_post_an_Acquired_Course_by_Customer_When_its_requested_to_add_a_Acquired_Course_Then_response_with_the_status_CREATED() throws Exception {
+    void Given_a_valid_Request_to_post_an_Acquired_Course_by_Customer_When_its_requested_to_add_a_Acquired_Course_Then_response_with_the_status_CREATED() throws Exception {
 
         //Arrange
         Customer customer = registerANewCustomer();
@@ -66,7 +66,7 @@ public class PostCustomerControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to post an Desired Course by Customer, When its requested to add a Desired Course, Then response with the status CREATED")
-    public void Given_a_valid_Request_to_post_an_Desired_Course_by_Customer_When_its_requested_to_add_a_Desired_Course_Then_response_with_the_status_CREATED() throws Exception {
+    void Given_a_valid_Request_to_post_an_Desired_Course_by_Customer_When_its_requested_to_add_a_Desired_Course_Then_response_with_the_status_CREATED() throws Exception {
 
         //Arrange
         Customer customer = registerANewCustomer();

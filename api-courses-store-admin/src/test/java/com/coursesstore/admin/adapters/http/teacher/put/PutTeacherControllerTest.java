@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8103"})
 @AutoConfigureMockMvc
-public class PutTeacherControllerTest {
+class PutTeacherControllerTest {
 
     final String REQUEST_PATH = "/courses-store/teacher";
 
@@ -34,7 +34,7 @@ public class PutTeacherControllerTest {
     Teacher teacherToUpdate;
 
     @BeforeEach
-    public void setUp(){
+    void setUp(){
         teacherToUpdate = DomainUtils.generateTeacher();
         CreateTeacher createTeacher = new CreateTeacher(teacherRepository);
         createTeacher.createTeacher(teacherToUpdate);
@@ -45,7 +45,7 @@ public class PutTeacherControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to put a Teacher, When its requested to update a Teacher, Then response with the status OK")
-    public void Given_a_valid_Request_to_put_a_Teacher_When_its_requested_to_update_a_Teacher_Then_response_with_the_status_OK() throws Exception {
+    void Given_a_valid_Request_to_put_a_Teacher_When_its_requested_to_update_a_Teacher_Then_response_with_the_status_OK() throws Exception {
 
         ///Arrange
         RequestPutTeacher requestPutTeacher = DomainUtils.generateRequestPutTeacher(String.valueOf(teacherToUpdate.getIdTeacher()));

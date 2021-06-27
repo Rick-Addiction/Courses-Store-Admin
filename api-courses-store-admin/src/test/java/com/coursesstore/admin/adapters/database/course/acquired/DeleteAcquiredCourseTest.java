@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class DeleteAcquiredCourseTest {
+class DeleteAcquiredCourseTest {
 
     @Autowired
     private AcquiredCourseRepository acquiredCourseRepository;
@@ -42,7 +42,7 @@ public class DeleteAcquiredCourseTest {
 
     @Test
     @DisplayName("Given a AcquiredCourse which is stored in the database, When its requested to delete the AcquiredCourse, Then it should be done successfully")
-    public void Given_a_AcquiredCourse_stored_in_the_database_When_its_requested_to_delete_the_AcquiredCourse_Then_it_should_be_done_successfully () {
+    void Given_a_AcquiredCourse_stored_in_the_database_When_its_requested_to_delete_the_AcquiredCourse_Then_it_should_be_done_successfully () {
 
         ///Arrange
         Customer customer = AdapterUtils.registerANewCustomer();

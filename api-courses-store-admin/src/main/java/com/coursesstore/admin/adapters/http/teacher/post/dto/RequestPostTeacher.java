@@ -6,10 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 public class RequestPostTeacher {
 
-    public RequestPostTeacher(){
-
-    }
-
     @JsonProperty("name")
     @NotBlank
     private String name;

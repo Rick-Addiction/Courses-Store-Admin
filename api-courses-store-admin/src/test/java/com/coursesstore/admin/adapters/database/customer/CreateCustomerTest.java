@@ -18,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class CreateCustomerTest {
+class CreateCustomerTest {
 
     @Autowired
     private CustomerRepository customerRepository;
 
     @Test
     @DisplayName("Given a valid Customer domain object, When the customer is not in the database, Then create a new customer")
-    public void Given_a_valid_Customer_domain_object_When_the_customer_is_not_in_the_database_Then_create_a_new_customer(){
+    void Given_a_valid_Customer_domain_object_When_the_customer_is_not_in_the_database_Then_create_a_new_customer(){
 
         ///Arrange
         Customer customer = DomainUtils.generateCustomer();

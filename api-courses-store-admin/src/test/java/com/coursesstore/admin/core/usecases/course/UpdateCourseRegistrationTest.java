@@ -13,14 +13,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-public class UpdateCourseRegistrationTest {
+class UpdateCourseRegistrationTest {
 
     @Mock
     private UpdateCoursePort updateCoursePort;
 
     @Test
     @DisplayName("Given a Course domain object, When this Course is updated, Then it should be done successfully")
-    public void Given_a_Course_domain_object_When_this_Course_is_updated_Then_it_should_be_done_successfully(){
+    void Given_a_Course_domain_object_When_this_Course_is_updated_Then_it_should_be_done_successfully(){
 
         ///Arrange
         UpdateCourseRegistration updateCourseRegistration = new UpdateCourseRegistration(updateCoursePort);

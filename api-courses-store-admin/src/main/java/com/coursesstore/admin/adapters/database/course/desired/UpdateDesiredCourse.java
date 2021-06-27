@@ -2,7 +2,6 @@ package com.coursesstore.admin.adapters.database.course.desired;
 
 import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
-import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
@@ -32,7 +31,7 @@ public class UpdateDesiredCourse implements UpdateDesiredCoursePort {
             throw new ModelException("Customer not found -  Customer " + idCustomer +"!");
         }
 
-        DesiredCourseModel desiredCourseModel = DesiredCourseConverter.toModel(customerModel.get(),desiredCourse);
+        var desiredCourseModel = DesiredCourseConverter.toModel(customerModel.get(),desiredCourse);
 
         desiredCourseRepository.save(desiredCourseModel);
     }

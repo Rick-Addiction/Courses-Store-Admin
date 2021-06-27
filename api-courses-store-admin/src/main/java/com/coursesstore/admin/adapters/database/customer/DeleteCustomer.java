@@ -1,5 +1,6 @@
 package com.coursesstore.admin.adapters.database.customer;
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.customer.DeleteCustomerPort;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,10 @@ public class DeleteCustomer implements DeleteCustomerPort {
     public void deleteCustomer(String idCustomer) {
 
         Optional<CustomerModel> customerToDelete = customerRepository.findByIdCustomer(idCustomer);
+
+        if(customerToDelete.isEmpty()){
+            throw new ModelException("Customer not found -  Customer " + idCustomer +"!");
+        }
 
         customerRepository.delete(customerToDelete.get());
     }

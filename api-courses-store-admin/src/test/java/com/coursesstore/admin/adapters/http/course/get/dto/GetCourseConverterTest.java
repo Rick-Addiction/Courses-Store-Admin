@@ -9,11 +9,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GetCourseConverterTest {
+class GetCourseConverterTest {
 
     @Test
     @DisplayName("Given a valid List of Course entities domain, When these objects is converted to a ResponseGetCourse, Then It should be done successfully")
-    public void Given_a_valid_RequestPutCourse_When_the_object_is_converted_to_a_Course_entity_domain_Then_It_should_be_done_successfully() {
+    void Given_a_valid_RequestPutCourse_When_the_object_is_converted_to_a_Course_entity_domain_Then_It_should_be_done_successfully() {
 
         ///Arrange
         List<Course> courses = List.of(

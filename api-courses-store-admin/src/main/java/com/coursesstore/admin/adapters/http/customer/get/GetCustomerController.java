@@ -13,8 +13,6 @@ import com.coursesstore.admin.core.usecases.course.acquired.SearchForNotAcquired
 import com.coursesstore.admin.core.usecases.course.desired.SearchForDesiredCoursesByCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.SearchForNotDesiredCoursesByCustomer;
 import com.coursesstore.admin.core.usecases.customer.SearchForCustomer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,14 +43,12 @@ public class GetCustomerController {
         this.searchForNotAcquiredCoursesByCustomer=searchForNotAcquiredCoursesByCustomer;
     }
 
-    private static final Logger log = LoggerFactory.getLogger(GetCustomerController.class);
-
     @GetMapping("/search")
     public ResponseEntity<ResponseGetCustomer> getCustomer() {
 
         List<Customer> listCustomers = searchForCustomer.execute("");
 
-        ResponseGetCustomer responseGetCustomer =
+        var responseGetCustomer =
                 GetCustomerConverter.toResponseGetCustomer(listCustomers);
 
         return ResponseEntity.ok(responseGetCustomer);
@@ -64,7 +60,7 @@ public class GetCustomerController {
         List<AcquiredCourse> listAcquiredCourses = searchForAcquiredCoursesByCustomer.execute(idCustomer);
         List<Course> listNotAcquiredCourses = searchForNotAcquiredCoursesByCustomer.execute(idCustomer);
 
-        ResponseGetAcquiredCoursesByCustomer responseGetAcquiredCoursesByCustomer =
+        var responseGetAcquiredCoursesByCustomer =
                 GetCustomerConverter.toResponseGetAcquiredCoursesByCustomer(listAcquiredCourses,listNotAcquiredCourses);
 
         return ResponseEntity.ok(responseGetAcquiredCoursesByCustomer);
@@ -76,7 +72,7 @@ public class GetCustomerController {
         List<DesiredCourse> listDesiredCourses = searchForDesiredCoursesByCustomer.execute(idCustomer);
         List<Course> listNotDesiredCourses = searchForNotDesiredCoursesByCustomer.execute(idCustomer);
 
-        ResponseGetDesiredCoursesByCustomer responseGetDesiredCoursesByCustomer =
+        var responseGetDesiredCoursesByCustomer =
                 GetCustomerConverter.toResponseGetDesiredCoursesByCustomer(listDesiredCourses,listNotDesiredCourses);
 
         return ResponseEntity.ok(responseGetDesiredCoursesByCustomer);

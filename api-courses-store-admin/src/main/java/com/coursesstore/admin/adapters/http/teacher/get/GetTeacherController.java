@@ -4,8 +4,6 @@ import com.coursesstore.admin.adapters.http.teacher.get.dto.GetTeacherConverter;
 import com.coursesstore.admin.adapters.http.teacher.get.dto.ResponseGetTeacher;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import com.coursesstore.admin.core.usecases.teacher.SearchForTeacher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +21,11 @@ public class GetTeacherController {
         this.searchForTeacher = searchForTeacher;
     }
 
-    private static final Logger log = LoggerFactory.getLogger(GetTeacherController.class);
-
     @GetMapping("/search")
     public ResponseEntity<ResponseGetTeacher> getTeacher() {
         List<Teacher> listTeachers = searchForTeacher.execute("");
 
-        ResponseGetTeacher responseGetTeacher = GetTeacherConverter.toResponseGetTeacher(listTeachers);
+        var responseGetTeacher = GetTeacherConverter.toResponseGetTeacher(listTeachers);
 
         return ResponseEntity.ok(responseGetTeacher);
     }

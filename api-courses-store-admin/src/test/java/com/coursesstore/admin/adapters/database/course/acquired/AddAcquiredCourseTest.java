@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class AddAcquiredCourseTest {
+class AddAcquiredCourseTest {
 
     @Autowired
     private AcquiredCourseRepository acquiredCourseRepository;
@@ -43,7 +43,7 @@ public class AddAcquiredCourseTest {
             "Given a valid AcquiredCourse domain object, " +
             "When the acquiredCourse is not in the database and there is not a desire of this course for the same Customer, " +
             "Then just create a new acquiredCourse")
-    public void Given_a_valid_AcquiredCourse_domain_object_When_the_acquiredCourse_is_not_in_the_database_Then_create_a_new_acquiredCourse() {
+    void Given_a_valid_AcquiredCourse_domain_object_When_the_acquiredCourse_is_not_in_the_database_Then_create_a_new_acquiredCourse() {
 
         ///Arrange
         Customer customer = AdapterUtils.registerANewCustomer();

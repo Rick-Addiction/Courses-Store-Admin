@@ -19,14 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8101"})
-public class UpdateTeacherTest {
+class UpdateTeacherTest {
 
     @Autowired
     private TeacherRepository teacherRepository;
 
     @Test
     @DisplayName("Given a valid Teacher stored in the database, When its requested to update the Teacher, Then it should be done successfully")
-    public void Given_a_valid_Teacher_stored_in_the_database_When_its_requested_to_update_the_Teacher_Then_it_should_be_done_successfully() {
+    void Given_a_valid_Teacher_stored_in_the_database_When_its_requested_to_update_the_Teacher_Then_it_should_be_done_successfully() {
 
         ///Arrange
         Teacher teacher = DomainUtils.generateTeacher();
@@ -39,7 +39,7 @@ public class UpdateTeacherTest {
         assertTrue(teacherModel.isPresent());
 
         ///Act
-        Teacher teacherToUpdate = teacher;
+        var teacherToUpdate = teacher;
         teacherToUpdate.setName("Ellie");
 
         UpdateTeacher updateTeacher = new UpdateTeacher(teacherRepository);

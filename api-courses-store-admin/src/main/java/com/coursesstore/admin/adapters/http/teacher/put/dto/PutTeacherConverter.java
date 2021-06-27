@@ -5,8 +5,13 @@ import com.coursesstore.admin.core.domain.teacher.Teacher;
 import java.util.UUID;
 
 public class PutTeacherConverter {
+
+    private PutTeacherConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Teacher toDomain (RequestPutTeacher body) {
-        Teacher teacher = new Teacher();
+        var teacher = new Teacher();
         teacher.setIdTeacher(UUID.fromString(body.getIdTeacher()));
         teacher.setName(body.getName());
 

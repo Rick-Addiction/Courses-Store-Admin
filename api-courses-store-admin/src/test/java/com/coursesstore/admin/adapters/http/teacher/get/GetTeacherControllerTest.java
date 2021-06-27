@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8102"})
 @AutoConfigureMockMvc
-public class GetTeacherControllerTest {
+class GetTeacherControllerTest {
 
     final String REQUEST_PATH = "/courses-store/teacher";
 
@@ -41,7 +41,7 @@ public class GetTeacherControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to get a Teacher, When its requested for a Teacher, Then response with the expected Teacher")
-    public void Given_a_valid_Request_to_get_a_Teacher_When_its_requested_for_a_Teacher_Then_response_with_the_expected_Teacher() throws Exception {
+    void Given_a_valid_Request_to_get_a_Teacher_When_its_requested_for_a_Teacher_Then_response_with_the_expected_Teacher() throws Exception {
 
         mockMvc.perform(
                 get(REQUEST_PATH+ "/search")

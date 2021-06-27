@@ -8,12 +8,16 @@ import java.util.UUID;
 
 public class PostCourseConverter {
 
+    private PostCourseConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Course toDomain (RequestPostCourse body){
-        Course course = new Course();
+        var course = new Course();
 
         course.setName(body.getName());
         course.setOriginalValue(BigDecimal.valueOf(Long.parseLong(body.getOriginalValue())));
-        Teacher teacherResponsible = new Teacher();
+        var teacherResponsible = new Teacher();
         teacherResponsible.setIdTeacher(UUID.fromString(body.getIdTeacherResponsible()));
         course.setTeacherResponsible(teacherResponsible);
 

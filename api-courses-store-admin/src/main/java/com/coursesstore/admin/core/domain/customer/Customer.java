@@ -8,10 +8,6 @@ import java.util.UUID;
 
 public class Customer {
 
-    public Customer(){
-
-    }
-
     private UUID idCustomer;
     private String firstname;
     private String lastname;

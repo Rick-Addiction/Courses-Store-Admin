@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8101"})
-public class AcquiredCourseConverterTest {
+class AcquiredCourseConverterTest {
 
     @Test
     @DisplayName("Given a valid AcquiredCourse entity, When the object is converted to a AcquiredCourse model, Then It should be done successfully")
-    public void Given_a_valid_AcquiredCourse_entity_When_the_object_is_converted_to_a_AcquiredCourse_model_Then_It_should_be_done_successfully(){
+    void Given_a_valid_AcquiredCourse_entity_When_the_object_is_converted_to_a_AcquiredCourse_model_Then_It_should_be_done_successfully(){
 
         ///Arrange
         Customer customerThatAcquiredACourse = DomainUtils.generateCustomerWithAnAcquiredCourse();
@@ -45,7 +45,7 @@ public class AcquiredCourseConverterTest {
 
     @Test
     @DisplayName("Given a valid AcquiredCourse model, When the object is converted to a AcquiredCourse entity, Then It should be done successfully")
-    public void Given_a_valid_AcquiredCourse_model_When_the_object_is_converted_to_a_AcquiredCourse_entity_Then_It_should_be_done_successfully(){
+    void Given_a_valid_AcquiredCourse_model_When_the_object_is_converted_to_a_AcquiredCourse_entity_Then_It_should_be_done_successfully(){
 
         ///Arrange
         AcquiredCourseModel acquiredCourseModel = DomainUtils.generateAcquiredCourseModel();

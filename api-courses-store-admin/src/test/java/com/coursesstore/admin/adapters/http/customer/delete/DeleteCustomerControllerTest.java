@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8109"})
 @AutoConfigureMockMvc
-public class DeleteCustomerControllerTest {
+class DeleteCustomerControllerTest {
 
     final String REQUEST_PATH = "/courses-store/customer";
 
@@ -46,7 +46,7 @@ public class DeleteCustomerControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to delete a Customer, When its requested to delete a Customer, Then response with the status OK")
-    public void Given_a_valid_Request_to_delete_a_Customer_When_its_requested_to_delete_a_Customer_Then_response_with_the_status_OK() throws Exception {
+    void Given_a_valid_Request_to_delete_a_Customer_When_its_requested_to_delete_a_Customer_Then_response_with_the_status_OK() throws Exception {
 
         ///Arrange
         Customer customerCreated = registerANewCustomer();
@@ -60,7 +60,7 @@ public class DeleteCustomerControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to delete a Acquired Course by Customer, When its requested to delete the Acquired Course, Then response with the status OK")
-    public void Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK() throws Exception {
+    void Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK() throws Exception {
 
         ///Arrange
         Course courseToAcquire = registerANewCourse(teacher);
@@ -79,7 +79,7 @@ public class DeleteCustomerControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to delete a Desired Course by Customer, When its requested to delete the Desired Course, Then response with the status OK")
-    public void Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK() throws Exception {
+    void Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK() throws Exception {
 
         ///Arrange
         Course courseToDesire = registerANewCourse(teacher);

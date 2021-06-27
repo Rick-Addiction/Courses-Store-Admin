@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-public class AddDesiredCourseToCustomerTest {
+class AddDesiredCourseToCustomerTest {
     @Mock
     private AddDesiredCoursePort addDesiredCoursePort;
 
@@ -30,7 +30,7 @@ public class AddDesiredCourseToCustomerTest {
 
     @Test
     @DisplayName("Given a Desired Course domain object, When its requested to be registered, Then it should be done successfully")
-    public void Given_a_DesiredCourse_domain_object_When_its_requested_to_be_registered_Then_it_should_be_done_successfully(){
+    void Given_a_DesiredCourse_domain_object_When_its_requested_to_be_registered_Then_it_should_be_done_successfully(){
 
         ///Arrange
         AddDesiredCourseToCustomer addDesiredCourseToCustomer = new AddDesiredCourseToCustomer(
@@ -57,7 +57,7 @@ public class AddDesiredCourseToCustomerTest {
     @DisplayName("Given a Desired Course domain object, " +
             "When it is requested the registration of a new desired, and the customer had already acquired this course" +
             ", Then the acquisition should be excluded and the desire registered")
-    public void Given_a_AcquiredCourse_domain_object_When_it_is_requested_the_registration_of_a_new_acquisition_and_the_customer_had_already_desired_this_course_Then_it_should_be_the_desire_should_be_excluded_and_the_acquisition_registered() {
+    void Given_a_AcquiredCourse_domain_object_When_it_is_requested_the_registration_of_a_new_acquisition_and_the_customer_had_already_desired_this_course_Then_it_should_be_the_desire_should_be_excluded_and_the_acquisition_registered() {
 
         ///Arrange
         AddDesiredCourseToCustomer addDesiredCourseToCustomer = new AddDesiredCourseToCustomer(

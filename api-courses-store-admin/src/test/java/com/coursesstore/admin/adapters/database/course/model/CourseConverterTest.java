@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class CourseConverterTest {
+class CourseConverterTest {
 
     @Test
     @DisplayName("Given a valid Course entity, When the object is converted to a Course model, Then It should be done successfully")
-    public void Given_a_valid_Course_entity_When_the_object_is_converted_to_a_Course_model_Then_It_should_be_done_successfully(){
+    void Given_a_valid_Course_entity_When_the_object_is_converted_to_a_Course_model_Then_It_should_be_done_successfully(){
 
         ///Arrange
         Course course = DomainUtils.generateCourse();
@@ -37,7 +37,7 @@ public class CourseConverterTest {
 
     @Test
     @DisplayName("Given a valid Course model, When the object is converted to a Course entity, Then It should be done successfully")
-    public void Given_a_valid_Course_model_When_the_object_is_converted_to_a_Course_entity_Then_It_should_be_done_successfully(){
+    void Given_a_valid_Course_model_When_the_object_is_converted_to_a_Course_entity_Then_It_should_be_done_successfully(){
 
         ///Arrange
         CourseModel courseModel = DomainUtils.generateCourseModel();

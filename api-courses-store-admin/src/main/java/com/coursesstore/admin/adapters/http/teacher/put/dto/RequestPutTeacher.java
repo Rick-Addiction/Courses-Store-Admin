@@ -7,10 +7,6 @@ import javax.validation.constraints.NotNull;
 
 public class RequestPutTeacher {
 
-        public RequestPutTeacher(){
-
-        }
-
         @JsonProperty("idTeacher")
         @NotNull
         private String idTeacher;

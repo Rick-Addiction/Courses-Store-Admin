@@ -4,8 +4,6 @@ import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCo
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.FindAcquiredCoursesByCustomerPort;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,9 +17,6 @@ public class FindAcquiredCoursesByCustomer implements FindAcquiredCoursesByCusto
     public FindAcquiredCoursesByCustomer(AcquiredCourseRepository acquiredCourseRepository){
         this.acquiredCourseRepository=acquiredCourseRepository;
     }
-
-
-    private static final Logger log = LoggerFactory.getLogger(FindAcquiredCoursesByCustomer.class);
 
     @Override
     public List<AcquiredCourse> findAcquiredCourses(String customerId) {

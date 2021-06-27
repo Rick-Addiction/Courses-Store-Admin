@@ -6,15 +6,19 @@ import java.util.List;
 
 public class GetTeacherConverter {
 
+    private GetTeacherConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ResponseGetTeacher toResponseGetTeacher(List<Teacher> listTeachers) {
-        ResponseGetTeacher responseGetTeacher = new ResponseGetTeacher();
+        var responseGetTeacher = new ResponseGetTeacher();
 
         if(!listTeachers.isEmpty()) {
 
             responseGetTeacher.setTeachers(new ArrayList<>());
 
             for (Teacher t : listTeachers) {
-                ResponseGetTeacher.Teacher teacher = new ResponseGetTeacher.Teacher();
+                var teacher = new ResponseGetTeacher.Teacher();
                 teacher.setIdTeacher(String.valueOf(t.getIdTeacher()));
                 teacher.setName(t.getName());
 

@@ -1,10 +1,13 @@
 package com.coursesstore.admin.adapters.database.teacher;
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherConverter;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import com.coursesstore.admin.core.domain.teacher.UpdateTeacherPort;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class UpdateTeacher implements UpdateTeacherPort {
@@ -17,13 +20,14 @@ public class UpdateTeacher implements UpdateTeacherPort {
 
     @Override
     public void updateTeacher(Teacher teacher){
+        var idTeacher = String.valueOf(teacher.getIdTeacher());
 
-        TeacherModel teacherModel = teacherRepository.findByIdTeacher(String.valueOf(teacher.getIdTeacher())).get();
+        Optional<TeacherModel> teacherModelOptional = teacherRepository.findByIdTeacher(idTeacher);
 
-        if(teacherModel == null)
-            throw new RuntimeException("Cliente não encontrado!");
+        if(teacherModelOptional.isEmpty())
+            throw new ModelException("Teacher not found -  Teacher " + idTeacher +"!");
 
-        teacherModel = TeacherConverter.toModel(teacher);
+        var teacherModel = TeacherConverter.toModel(teacher);
         teacherModel.setIdTeacher(String.valueOf(teacher.getIdTeacher()));
 
         teacherRepository.save(teacherModel);

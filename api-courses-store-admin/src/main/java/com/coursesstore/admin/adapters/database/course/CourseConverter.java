@@ -7,15 +7,19 @@ import java.util.UUID;
 
 public class CourseConverter {
 
+    private CourseConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static CourseModel toModel(String idCourse){
-        CourseModel courseModel = new CourseModel();
+        var courseModel = new CourseModel();
         courseModel.setIdCourse(idCourse);
 
         return courseModel;
     }
 
     public static CourseModel toModel(Course course){
-        CourseModel courseModel = new CourseModel();
+        var courseModel = new CourseModel();
         courseModel.setIdCourse(String.valueOf(course.getIdCourse()))   ;
         courseModel.setName(course.getName());
         courseModel.setOriginalValue(course.getOriginalValue());
@@ -25,7 +29,7 @@ public class CourseConverter {
     }
 
     public static Course toEntity(CourseModel courseModel){
-        Course course = new Course();
+        var course = new Course();
         course.setIdCourse(UUID.fromString(courseModel.getIdCourse()));
         course.setName(courseModel.getName());
         course.setOriginalValue(courseModel.getOriginalValue());

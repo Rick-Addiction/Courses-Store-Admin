@@ -6,8 +6,6 @@ import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.desired.FindNotDesiredCoursesByCustomerPort;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,8 +24,6 @@ public class FindNotDesiredCoursesByCustomer implements FindNotDesiredCoursesByC
         this.courseRepository=courseRepository;
     }
 
-    private static final Logger log = LoggerFactory.getLogger(FindNotDesiredCoursesByCustomer.class);
-
     @Override
     public List<Course> findNotDesiredCourses(String customerId) {
         Iterable<DesiredCourseModel> listDesiredCoursesModel = desiredCourseRepository.findAll();
@@ -36,7 +32,7 @@ public class FindNotDesiredCoursesByCustomer implements FindNotDesiredCoursesByC
         List<Course> listNotDesiredCourses = new ArrayList<>();
 
         for (CourseModel c : listCourseModels) {
-            if(!StreamSupport.stream(listDesiredCoursesModel.spliterator(),false).anyMatch(
+            if(!StreamSupport.stream(listDesiredCoursesModel.spliterator(),false).noneMatch(
                  desiredCourseModel -> desiredCourseModel.getCourse().getIdCourse().equals(c.getIdCourse())
             ))
                 listNotDesiredCourses.add(CourseConverter.toEntity(c));

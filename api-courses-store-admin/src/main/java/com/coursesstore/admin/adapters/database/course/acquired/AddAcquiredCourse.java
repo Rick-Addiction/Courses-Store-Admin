@@ -6,7 +6,6 @@ import com.coursesstore.admin.adapters.database.course.CourseModel;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.acquired.exception.AcquiredCourseConflictException;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
-import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
@@ -35,7 +34,7 @@ public class AddAcquiredCourse implements AddAcquiredCoursePort {
     public void addNewAcquiredCourseByCustomer(String idCustomer, AcquiredCourse acquiredCourse) {
         try {
 
-            String idCourse = String.valueOf(acquiredCourse.getCourse().getIdCourse());
+            var idCourse = String.valueOf(acquiredCourse.getCourse().getIdCourse());
             Optional<CourseModel> courseModel = courseRepository.findByIdCourse(idCourse);
 
             if(courseModel.isEmpty()){
@@ -48,7 +47,7 @@ public class AddAcquiredCourse implements AddAcquiredCoursePort {
                 throw new ModelException("Customer not found -  Customer " + idCustomer +"!");
             }
 
-            AcquiredCourseModel acquiredCourseModel = AcquiredCourseConverter.toModel(customerModel.get(),acquiredCourse);
+            var acquiredCourseModel = AcquiredCourseConverter.toModel(customerModel.get(),acquiredCourse);
             acquiredCourseRepository.save(acquiredCourseModel);
         } catch (Exception ex) {
             throw new AcquiredCourseConflictException();

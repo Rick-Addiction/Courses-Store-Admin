@@ -18,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class CreateTeacherTest {
+class CreateTeacherTest {
 
     @Autowired
     private TeacherRepository teacherRepository;
 
     @Test
     @DisplayName("Given a valid Teacher domain object, When the Teacher is not in the database, Then create a new Teacher")
-    public void Given_a_valid_Teacher_domain_object_When_the_Teacher_is_not_in_the_database_Then_create_a_new_Teacher() {
+    void Given_a_valid_Teacher_domain_object_When_the_Teacher_is_not_in_the_database_Then_create_a_new_Teacher() {
 
         Teacher teacher = DomainUtils.generateTeacher();
 

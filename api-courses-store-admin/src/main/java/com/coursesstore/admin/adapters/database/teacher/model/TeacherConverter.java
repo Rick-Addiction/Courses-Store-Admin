@@ -6,8 +6,12 @@ import java.util.UUID;
 
 public class TeacherConverter {
 
+    private TeacherConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static TeacherModel toModel(Teacher teacher){
-        TeacherModel teacherModel = new TeacherModel();
+        var teacherModel = new TeacherModel();
         teacherModel.setIdTeacher(String.valueOf(teacher.getIdTeacher()));
         teacherModel.setName(String.valueOf(teacher.getName()));
 
@@ -15,7 +19,7 @@ public class TeacherConverter {
     }
 
     public static Teacher toEntity(TeacherModel teacherModel){
-        Teacher teacher = new Teacher();
+        var teacher = new Teacher();
         teacher.setIdTeacher(UUID.fromString(teacherModel.getIdTeacher()));
         teacher.setName(String.valueOf(teacherModel.getName()));
 

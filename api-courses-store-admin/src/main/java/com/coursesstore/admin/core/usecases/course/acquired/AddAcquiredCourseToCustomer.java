@@ -23,7 +23,7 @@ public class AddAcquiredCourseToCustomer {
 
     public void execute(String idCustomer, AcquiredCourse acquiredCourse) {
 
-        String idCourse = String.valueOf(acquiredCourse.getCourse().getIdCourse());
+        var idCourse = String.valueOf(acquiredCourse.getCourse().getIdCourse());
 
         if(findDesiredCourse.findDesiredCourse(idCustomer,idCourse) != null){
             deleteDesiredCourse.deleteDesiredCourse(idCustomer,idCourse);

@@ -3,7 +3,6 @@ package com.coursesstore.admin.adapters.http.course.post;
 import com.coursesstore.admin.adapters.http.RequestValidator;
 import com.coursesstore.admin.adapters.http.course.post.dto.PostCourseConverter;
 import com.coursesstore.admin.adapters.http.course.post.dto.RequestPostCourse;
-import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.usecases.course.RegisterNewCourse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostCourseController {
 
     private final RegisterNewCourse registerNewCourse;
-    private final RequestValidator requestValidator;
+    private final RequestValidator<RequestPostCourse> requestValidator;
 
     public PostCourseController(RegisterNewCourse registerNewCourse,
-                                RequestValidator requestValidator){
+                                RequestValidator<RequestPostCourse> requestValidator){
         this.registerNewCourse = registerNewCourse;
         this.requestValidator = requestValidator;
 
@@ -38,7 +37,7 @@ public class PostCourseController {
 
         requestValidator.valid(body);
 
-        Course course = PostCourseConverter.toDomain(body);
+        var course = PostCourseConverter.toDomain(body);
 
         registerNewCourse.execute(course);
         log.info("Course has been registered: {}", course);

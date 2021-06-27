@@ -19,29 +19,29 @@ import static org.springframework.http.HttpStatus.*;
 public class CoursesStoreAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ ConstraintViolationException.class })
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {
+    public ResponseEntity<Object> constraintViolationExceptionHandler(ConstraintViolationException ex) {
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
             errors.add(violation.getRootBeanClass().getName() + " " +
                     violation.getPropertyPath() + ": " + violation.getMessage());
         }
 
-        ErrorResponse errorResponse = new ErrorResponse(BAD_REQUEST, ex.getLocalizedMessage(), errors);
+        var errorResponse = new ErrorResponse(BAD_REQUEST, ex.getLocalizedMessage(), errors);
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
 
     @ExceptionHandler(DataNotFoundException.class)
-    public ResponseEntity<Object> CustomerNotFoundExceptionHandler (DataNotFoundException ex, WebRequest request){
+    public ResponseEntity<Object> dataNotFoundExceptionHandler (DataNotFoundException ex, WebRequest request){
 
-        ErrorResponse errorResponse = new ErrorResponse(NOT_FOUND, ex.getLocalizedMessage());
+        var errorResponse = new ErrorResponse(NOT_FOUND, ex.getLocalizedMessage());
 
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
 
     @ExceptionHandler(CustomerConflictException.class)
-    public ResponseEntity<Object> CustomerDuplicityExceptionHandler (CustomerConflictException ex, WebRequest request){
+    public ResponseEntity<Object> customerConflictExceptionHandler (CustomerConflictException ex, WebRequest request){
 
-        ErrorResponse errorResponse = new ErrorResponse(CONFLICT, ex.getLocalizedMessage());
+        var errorResponse = new ErrorResponse(CONFLICT, ex.getLocalizedMessage());
 
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }

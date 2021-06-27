@@ -12,14 +12,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-public class SearchForCustomerTest {
+class SearchForCustomerTest {
 
     @Mock
     private FindCustomerPort findCustomerPort;
 
     @Test
     @DisplayName("Given a Customer id, When a new customer is searched, Then it should be done successfully")
-    public void Given_a_Customer_id_When_a_new_customer_is_searched_Then_it_should_be_done_successfully(){
+    void Given_a_Customer_id_When_a_new_customer_is_searched_Then_it_should_be_done_successfully(){
 
         ///Arrange
         SearchForCustomer searchForCustomer = new SearchForCustomer(findCustomerPort);

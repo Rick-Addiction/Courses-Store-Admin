@@ -16,13 +16,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-public class UpdateCourseDesiredByCustomerTest {
+class UpdateCourseDesiredByCustomerTest {
     @Mock
     private UpdateDesiredCoursePort updateDesiredCoursePort;
 
     @Test
     @DisplayName("When a new Desired Course is registered, So a new Desired Course record is created")
-    public void When_a_new_DesiredCourse_is_registered_So_a_new_DesiredCourse_record_is_created(){
+    void When_a_new_DesiredCourse_is_registered_So_a_new_DesiredCourse_record_is_created(){
 
         ///Arrange
         UpdateCourseDesiredByCustomer updateCourseDesiredByCustomer = new UpdateCourseDesiredByCustomer(updateDesiredCoursePort);

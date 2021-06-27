@@ -4,8 +4,6 @@ import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCour
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.FindDesiredCoursesByCustomerPort;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,8 +17,6 @@ public class FindDesiredCoursesByCustomer implements FindDesiredCoursesByCustome
     public FindDesiredCoursesByCustomer(DesiredCourseRepository desiredCourseRepository){
         this.desiredCourseRepository=desiredCourseRepository;
     }
-
-    private static final Logger log = LoggerFactory.getLogger(FindDesiredCoursesByCustomer.class);
 
     @Override
     public List<DesiredCourse> findDesiredCourse(String customerId) {

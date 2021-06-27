@@ -10,11 +10,15 @@ import java.util.HashSet;
 
 public class DesiredCourseConverter {
 
-    public static DesiredCourseModel toModel(CustomerModel customerModel, DesiredCourse desiredCourse){
-        String idCourse = String.valueOf(desiredCourse.getCourse().getIdCourse());
+    private DesiredCourseConverter() {
+        throw new IllegalStateException("Utility class");
+    }
 
-        DesiredCourseModel desiredCourseModel = new DesiredCourseModel();
-            DesiredCourseKey desiredCourseKey = new DesiredCourseKey(
+    public static DesiredCourseModel toModel(CustomerModel customerModel, DesiredCourse desiredCourse){
+        var idCourse = String.valueOf(desiredCourse.getCourse().getIdCourse());
+
+        var desiredCourseModel = new DesiredCourseModel();
+        var desiredCourseKey = new DesiredCourseKey(
                     customerModel.getIdCustomer(),
                     idCourse);
             desiredCourseModel.setIdDesiredCourse(desiredCourseKey);
@@ -27,7 +31,7 @@ public class DesiredCourseConverter {
     }
 
     public static DesiredCourseModel toModel(DesiredCourse desiredCourse){
-            DesiredCourseModel desiredCourseModel = new DesiredCourseModel();
+        var desiredCourseModel = new DesiredCourseModel();
             desiredCourseModel.setDesireDescription(desiredCourse.getDesireDescription());
             desiredCourseModel.setDesireDate(desiredCourse.getDesireDate());
             desiredCourseModel.setCourse(CourseConverter.toModel(desiredCourse.getCourse()));
@@ -35,9 +39,9 @@ public class DesiredCourseConverter {
     }
 
     public static Customer toCustomerWithEntity(DesiredCourseModel desiredCourseModel){
-        Customer customer = CustomerConverter.toEntity(desiredCourseModel.getCustomer());
+        var customer = CustomerConverter.toEntity(desiredCourseModel.getCustomer());
 
-        DesiredCourse desiredCourse = new DesiredCourse();
+        var desiredCourse = new DesiredCourse();
         desiredCourse.setDesireDescription(desiredCourseModel.getDesireDescription());
         desiredCourse.setDesireDate(desiredCourseModel.getDesireDate());
         desiredCourse.setCourse(CourseConverter.toEntity(desiredCourseModel.getCourse()));
@@ -50,7 +54,7 @@ public class DesiredCourseConverter {
 
     public static DesiredCourse toEntity(DesiredCourseModel desiredCourseModel){
 
-        DesiredCourse desiredCourse = new DesiredCourse();
+        var desiredCourse = new DesiredCourse();
         desiredCourse.setDesireDescription(desiredCourseModel.getDesireDescription());
         desiredCourse.setDesireDate(desiredCourseModel.getDesireDate());
         desiredCourse.setCourse(CourseConverter.toEntity(desiredCourseModel.getCourse()));

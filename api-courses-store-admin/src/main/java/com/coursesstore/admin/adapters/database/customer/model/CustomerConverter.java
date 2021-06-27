@@ -6,8 +6,12 @@ import java.util.UUID;
 
 public class CustomerConverter {
 
+    private CustomerConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static CustomerModel toModel(Customer customer){
-        CustomerModel customerModel = new CustomerModel();
+        var customerModel = new CustomerModel();
         customerModel.setIdCustomer(String.valueOf(customer.getIdCustomer()))   ;
         customerModel.setFirstname(customer.getFirstname());
         customerModel.setLastname(customer.getLastname());
@@ -21,7 +25,7 @@ public class CustomerConverter {
     }
 
     public static Customer toEntity(CustomerModel customerModel){
-        Customer customer = new Customer();
+        var customer = new Customer();
         customer.setIdCustomer(UUID.fromString(customerModel.getIdCustomer()));
         customer.setFirstname(customerModel.getFirstname());
         customer.setLastname(customerModel.getLastname());

@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8109"})
 @AutoConfigureMockMvc
-public class DeleteTeacherControllerTest {
+class DeleteTeacherControllerTest {
 
     final String REQUEST_PATH = "/courses-store/teacher";
 
@@ -36,7 +36,7 @@ public class DeleteTeacherControllerTest {
 
     @Test
     @DisplayName("Given a valid Request to delete a Teacher, When its requested to delete a Teacher, Then response with the status OK")
-    public void Given_a_valid_Request_to_delete_a_Teacher_When_its_requested_to_delete_a_Teacher_Then_response_with_the_status_OK() throws Exception {
+    void Given_a_valid_Request_to_delete_a_Teacher_When_its_requested_to_delete_a_Teacher_Then_response_with_the_status_OK() throws Exception {
 
         ///Act
         mockMvc.perform(

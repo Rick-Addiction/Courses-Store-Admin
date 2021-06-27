@@ -15,8 +15,12 @@ import java.util.UUID;
 
 public class PutCustomerConverter {
 
+    private PutCustomerConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Customer toDomain (RequestPutCustomer body) {
-        Customer customer = new Customer();
+        var customer = new Customer();
         customer.setIdCustomer(UUID.fromString(body.getIdCustomer()));
         customer.setFirstname(body.getFirstname());
         customer.setLastname(body.getLastname());
@@ -30,26 +34,26 @@ public class PutCustomerConverter {
     }
 
     public static AcquiredCourse toDomain (RequestPutAcquiredCourse body){
-        AcquiredCourse acquiredCourse = new AcquiredCourse();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        var acquiredCourse = new AcquiredCourse();
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         acquiredCourse.setAcquisitionDate(LocalDate.parse(body.getAcquisitionDate(),formatter));
         acquiredCourse.setValuePaid(NumberUtils.parseNumber(body.getValuePaid(), BigDecimal.class));
 
-        Course course = new Course();
+        var course = new Course();
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         acquiredCourse.setCourse(course);
         return acquiredCourse;
     }
 
     public static DesiredCourse toDomain (RequestPutDesiredCourse body){
-        DesiredCourse desiredCourse = new DesiredCourse();
+        var desiredCourse = new DesiredCourse();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         desiredCourse.setDesireDate(LocalDate.parse(body.getDesireDate(),formatter));
 
         desiredCourse.setDesireDescription(body.getDesireDescription());
 
-        Course course = new Course();
+        var course = new Course();
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         desiredCourse.setCourse(course);
 

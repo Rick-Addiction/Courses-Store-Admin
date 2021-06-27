@@ -16,14 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class DeleteCustomerTest {
+class DeleteCustomerTest {
 
     @Autowired
     private CustomerRepository customerRepository;
 
     @Test
     @DisplayName("Given a Customer which is stored in the database, When its requested to delete the Customer, Then it should be done successfully")
-    public void Given_a_Customer_stored_in_the_database_When_its_requested_to_delete_the_Customer_Then_it_should_be_done_successfully () {
+    void Given_a_Customer_stored_in_the_database_When_its_requested_to_delete_the_Customer_Then_it_should_be_done_successfully () {
 
         ///Arrange
         Customer customer = DomainUtils.generateCustomer();

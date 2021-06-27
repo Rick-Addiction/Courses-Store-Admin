@@ -21,15 +21,13 @@ public class FindDesiredCourse implements FindDesiredCoursePort {
 
     @Override
     public DesiredCourse findDesiredCourse(String idCustomer, String idCourse) {
-        DesiredCourseKey desiredCourseKey = new DesiredCourseKey(
+        var desiredCourseKey = new DesiredCourseKey(
                 String.valueOf(idCustomer),
                 String.valueOf(idCourse)
         );
 
         Optional<DesiredCourseModel> desiredCourseModel = desiredCourseRepository.findById(desiredCourseKey);
 
-        return desiredCourseModel.isPresent() ?
-                DesiredCourseConverter.toEntity(desiredCourseModel.get())
-                : null;        
+        return desiredCourseModel.map(DesiredCourseConverter::toEntity).orElse(null);
     }
 }

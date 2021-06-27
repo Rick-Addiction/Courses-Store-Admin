@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class FindAcquiredCoursesByCustomerTest {
+class FindAcquiredCoursesByCustomerTest {
 
     @Autowired
     private AcquiredCourseRepository acquiredCourseRepository;
@@ -36,7 +38,7 @@ public class FindAcquiredCoursesByCustomerTest {
 
     @Test
     @DisplayName("Given a valid id of an AcquiredCourse stored in the database, When its searched for this Course, Then return the AcquiredCourse searched")
-    public void Given_a_valid_id_of_an_AcquiredCourse_stored_in_the_database_When_its_searched_for_this_Course_Then_return_the_AcquiredCourse_searched() {
+    void Given_a_valid_id_of_an_AcquiredCourse_stored_in_the_database_When_its_searched_for_this_Course_Then_return_the_AcquiredCourse_searched() {
 
         ///Arrange
         Customer customer = AdapterUtils.registerANewCustomer();
@@ -49,8 +51,13 @@ public class FindAcquiredCoursesByCustomerTest {
         ///Act
         FindAcquiredCoursesByCustomer findAcquiredCoursesByCustomer = new FindAcquiredCoursesByCustomer(acquiredCourseRepository);
 
+        var acquiredCoursesList = findAcquiredCoursesByCustomer.findAcquiredCourses(
+                String.valueOf(customer.getIdCustomer())
+        );
+
         ///Assert
-        //TODO Set verify
+        assertNotNull(acquiredCoursesList);
+
     }
 
 }

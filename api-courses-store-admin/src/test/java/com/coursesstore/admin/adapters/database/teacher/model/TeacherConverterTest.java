@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class TeacherConverterTest {
+class TeacherConverterTest {
 
     @Test
     @DisplayName("Given a valid Teacher entity, When the object is converted to a Teacher model, Then It should be done successfully")
-    public void Given_a_valid_Teacher_entity_When_the_object_is_converted_to_a_Teacher_model_Then_It_should_be_done_successfully(){
+    void Given_a_valid_Teacher_entity_When_the_object_is_converted_to_a_Teacher_model_Then_It_should_be_done_successfully(){
 
         ///Arrange
         Teacher teacher = DomainUtils.generateTeacher();
@@ -32,7 +32,7 @@ public class TeacherConverterTest {
 
     @Test
     @DisplayName("Given a valid Teacher model, When the object is converted to a Teacher entity, Then It should be done successfully")
-    public void Given_a_valid_Teacher_model_When_the_object_is_converted_to_a_Teacher_entity_Then_It_should_be_done_successfully(){
+    void Given_a_valid_Teacher_model_When_the_object_is_converted_to_a_Teacher_entity_Then_It_should_be_done_successfully(){
 
         ///Arrange
         TeacherModel teacherModel = DomainUtils.generateTeacherModel();

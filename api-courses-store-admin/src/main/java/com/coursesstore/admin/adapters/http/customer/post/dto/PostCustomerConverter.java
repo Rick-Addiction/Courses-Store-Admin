@@ -13,8 +13,12 @@ import java.util.UUID;
 
 public class PostCustomerConverter {
 
+    private PostCustomerConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Customer toDomain (RequestPostCustomer body){
-        Customer customer = new Customer();
+        var customer = new Customer();
         customer.setFirstname(body.getFirstname());
         customer.setLastname(body.getLastname());
         customer.setPhone(body.getPhone());
@@ -27,14 +31,14 @@ public class PostCustomerConverter {
     }
 
     public static AcquiredCourse toDomainAcquiredCourse(RequestPostAcquiredCourseByCustomer body){
-        AcquiredCourse acquiredCourse = new AcquiredCourse();
+        var acquiredCourse = new AcquiredCourse();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         acquiredCourse.setAcquisitionDate(LocalDate.parse(body.getAcquisitionDate(),formatter));
 
         acquiredCourse.setValuePaid(NumberUtils.parseNumber(body.getValuePaid(),BigDecimal.class));
 
-        Course course = new Course();
+        var course = new Course();
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         acquiredCourse.setCourse(course);
 
@@ -44,13 +48,13 @@ public class PostCustomerConverter {
 
 
     public static DesiredCourse toDomainDesiredCourse (RequestPostDesiredCourseByCustomer body){
-        DesiredCourse desiredCourse = new DesiredCourse();
+        var desiredCourse = new DesiredCourse();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         desiredCourse.setDesireDate(LocalDate.parse(body.getDesireDate(),formatter));
         desiredCourse.setDesireDescription(body.getDesireDescription());
 
-        Course course = new Course();
+        var course = new Course();
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         desiredCourse.setCourse(course);
 

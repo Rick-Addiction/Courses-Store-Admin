@@ -9,13 +9,17 @@ import java.util.UUID;
 
 public class PutCourseConverter {
 
+    private PutCourseConverter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Course toDomain (RequestPutCourse body){
-        Course course = new Course();
+        var course = new Course();
 
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         course.setName(body.getName());
         course.setOriginalValue(NumberUtils.parseNumber(body.getOriginalValue(),BigDecimal.class));
-        Teacher teacherResponsible = new Teacher();
+        var teacherResponsible = new Teacher();
         teacherResponsible.setIdTeacher(UUID.fromString(body.getIdTeacherResponsible()));
         course.setTeacherResponsible(teacherResponsible);
 

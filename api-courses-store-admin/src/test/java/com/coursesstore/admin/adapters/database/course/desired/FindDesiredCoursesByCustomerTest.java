@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class FindDesiredCoursesByCustomerTest {
+class FindDesiredCoursesByCustomerTest {
 
     @Autowired
     private DesiredCourseRepository desiredCourseRepository;
@@ -33,7 +35,7 @@ public class FindDesiredCoursesByCustomerTest {
 
     @Test
     @DisplayName("Given a valid id of an DesiredCourse stored in the database, When its searched for this Course, Then return the DesiredCourse searched")
-    public void Given_a_valid_id_of_an_DesiredCourse_stored_in_the_database_When_its_searched_for_this_Course_Then_return_the_DesiredCourse_searched() {
+    void Given_a_valid_id_of_an_DesiredCourse_stored_in_the_database_When_its_searched_for_this_Course_Then_return_the_DesiredCourse_searched() {
 
         ///Arrange
         Customer customerWithADesiredCourse = AdapterUtils.registerANewCustomer();
@@ -54,8 +56,12 @@ public class FindDesiredCoursesByCustomerTest {
         ///Act
         FindDesiredCoursesByCustomer findDesiredCoursesByCustomer = new FindDesiredCoursesByCustomer(desiredCourseRepository);
 
+        var desiredCoursesByCustomerList = findDesiredCoursesByCustomer.findDesiredCourse(
+                String.valueOf(course.getIdCourse())
+        );
+
         ///Assert
-        //TODO Set verify
+        assertNotNull(desiredCoursesByCustomerList);
     }
 
 }

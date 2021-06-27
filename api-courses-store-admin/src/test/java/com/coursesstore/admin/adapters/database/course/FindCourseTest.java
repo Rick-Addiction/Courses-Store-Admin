@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
-public class FindCourseTest {
+class FindCourseTest {
 
     @Autowired
     private CourseRepository courseRepository;
@@ -23,7 +25,7 @@ public class FindCourseTest {
 
     @Test
     @DisplayName("Given a valid id of an Course stored in the database, When its searched for this Course, Then return the Course searched")
-    public void Given_a_valid_id_of_an_Course_stored_in_the_database_When_its_searched_for_this_Course_Then_return_the_Course_searched() {
+    void Given_a_valid_id_of_an_Course_stored_in_the_database_When_its_searched_for_this_Course_Then_return_the_Course_searched() {
 
         ///Arrange
         Course course = DomainUtils.generateCourse();
@@ -37,8 +39,12 @@ public class FindCourseTest {
         ///Act
         FindCourse findCourse = new FindCourse(courseRepository);
 
+        var coursesList = findCourse.findCourse(
+                String.valueOf(course.getIdCourse())
+        );
+
         ///Assert
-        //TODO Set verify
+        assertNotNull(coursesList);
     }
 
 }

@@ -6,10 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 public class RequestPostDesiredCourseByCustomer {
 
-    public RequestPostDesiredCourseByCustomer(){
-
-    }
-
     @JsonProperty("id_course")
     @NotBlank
     private String idCourse;

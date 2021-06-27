@@ -1,8 +1,11 @@
 package com.coursesstore.admin.adapters.database.course;
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.UpdateCoursePort;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class UpdateCourse implements UpdateCoursePort {
@@ -16,12 +19,15 @@ public class UpdateCourse implements UpdateCoursePort {
     @Override
     public void updateCourse(Course course){
 
-        CourseModel courseModel = courseRepository.findByIdCourse(String.valueOf(course.getIdCourse())).get();
+        var idCourse = String.valueOf(course.getIdCourse());
 
-        if(courseModel == null)
-            throw new RuntimeException("Cliente não encontrado!");
+        Optional<CourseModel> courseModelOptional = courseRepository.findByIdCourse(idCourse);
 
-        courseModel = CourseConverter.toModel(course);
+        if(courseModelOptional.isEmpty()){
+            throw new ModelException("Course not found -  Course " + idCourse +"!");
+        }
+
+        var courseModel = CourseConverter.toModel(course);
         courseModel.setIdCourse(String.valueOf(course.getIdCourse()));
 
         courseRepository.save(courseModel);

@@ -1,6 +1,5 @@
 package com.coursesstore.admin.adapters.http.customer.delete;
 
-import com.coursesstore.admin.adapters.http.customer.put.PutCustomerController;
 import com.coursesstore.admin.core.usecases.course.acquired.ExcludeCourseAcquisitionByCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.ExcludeCourseDesiredByCustomer;
 import com.coursesstore.admin.core.usecases.customer.ExcludeCustomerRegistration;
@@ -30,15 +29,15 @@ public class DeleteCustomerController {
         this.excludeCourseDesiredByCustomer=excludeCourseDesiredByCustomer;
     }
 
-    private static final Logger log = LoggerFactory.getLogger(PutCustomerController.class);
+    private static final Logger log = LoggerFactory.getLogger(DeleteCustomerController.class);
 
     @DeleteMapping("/{id_customer}")
-    public ResponseEntity deleteCustomer (@PathVariable(value = "id_customer", required = false) String idCustomer) {
+    public ResponseEntity<Object> deleteCustomer (@PathVariable(value = "id_customer", required = false) String idCustomer) {
 
         excludeCustomerRegistration.execute(idCustomer);
         log.info("Customer {} has been excluded", idCustomer);
 
-        return new ResponseEntity(new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id_customer}/acquire-course/{id_course}")

@@ -6,10 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 public class RequestPostCustomer {
 
-    public RequestPostCustomer(){
-
-    }
-
     @JsonProperty("firstname")
     @NotBlank
     private String firstname;

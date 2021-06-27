@@ -2,7 +2,6 @@ package com.coursesstore.admin.adapters.database.customer;
 
 import com.coursesstore.admin.adapters.database.customer.exception.CustomerConflictException;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
-import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.customer.CreateCustomerPort;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ public class CreateCustomer implements CreateCustomerPort {
     @Override
     public String createCustomer(Customer customer) {
         try {
-            CustomerModel customerModel = CustomerConverter.toModel(customer);
+            var customerModel = CustomerConverter.toModel(customer);
             customerRepository.save(customerModel);
 
             return customerModel.getIdCustomer();

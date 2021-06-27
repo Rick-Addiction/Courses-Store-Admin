@@ -3,8 +3,6 @@ package com.coursesstore.admin.adapters.database.customer;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.domain.customer.FindCustomerPort;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,9 +18,6 @@ public class FindCustomer implements FindCustomerPort {
         this.customerRepository=customerRepository;
     }
 
-
-    private static final Logger log = LoggerFactory.getLogger(FindCustomer.class);
-
     @Override
     public List<Customer> findCustomer(String customerSearchValues) {
         Iterable<CustomerModel> listCustomersModel;
@@ -32,7 +27,7 @@ public class FindCustomer implements FindCustomerPort {
         List<Customer> listCustomers = new ArrayList<>();
 
         for (CustomerModel c : listCustomersModel) {
-            Customer customer = new Customer();
+            var customer = new Customer();
             customer.setIdCustomer(UUID.fromString(c.getIdCustomer()));
             customer.setFirstname(c.getFirstname());
             customer.setLastname(c.getLastname());

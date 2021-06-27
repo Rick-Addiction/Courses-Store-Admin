@@ -6,7 +6,6 @@ import com.coursesstore.admin.adapters.database.course.CourseModel;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.desired.exception.DesiredCourseConflictException;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
-import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.course.desired.AddDesiredCoursePort;
@@ -34,7 +33,7 @@ public class AddDesiredCourse implements AddDesiredCoursePort {
     public void addNewDesiredCourseByCustomer(String idCustomer, DesiredCourse desiredCourse) {
         try {
 
-            String idCourse = String.valueOf(desiredCourse.getCourse().getIdCourse());
+            var idCourse = String.valueOf(desiredCourse.getCourse().getIdCourse());
 
             Optional<CourseModel> courseModel = courseRepository.findByIdCourse(idCourse);
 
@@ -48,7 +47,7 @@ public class AddDesiredCourse implements AddDesiredCoursePort {
                 throw new ModelException("Customer not found -  Customer " + idCustomer +"!");
             }
 
-            DesiredCourseModel desiredCourseModel = DesiredCourseConverter.toModel(customerModel.get(),desiredCourse);
+            var desiredCourseModel = DesiredCourseConverter.toModel(customerModel.get(),desiredCourse);
             desiredCourseRepository.save(desiredCourseModel);
         } catch (Exception ex) {
             throw new DesiredCourseConflictException();

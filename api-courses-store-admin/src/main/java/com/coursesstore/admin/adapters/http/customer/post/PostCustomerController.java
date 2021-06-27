@@ -5,9 +5,6 @@ import com.coursesstore.admin.adapters.http.customer.post.dto.PostCustomerConver
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostAcquiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostCustomer;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesiredCourseByCustomer;
-import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
-import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.usecases.course.acquired.AddAcquiredCourseToCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.AddDesiredCourseToCustomer;
 import com.coursesstore.admin.core.usecases.customer.RegisterNewCustomer;
@@ -23,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
 public class PostCustomerController {
 
     private final RegisterNewCustomer registerNewCustomer;
-    private final RequestValidator requestValidator;
+    private final RequestValidator<RequestPostCustomer> requestValidator;
     private final AddAcquiredCourseToCustomer addAcquiredCourseToCustomer;
     private final AddDesiredCourseToCustomer addDesiredCourseToCustomer;
 
     public PostCustomerController(RegisterNewCustomer registerNewCustomer,
                                   AddAcquiredCourseToCustomer addAcquiredCourseToCustomer,
                                   AddDesiredCourseToCustomer addDesiredCourseToCustomer,
-                                  RequestValidator requestValidator){
+                                  RequestValidator<RequestPostCustomer> requestValidator){
         this.registerNewCustomer = registerNewCustomer;
         this.requestValidator = requestValidator;
         this.addAcquiredCourseToCustomer=addAcquiredCourseToCustomer;
@@ -44,10 +41,10 @@ public class PostCustomerController {
 
         requestValidator.valid(body);
 
-            Customer customer = PostCustomerConverter.toDomain(body);
+        var customer = PostCustomerConverter.toDomain(body);
 
-            registerNewCustomer.execute(customer);
-            log.info("Customer has been registered: {}", customer);
+        registerNewCustomer.execute(customer);
+        log.info("Customer has been registered: {}", customer);
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.CREATED);
     }
@@ -55,9 +52,7 @@ public class PostCustomerController {
     @PostMapping(value = "/{id_customer}/acquire-course", consumes = "application/json")
     public ResponseEntity<Object> addAcquiredCourseToCustomer (@PathVariable(value = "id_customer") String idCustomer, @RequestBody RequestPostAcquiredCourseByCustomer body) {
 
-        requestValidator.valid(body);
-
-        AcquiredCourse acquiredCourse = PostCustomerConverter.toDomainAcquiredCourse(body);
+        var acquiredCourse = PostCustomerConverter.toDomainAcquiredCourse(body);
 
         addAcquiredCourseToCustomer.execute(idCustomer,acquiredCourse);
         log.info("Acquired Course has been added to the Customer: {}", idCustomer);
@@ -68,9 +63,7 @@ public class PostCustomerController {
     @PostMapping(value = "/{id_customer}/desire-course", consumes = "application/json")
     public ResponseEntity<Object> addDesiredCourseToCustomer (@PathVariable(value = "id_customer") String idCustomer, @RequestBody RequestPostDesiredCourseByCustomer body) {
 
-        requestValidator.valid(body);
-
-        DesiredCourse desiredCourse = PostCustomerConverter.toDomainDesiredCourse(body);
+        var desiredCourse = PostCustomerConverter.toDomainDesiredCourse(body);
 
         addDesiredCourseToCustomer.execute(idCustomer,desiredCourse);
         log.info("Desired Course has been added to the Customer: {}", idCustomer);

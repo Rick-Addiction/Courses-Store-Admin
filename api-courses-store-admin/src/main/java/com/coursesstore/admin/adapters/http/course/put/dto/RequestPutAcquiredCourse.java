@@ -6,10 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 public class RequestPutAcquiredCourse {
 
-    public RequestPutAcquiredCourse(){
-
-    }
-
     @JsonProperty("id_acquired_course")
     @NotBlank
     private String idAcquiredCourse;

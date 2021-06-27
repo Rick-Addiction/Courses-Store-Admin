@@ -20,7 +20,7 @@ class RegisterNewCustomerTest {
 
     @Test
     @DisplayName("Given a Customer domain object, When its requested to be registered, Then it should be done successfully")
-    public void Given_a_Customer_domain_object_When_its_requested_to_be_registered_Then_it_should_be_done_successfully(){
+    void Given_a_Customer_domain_object_When_its_requested_to_be_registered_Then_it_should_be_done_successfully(){
         ///Arrange
         RegisterNewCustomer registerNewCustomer = new RegisterNewCustomer(createCustomerPort);
 
