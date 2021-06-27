@@ -1,7 +1,5 @@
 package com.coursesstore.admin.core.usecases.teacher;
 
-import com.coursesstore.admin.core.domain.customer.CreateCustomerPort;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.domain.teacher.CreateTeacherPort;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.springframework.stereotype.Component;

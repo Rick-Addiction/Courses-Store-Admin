@@ -1,18 +1,17 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
+import com.coursesstore.admin.adapters.AdapterUtils;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
-import com.coursesstore.admin.adapters.database.course.CreateCourse;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
-import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
-import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
 import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
+import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,39 +44,35 @@ public class AddDesiredCourseTest {
     public void Given_a_valid_DesiredCourse_domain_object_When_the_desiredCourse_is_not_in_the_database_Then_create_a_new_desiredCourse() {
 
         ///Arrange
-        Customer customerWithADesiredCourse = DomainUtils.generateCustomerWithADesiredCourse();
-        DesiredCourse desiredCourse = customerWithADesiredCourse.getDesiredCourses().iterator().next();
+        Customer customerWithADesiredCourse = AdapterUtils.registerANewCustomer();
+        Teacher teacher = AdapterUtils.registerANewTeacher();
+        Course course = AdapterUtils.registerANewCourse(teacher);
 
-        CreateTeacher createTeacher = new CreateTeacher(teacherRepository);
-        createTeacher.createTeacher(desiredCourse.getCourse().getTeacherResponsible());
-
-        CreateCourse createCourse = new CreateCourse(courseRepository);
-        createCourse.createCourse(desiredCourse.getCourse());
-
-        CreateCustomer createCustomer = new CreateCustomer(customerRepository);
-        createCustomer.createCustomer(customerWithADesiredCourse);
+        DesiredCourse desiredCourse = DomainUtils.generateDesiredCourse(course);
 
         ///Act
-        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository);
-        addDesiredCourse.addNewDesiredCourseByCustomer(customerWithADesiredCourse);
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,customerRepository, courseRepository);
+        addDesiredCourse.addNewDesiredCourseByCustomer(
+                String.valueOf(customerWithADesiredCourse.getIdCustomer()),
+                desiredCourse
+        );
 
         ///Assert
 
         DesiredCourseKey desiredCourseKey = new DesiredCourseKey(String.valueOf(customerWithADesiredCourse.getIdCustomer()),
-                String.valueOf(desiredCourse.getCourse().getIdCourse()));
+                String.valueOf(course.getIdCourse()));
         Optional<DesiredCourseModel> optionalDesiredCourseModel = desiredCourseRepository.findById(desiredCourseKey);
 
         assertTrue(optionalDesiredCourseModel.isPresent());
 
         DesiredCourseModel desiredCourseModel = optionalDesiredCourseModel.get();
-        Customer customerThatDesiredACourse = DesiredCourseConverter.toEntity(desiredCourseModel);
+        Customer customerThatDesiredACourse = DesiredCourseConverter.toCustomerWithEntity(desiredCourseModel);
         DesiredCourse desiredCourseAdded = customerThatDesiredACourse.getDesiredCourses().iterator().next();
 
         assertEquals(desiredCourse.getDesireDate(), desiredCourseAdded.getDesireDate());
         assertEquals(desiredCourse.getDesireDescription(), desiredCourseAdded.getDesireDescription());
 
 
-        Course course = desiredCourse.getCourse();
         Course courseCreated = desiredCourseAdded.getCourse();
         assertEquals(course.getIdCourse(), courseCreated.getIdCourse());
         assertEquals(course.getName(), courseCreated.getName());

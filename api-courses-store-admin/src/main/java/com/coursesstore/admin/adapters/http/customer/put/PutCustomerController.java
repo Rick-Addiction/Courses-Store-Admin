@@ -1,12 +1,12 @@
 package com.coursesstore.admin.adapters.http.customer.put;
 
 import com.coursesstore.admin.adapters.http.RequestValidator;
-import com.coursesstore.admin.adapters.http.course.put.dto.PutCourseConverter;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutAcquiredCourse;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutDesiredCourse;
 import com.coursesstore.admin.adapters.http.customer.put.dto.PutCustomerConverter;
 import com.coursesstore.admin.adapters.http.customer.put.dto.RequestPutCustomer;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
+import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.usecases.course.acquired.UpdateCourseAcquisitionByCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.UpdateCourseDesiredByCustomer;
@@ -14,7 +14,10 @@ import com.coursesstore.admin.core.usecases.customer.UpdateCustomerRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("courses-store/customer")
@@ -55,9 +58,9 @@ public class PutCustomerController {
 
         requestValidator.valid(body);
 
-        Customer customer = PutCustomerConverter.toDomain(body);
+        AcquiredCourse acquiredCourse = PutCustomerConverter.toDomain(body);
 
-        updateCourseAcquisitionByCustomer.execute(customer);
+        updateCourseAcquisitionByCustomer.execute(body.getIdCustomer(),acquiredCourse);
 
         return ResponseEntity.ok("Registro atualizado com sucesso!");
     }
@@ -67,9 +70,9 @@ public class PutCustomerController {
 
         requestValidator.valid(body);
 
-        Customer customer = PutCustomerConverter.toDomain(body);
+        DesiredCourse desiredCourse = PutCustomerConverter.toDomain(body);
 
-        updateCourseDesiredByCustomer.execute(customer);
+        updateCourseDesiredByCustomer.execute(body.getIdCustomer(), desiredCourse);
 
         return ResponseEntity.ok("Registro atualizado com sucesso!");
     }

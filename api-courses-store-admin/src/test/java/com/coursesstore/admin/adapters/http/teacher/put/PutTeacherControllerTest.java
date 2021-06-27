@@ -1,11 +1,11 @@
-package com.coursesstore.admin.adapters.http.customer.put;
+package com.coursesstore.admin.adapters.http.teacher.put;
 
-import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
-import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
-import com.coursesstore.admin.adapters.http.customer.put.dto.RequestPutCustomer;
+
+import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
+import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
+import com.coursesstore.admin.adapters.http.teacher.put.dto.RequestPutTeacher;
 import com.coursesstore.admin.core.domain.DomainUtils;
-import com.coursesstore.admin.core.domain.customer.Customer;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,35 +26,35 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class PutTeacherControllerTest {
 
-    final String REQUEST_PATH = "/courses-store/customer";
+    final String REQUEST_PATH = "/courses-store/teacher";
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private TeacherRepository teacherRepository;
 
-    Customer customerToUpdate;
+    Teacher teacherToUpdate;
 
     @BeforeEach
     public void setUp(){
-        customerToUpdate = DomainUtils.generateCustomer();
-        CreateCustomer createCustomer = new CreateCustomer(customerRepository);
-        createCustomer.createCustomer(customerToUpdate);
+        teacherToUpdate = DomainUtils.generateTeacher();
+        CreateTeacher createTeacher = new CreateTeacher(teacherRepository);
+        createTeacher.createTeacher(teacherToUpdate);
     }
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("Given a valid Request to put a Customer, When its requested to update a Customer, Then response with the status OK")
-    public void Given_a_valid_Request_to_put_a_Customer_When_its_requested_to_update_a_Customer_Then_response_with_the_status_OK() throws Exception {
+    @DisplayName("Given a valid Request to put a Teacher, When its requested to update a Teacher, Then response with the status OK")
+    public void Given_a_valid_Request_to_put_a_Teacher_When_its_requested_to_update_a_Teacher_Then_response_with_the_status_OK() throws Exception {
 
         ///Arrange
-        RequestPutCustomer requestPutCustomer = DomainUtils.generateRequestPutCustomer(String.valueOf(customerToUpdate.getIdCustomer()));
-        requestPutCustomer.setFirstname("Louis");
+        RequestPutTeacher requestPutTeacher = DomainUtils.generateRequestPutTeacher(String.valueOf(teacherToUpdate.getIdTeacher()));
+        requestPutTeacher.setName("Louis");
 
         ///Act
         mockMvc.perform(
                 put(REQUEST_PATH+ "/update")
-                        .content(asJsonString(requestPutCustomer))
+                        .content(asJsonString(requestPutTeacher))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
 

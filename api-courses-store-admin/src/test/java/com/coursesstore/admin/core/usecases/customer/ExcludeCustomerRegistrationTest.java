@@ -1,6 +1,5 @@
 package com.coursesstore.admin.core.usecases.customer;
 
-import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.domain.customer.DeleteCustomerPort;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,6 @@
 package com.coursesstore.admin.adapters.database.course.desired.model;
 
 import com.coursesstore.admin.adapters.database.course.CourseModel;
-import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
-import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
@@ -52,7 +50,7 @@ public class DesiredCourseConverterTest {
         DesiredCourseModel desiredCourseModel = DomainUtils.generateDesiredCourseModel();
 
         ///Act
-        Customer customerWithADesiredCourse = DesiredCourseConverter.toEntity(desiredCourseModel);
+        Customer customerWithADesiredCourse = DesiredCourseConverter.toCustomerWithEntity(desiredCourseModel);
         DesiredCourse desiredCourse = customerWithADesiredCourse.getDesiredCourses().iterator().next();
 
         ///Assert

@@ -27,7 +27,6 @@ public class GetTeacherController {
 
     @GetMapping("/search")
     public ResponseEntity<ResponseGetTeacher> getTeacher() {
-        //TODO Unit Test
         List<Teacher> listTeachers = searchForTeacher.execute("");
 
         ResponseGetTeacher responseGetTeacher = GetTeacherConverter.toResponseGetTeacher(listTeachers);

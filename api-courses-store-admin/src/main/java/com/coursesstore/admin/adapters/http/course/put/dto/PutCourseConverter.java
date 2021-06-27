@@ -1,17 +1,10 @@
 package com.coursesstore.admin.adapters.http.course.put.dto;
 
 import com.coursesstore.admin.core.domain.course.Course;
-import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
-import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.util.NumberUtils;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class PutCourseConverter {

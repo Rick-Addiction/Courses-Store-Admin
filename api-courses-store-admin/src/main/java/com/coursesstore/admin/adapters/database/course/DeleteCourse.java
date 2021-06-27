@@ -1,8 +1,10 @@
 package com.coursesstore.admin.adapters.database.course;
 
-import com.coursesstore.admin.core.domain.course.Course;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.core.domain.course.DeleteCoursePort;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class DeleteCourse implements DeleteCoursePort {
@@ -12,13 +14,14 @@ public class DeleteCourse implements DeleteCoursePort {
     public DeleteCourse(CourseRepository courseRepository) { this.courseRepository = courseRepository; }
 
     @Override
-    public void deleteCourse(Course course) {
+    public void deleteCourse(String idCourse) {
 
-        CourseModel courseToDelete = null;
+        Optional<CourseModel> courseToDelete = courseRepository.findByIdCourse(idCourse);
 
-        if (course.getIdCourse() != null)
-            courseToDelete = courseRepository.findByIdCourse(course.getIdCourse().toString()).get();
+        if(courseToDelete.isEmpty()){
+            throw new ModelException("Course " + idCourse + " not Found");
+        }
 
-        courseRepository.delete(courseToDelete);
+        courseRepository.delete(courseToDelete.get());
     }
 }

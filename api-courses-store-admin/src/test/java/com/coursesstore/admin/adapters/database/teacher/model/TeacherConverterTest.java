@@ -1,7 +1,6 @@
 package com.coursesstore.admin.adapters.database.teacher.model;
 
 import com.coursesstore.admin.core.domain.DomainUtils;
-
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

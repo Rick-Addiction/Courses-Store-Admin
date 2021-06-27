@@ -9,7 +9,6 @@ import org.springframework.util.NumberUtils;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.UUID;
 
 public class PostCustomerConverter {
@@ -27,10 +26,7 @@ public class PostCustomerConverter {
         return customer;
     }
 
-    public static Customer toDomain (String idCustomer, RequestPostAcquiredCourseByCustomer body){
-        Customer customer = new Customer();
-        customer.setIdCustomer(UUID.fromString(idCustomer));
-
+    public static AcquiredCourse toDomainAcquiredCourse(RequestPostAcquiredCourseByCustomer body){
         AcquiredCourse acquiredCourse = new AcquiredCourse();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -42,17 +38,12 @@ public class PostCustomerConverter {
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         acquiredCourse.setCourse(course);
 
-        customer.setAcquiredCourses(new HashSet<>());
-        customer.getAcquiredCourses().add(acquiredCourse);
-
-        return customer;
+        return acquiredCourse;
     }
 
-    public static Customer toDomain (String idCustomer, RequestPostDesiredCourseByCustomer body){
-        Customer customer = new Customer();
-        customer.setIdCustomer(UUID.fromString(idCustomer));
 
 
+    public static DesiredCourse toDomainDesiredCourse (RequestPostDesiredCourseByCustomer body){
         DesiredCourse desiredCourse = new DesiredCourse();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -63,10 +54,7 @@ public class PostCustomerConverter {
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         desiredCourse.setCourse(course);
 
-        customer.setDesiredCourses(new HashSet<>());
-        customer.getDesiredCourses().add(desiredCourse);
-
-        return customer;
+        return desiredCourse;
     }
 
 }

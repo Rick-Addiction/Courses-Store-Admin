@@ -1,12 +1,8 @@
 package com.coursesstore.admin.core.domain.course.desired;
 
 import com.coursesstore.admin.core.domain.course.Course;
-import com.coursesstore.admin.core.domain.customer.Customer;
-import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.UUID;
 
 public class DesiredCourse {
 

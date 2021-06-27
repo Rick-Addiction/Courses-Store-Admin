@@ -1,8 +1,5 @@
 package com.coursesstore.admin.adapters.database.teacher;
 
-import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
-import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
-import com.coursesstore.admin.adapters.database.teacher.FindTeacher;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
@@ -11,11 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8101"})

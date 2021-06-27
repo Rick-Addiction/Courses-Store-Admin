@@ -1,8 +1,8 @@
 package com.coursesstore.admin.adapters.database.course;
 
+import com.coursesstore.admin.adapters.database.course.exception.CourseConflictException;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.CreateCoursePort;
-import com.coursesstore.admin.adapters.database.course.exception.CourseConflictException;
 import org.springframework.stereotype.Component;
 
 @Component

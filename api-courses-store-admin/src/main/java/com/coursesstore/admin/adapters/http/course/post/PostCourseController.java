@@ -1,10 +1,10 @@
 package com.coursesstore.admin.adapters.http.course.post;
 
+import com.coursesstore.admin.adapters.http.RequestValidator;
 import com.coursesstore.admin.adapters.http.course.post.dto.PostCourseConverter;
 import com.coursesstore.admin.adapters.http.course.post.dto.RequestPostCourse;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.usecases.course.RegisterNewCourse;
-import com.coursesstore.admin.adapters.http.RequestValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

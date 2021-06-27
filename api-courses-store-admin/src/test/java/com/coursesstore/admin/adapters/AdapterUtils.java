@@ -59,20 +59,25 @@ public class AdapterUtils {
         return newCourse;
     }
 
-    public static Customer registerANewAcquiredCourse(Customer customer, Course course){
-        customer = DomainUtils.generateCustomerWithAnAcquiredCourse(customer, course);
-        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,customerRepository);
-        addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
+    public static AcquiredCourse registerANewAcquiredCourse(String idCustomer, Course course){
+        AcquiredCourse acquiredCourse = DomainUtils.generateAcquiredCourse(course);
+        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,customerRepository,courseRepository);
+        addAcquiredCourse.addNewAcquiredCourseByCustomer(
+                idCustomer,
+                acquiredCourse);
 
-        return customer;
+        return acquiredCourse;
     }
 
-    public static Customer registerANewDesiredCourse(Customer customer, Course course){
-        customer = DomainUtils.generateCustomerWithADesiredCourse(customer, course);
-        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository);
-        addDesiredCourse.addNewDesiredCourseByCustomer(customer);
+    public static DesiredCourse registerANewDesiredCourse(String idCustomer, Course course){
+        DesiredCourse desiredCourse = DomainUtils.generateDesiredCourse(course);
 
-        return customer;
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,customerRepository,courseRepository);
+        addDesiredCourse.addNewDesiredCourseByCustomer(
+                idCustomer,
+                desiredCourse);
+
+        return desiredCourse;
     }
 
 
@@ -83,9 +88,6 @@ public class AdapterUtils {
 
         return newTeacher;
     }
-
-
-
 
 
     public static String asJsonString(final Object obj) {

@@ -8,7 +8,7 @@ public class GetTeacherConverter {
 
     public static ResponseGetTeacher toResponseGetTeacher(List<Teacher> listTeachers) {
         ResponseGetTeacher responseGetTeacher = new ResponseGetTeacher();
-//TODO Unit Test
+
         if(!listTeachers.isEmpty()) {
 
             responseGetTeacher.setTeachers(new ArrayList<>());

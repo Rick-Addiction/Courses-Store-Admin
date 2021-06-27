@@ -6,7 +6,6 @@ import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCour
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_CUSTOMER")

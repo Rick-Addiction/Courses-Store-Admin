@@ -1,7 +1,6 @@
 package com.coursesstore.admin.adapters.http.customer.delete;
 
 import com.coursesstore.admin.adapters.http.customer.put.PutCustomerController;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.usecases.course.acquired.ExcludeCourseAcquisitionByCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.ExcludeCourseDesiredByCustomer;
 import com.coursesstore.admin.core.usecases.customer.ExcludeCustomerRegistration;
@@ -10,9 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("courses-store/customer")
@@ -36,6 +36,7 @@ public class DeleteCustomerController {
     public ResponseEntity deleteCustomer (@PathVariable(value = "id_customer", required = false) String idCustomer) {
 
         excludeCustomerRegistration.execute(idCustomer);
+        log.info("Customer {} has been excluded", idCustomer);
 
         return new ResponseEntity(new HttpHeaders(), HttpStatus.OK);
     }

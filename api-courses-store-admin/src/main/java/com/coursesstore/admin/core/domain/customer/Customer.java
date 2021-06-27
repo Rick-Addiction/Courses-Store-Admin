@@ -1,6 +1,5 @@
 package com.coursesstore.admin.core.domain.customer;
 
-import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 

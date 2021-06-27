@@ -1,7 +1,6 @@
 package com.coursesstore.admin.core.usecases.course.desired;
 
 import com.coursesstore.admin.core.domain.course.desired.DeleteDesiredCoursePort;
-import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,10 +1,6 @@
 package com.coursesstore.admin.adapters.http.customer.get;
 
-import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
-import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
-import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.customer.Customer;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static com.coursesstore.admin.adapters.AdapterUtils.registerANewCustomer;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,18 +20,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8102"})
 @AutoConfigureMockMvc
-public class GetTeacherControllerTest {
+public class GetCustomerControllerTest {
 
     final String REQUEST_PATH = "/courses-store/customer";
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    Customer newCustomer;
 
     @BeforeEach
     public void setUp(){
-        Customer customer = DomainUtils.generateCustomer();
-        CreateCustomer createCustomer = new CreateCustomer(customerRepository);
-        createCustomer.createCustomer(customer);
+        newCustomer = registerANewCustomer();
     }
 
     @Autowired
@@ -50,12 +43,12 @@ public class GetTeacherControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers[0].idCustomer").exists())
-                .andExpect(jsonPath("$.customers[0].firstname").value("Dina"))
-                .andExpect(jsonPath("$.customers[0].lastname").value("Laster"))
-                .andExpect(jsonPath("$.customers[0].phone").value("+55 11 99999-9999"))
-                .andExpect(jsonPath("$.customers[0].email").value("email_test@testdomain.com"))
-                .andExpect(jsonPath("$.customers[0].linkedin").value("linkedIn.com/DinaLaster"))
-                .andExpect(jsonPath("$.customers[0].company").value("Robots with Love"))
-                .andExpect(jsonPath("$.customers[0].position").value("CEO"));
+                .andExpect(jsonPath("$.customers[0].firstname").value(newCustomer.getFirstname()))
+                .andExpect(jsonPath("$.customers[0].lastname").value(newCustomer.getLastname()))
+                .andExpect(jsonPath("$.customers[0].phone").value(newCustomer.getPhone()))
+                .andExpect(jsonPath("$.customers[0].email").value(newCustomer.getEmail()))
+                .andExpect(jsonPath("$.customers[0].linkedin").value(newCustomer.getLinkedIn()))
+                .andExpect(jsonPath("$.customers[0].company").value(newCustomer.getCompany()))
+                .andExpect(jsonPath("$.customers[0].position").value(newCustomer.getPosition()));
     }
 }

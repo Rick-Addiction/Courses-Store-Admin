@@ -2,7 +2,6 @@ package com.coursesstore.admin.core.usecases.customer;
 
 import com.coursesstore.admin.core.domain.customer.CreateCustomerPort;
 import com.coursesstore.admin.core.domain.customer.Customer;
-import com.coursesstore.admin.core.usecases.customer.RegisterNewCustomer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

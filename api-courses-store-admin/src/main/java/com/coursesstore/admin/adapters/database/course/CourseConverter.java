@@ -1,11 +1,18 @@
 package com.coursesstore.admin.adapters.database.course;
 
-import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherConverter;
+import com.coursesstore.admin.core.domain.course.Course;
 
 import java.util.UUID;
 
 public class CourseConverter {
+
+    public static CourseModel toModel(String idCourse){
+        CourseModel courseModel = new CourseModel();
+        courseModel.setIdCourse(idCourse);
+
+        return courseModel;
+    }
 
     public static CourseModel toModel(Course course){
         CourseModel courseModel = new CourseModel();

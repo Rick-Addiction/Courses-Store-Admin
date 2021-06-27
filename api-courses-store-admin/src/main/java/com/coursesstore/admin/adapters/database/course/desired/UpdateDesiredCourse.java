@@ -1,32 +1,38 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
-import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
-import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
-import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
-import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
-import com.coursesstore.admin.core.domain.course.Course;
+import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
+import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.UpdateDesiredCoursePort;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.Optional;
 
 @Component
 public class UpdateDesiredCourse implements UpdateDesiredCoursePort {
 
     private final DesiredCourseRepository desiredCourseRepository;
+    private final CustomerRepository customerRepository;
 
-    public UpdateDesiredCourse(DesiredCourseRepository desiredCourseRepository) {
+    public UpdateDesiredCourse(DesiredCourseRepository desiredCourseRepository,
+                               CustomerRepository customerRepository) {
         this.desiredCourseRepository = desiredCourseRepository;
+        this.customerRepository=customerRepository;
     }
 
     @Override
-    public void updateDesiredCourse(Customer customer){
+    public void updateDesiredCourse(String idCustomer, DesiredCourse desiredCourse){
 
-        DesiredCourseModel desiredCourseModel = DesiredCourseConverter.toModel(customer);
+        Optional<CustomerModel> customerModel = customerRepository.findByIdCustomer(idCustomer);
+
+        if(customerModel.isEmpty()){
+            throw new ModelException("Customer not found -  Customer " + idCustomer +"!");
+        }
+
+        DesiredCourseModel desiredCourseModel = DesiredCourseConverter.toModel(customerModel.get(),desiredCourse);
 
         desiredCourseRepository.save(desiredCourseModel);
     }

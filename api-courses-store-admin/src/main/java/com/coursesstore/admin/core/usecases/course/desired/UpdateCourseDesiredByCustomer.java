@@ -2,7 +2,6 @@ package com.coursesstore.admin.core.usecases.course.desired;
 
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.UpdateDesiredCoursePort;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,8 +13,8 @@ public class UpdateCourseDesiredByCustomer {
         this.updateDesiredCoursePort=updateDesiredCoursePort;
     }
 
-    public void execute(Customer customer) {
-        updateDesiredCoursePort.updateDesiredCourse(customer);
+    public void execute(String idCustomer, DesiredCourse desiredCourse) {
+        updateDesiredCoursePort.updateDesiredCourse(idCustomer, desiredCourse);
     }
 
 }

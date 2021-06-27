@@ -11,8 +11,6 @@ import org.springframework.util.NumberUtils;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.UUID;
 
 public class PutCustomerConverter {
@@ -31,7 +29,7 @@ public class PutCustomerConverter {
         return customer;
     }
 
-    public static Customer toDomain (RequestPutAcquiredCourse body){
+    public static AcquiredCourse toDomain (RequestPutAcquiredCourse body){
         AcquiredCourse acquiredCourse = new AcquiredCourse();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         acquiredCourse.setAcquisitionDate(LocalDate.parse(body.getAcquisitionDate(),formatter));
@@ -40,16 +38,10 @@ public class PutCustomerConverter {
         Course course = new Course();
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         acquiredCourse.setCourse(course);
-
-        Customer customer = new Customer();
-        customer.setIdCustomer(UUID.fromString(body.getIdCustomer()));
-        customer.setAcquiredCourses(new HashSet<>());
-        customer.getAcquiredCourses().add(acquiredCourse);
-
-        return customer;
+        return acquiredCourse;
     }
 
-    public static Customer toDomain (RequestPutDesiredCourse body){
+    public static DesiredCourse toDomain (RequestPutDesiredCourse body){
         DesiredCourse desiredCourse = new DesiredCourse();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -61,11 +53,6 @@ public class PutCustomerConverter {
         course.setIdCourse(UUID.fromString(body.getIdCourse()));
         desiredCourse.setCourse(course);
 
-        Customer customer = new Customer();
-        customer.setIdCustomer(UUID.fromString(body.getIdCustomer()));
-        customer.setDesiredCourses(new HashSet<>());
-        customer.getDesiredCourses().add(desiredCourse);
-
-        return customer;
+        return desiredCourse;
     }
 }

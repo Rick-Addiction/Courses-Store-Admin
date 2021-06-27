@@ -1,32 +1,35 @@
 package com.coursesstore.admin.core.usecases.course.acquired;
 
-import com.coursesstore.admin.core.domain.course.Course;
-import com.coursesstore.admin.core.domain.course.FindCoursePort;
+import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.AddAcquiredCoursePort;
-import com.coursesstore.admin.core.domain.customer.Customer;
-import com.coursesstore.admin.core.domain.teacher.FindTeacherPort;
+import com.coursesstore.admin.core.domain.course.desired.DeleteDesiredCoursePort;
+import com.coursesstore.admin.core.domain.course.desired.FindDesiredCoursePort;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class AddAcquiredCourseToCustomer {
 
+    private final FindDesiredCoursePort findDesiredCourse;
+    private final DeleteDesiredCoursePort deleteDesiredCourse;
     private final AddAcquiredCoursePort addAcquiredCourse;
-    private final FindCoursePort findCoursePort;
 
-    public AddAcquiredCourseToCustomer(AddAcquiredCoursePort addAcquiredCourse,
-                                       FindCoursePort findCoursePort){
+    public AddAcquiredCourseToCustomer(FindDesiredCoursePort findDesiredCourse,
+                                       DeleteDesiredCoursePort deleteDesiredCourse,
+                                       AddAcquiredCoursePort addAcquiredCourse){
+        this.findDesiredCourse=findDesiredCourse;
+        this.deleteDesiredCourse=deleteDesiredCourse;
         this.addAcquiredCourse=addAcquiredCourse;
-        this.findCoursePort=findCoursePort;
     }
 
-    public void execute(Customer customer) {
+    public void execute(String idCustomer, AcquiredCourse acquiredCourse) {
 
-        Course course = findCoursePort.findCourse(String.valueOf(customer.getAcquiredCourses().iterator().next().getCourse().getIdCourse()));
-        customer.getAcquiredCourses().iterator().next().setCourse(course);
+        String idCourse = String.valueOf(acquiredCourse.getCourse().getIdCourse());
 
-        addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
+        if(findDesiredCourse.findDesiredCourse(idCustomer,idCourse) != null){
+            deleteDesiredCourse.deleteDesiredCourse(idCustomer,idCourse);
+        }
+
+        addAcquiredCourse.addNewAcquiredCourseByCustomer(idCustomer, acquiredCourse);
     }
 
 }

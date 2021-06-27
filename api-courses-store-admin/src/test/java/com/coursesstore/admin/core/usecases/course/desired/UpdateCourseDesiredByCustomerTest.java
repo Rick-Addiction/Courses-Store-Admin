@@ -1,12 +1,15 @@
 package com.coursesstore.admin.core.usecases.course.desired;
 
+import com.coursesstore.admin.core.domain.DomainUtils;
+import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.UpdateDesiredCoursePort;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -25,9 +28,13 @@ public class UpdateCourseDesiredByCustomerTest {
         UpdateCourseDesiredByCustomer updateCourseDesiredByCustomer = new UpdateCourseDesiredByCustomer(updateDesiredCoursePort);
 
         ///Act
-        updateCourseDesiredByCustomer.execute(new Customer());
+        updateCourseDesiredByCustomer.execute(
+                String.valueOf(UUID.randomUUID()),
+                DomainUtils.generateDesiredCourse());
 
         ///Assert
-        verify(updateDesiredCoursePort, times(1)).updateDesiredCourse(any(Customer.class));
+        verify(updateDesiredCoursePort, times(1)).updateDesiredCourse(
+                any(String.class),
+                any(DesiredCourse.class));
     }
 }

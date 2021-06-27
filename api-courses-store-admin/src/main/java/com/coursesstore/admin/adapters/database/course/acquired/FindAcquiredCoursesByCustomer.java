@@ -32,7 +32,7 @@ public class FindAcquiredCoursesByCustomer implements FindAcquiredCoursesByCusto
         List<AcquiredCourse> listAcquiredCourses = new ArrayList<>();
 
         for (AcquiredCourseModel c : listAcquiredCoursesModel) {
-            listAcquiredCourses.add(AcquiredCourseConverter.toEntity(c).getAcquiredCourses().iterator().next());
+            listAcquiredCourses.add(AcquiredCourseConverter.toCustomerWithEntity(c).getAcquiredCourses().iterator().next());
         }
 
         return listAcquiredCourses;

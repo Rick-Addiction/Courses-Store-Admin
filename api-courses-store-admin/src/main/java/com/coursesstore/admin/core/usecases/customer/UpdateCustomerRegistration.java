@@ -1,8 +1,8 @@
 package com.coursesstore.admin.core.usecases.customer;
 
 
-import com.coursesstore.admin.core.domain.customer.UpdateCustomerPort;
 import com.coursesstore.admin.core.domain.customer.Customer;
+import com.coursesstore.admin.core.domain.customer.UpdateCustomerPort;
 import org.springframework.stereotype.Component;
 
 @Component

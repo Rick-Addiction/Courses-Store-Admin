@@ -1,7 +1,7 @@
 package com.coursesstore.admin.core.usecases.course.acquired;
 
+import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.UpdateAcquiredCoursePort;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,8 +13,8 @@ public class UpdateCourseAcquisitionByCustomer {
         this.updateAcquiredCoursePort=updateAcquiredCoursePort;
     }
 
-    public void execute(Customer customer) {
-        updateAcquiredCoursePort.updateAcquiredCourse(customer);
+    public void execute(String idCustomer, AcquiredCourse acquiredCourse) {
+        updateAcquiredCoursePort.updateAcquiredCourse(idCustomer,acquiredCourse);
     }
 
 }

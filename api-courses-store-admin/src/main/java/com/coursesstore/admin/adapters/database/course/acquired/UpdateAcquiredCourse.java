@@ -1,31 +1,40 @@
 package com.coursesstore.admin.adapters.database.course.acquired;
 
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
-import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
-import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
-import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
+import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
+import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.UpdateAcquiredCoursePort;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.Optional;
 
 @Component
 public class UpdateAcquiredCourse implements UpdateAcquiredCoursePort {
 
     private final AcquiredCourseRepository acquiredCourseRepository;
+    private final CustomerRepository customerRepository;
 
-    public UpdateAcquiredCourse(AcquiredCourseRepository acquiredCourseRepository) {
+    public UpdateAcquiredCourse(AcquiredCourseRepository acquiredCourseRepository,
+                                CustomerRepository customerRepository) {
         this.acquiredCourseRepository = acquiredCourseRepository;
+        this.customerRepository=customerRepository;
     }
 
     @Override
-    public void updateAcquiredCourse(Customer customer){
+    public void updateAcquiredCourse(String idCustomer, AcquiredCourse acquiredCourse){
 
-        AcquiredCourseModel acquiredCourseModel = AcquiredCourseConverter.toModel(customer);
+
+        Optional<CustomerModel> customerModel = customerRepository.findByIdCustomer(idCustomer);
+
+        if(customerModel.isEmpty()){
+            throw new ModelException("Customer not found -  Customer " + idCustomer +"!");
+        }
+
+        AcquiredCourseModel acquiredCourseModel = AcquiredCourseConverter.toModel(customerModel.get(),acquiredCourse);
 
         acquiredCourseRepository.save(acquiredCourseModel);
     }

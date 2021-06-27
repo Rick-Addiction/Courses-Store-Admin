@@ -51,7 +51,7 @@ public class AcquiredCourseConverterTest {
         AcquiredCourseModel acquiredCourseModel = DomainUtils.generateAcquiredCourseModel();
 
         ///Act
-        Customer customerThatAcquiredACourse = AcquiredCourseConverter.toEntity(acquiredCourseModel);
+        Customer customerThatAcquiredACourse = AcquiredCourseConverter.toCustomerWithEntity(acquiredCourseModel);
         AcquiredCourse acquiredCourse = customerThatAcquiredACourse.getAcquiredCourses().iterator().next();
 
         ///Assert

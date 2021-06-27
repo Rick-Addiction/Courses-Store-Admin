@@ -1,19 +1,17 @@
 package com.coursesstore.admin.adapters.database.course.acquired;
 
 
+import com.coursesstore.admin.adapters.AdapterUtils;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
-import com.coursesstore.admin.adapters.database.course.CreateCourse;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
-import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
-import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
-import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
+import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,33 +33,33 @@ public class AddAcquiredCourseTest {
     private AcquiredCourseRepository acquiredCourseRepository;
 
     @Autowired
-    private CourseRepository courseRepository;
-
-    @Autowired
     private CustomerRepository customerRepository;
 
     @Autowired
-    private TeacherRepository teacherRepository;
+    private CourseRepository courseRepository;
 
     @Test
-    @DisplayName("Given a valid AcquiredCourse domain object, When the acquiredCourse is not in the database, Then create a new acquiredCourse")
+    @DisplayName(
+            "Given a valid AcquiredCourse domain object, " +
+            "When the acquiredCourse is not in the database and there is not a desire of this course for the same Customer, " +
+            "Then just create a new acquiredCourse")
     public void Given_a_valid_AcquiredCourse_domain_object_When_the_acquiredCourse_is_not_in_the_database_Then_create_a_new_acquiredCourse() {
 
         ///Arrange
-        Customer customer = DomainUtils.generateCustomerWithAnAcquiredCourse();
-        AcquiredCourse acquiredCourse = customer.getAcquiredCourses().iterator().next();
-        CreateTeacher createTeacher = new CreateTeacher(teacherRepository);
-        createTeacher.createTeacher(acquiredCourse.getCourse().getTeacherResponsible());
+        Customer customer = AdapterUtils.registerANewCustomer();
+        Teacher teacher = AdapterUtils.registerANewTeacher();
+        Course course = AdapterUtils.registerANewCourse(teacher);
 
-        CreateCourse createCourse = new CreateCourse(courseRepository);
-        createCourse.createCourse(acquiredCourse.getCourse());
-
-        CreateCustomer createCustomer = new CreateCustomer(customerRepository);
-        createCustomer.createCustomer(customer);
+        AcquiredCourse acquiredCourse = DomainUtils.generateAcquiredCourse(course);
+        customer.setAcquiredCourses(new HashSet<>());
+        customer.getAcquiredCourses().add(acquiredCourse);
 
         ///Act
-        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,customerRepository);
-        addAcquiredCourse.addNewAcquiredCourseByCustomer(customer);
+        AddAcquiredCourse addAcquiredCourse = new AddAcquiredCourse(acquiredCourseRepository,customerRepository, courseRepository);
+        addAcquiredCourse.addNewAcquiredCourseByCustomer(
+                String.valueOf(customer.getIdCustomer()),
+                acquiredCourse
+        );
 
         ///Assert
         AcquiredCourseKey acquiredCourseKey = new AcquiredCourseKey(String.valueOf(customer.getIdCustomer()),
@@ -70,7 +69,7 @@ public class AddAcquiredCourseTest {
         assertTrue(optionalAcquiredCourseModel.isPresent());
 
         AcquiredCourseModel acquiredCourseModel = optionalAcquiredCourseModel.get();
-        Customer customerThatAcquiredTheCourse = AcquiredCourseConverter.toEntity(acquiredCourseModel);
+        Customer customerThatAcquiredTheCourse = AcquiredCourseConverter.toCustomerWithEntity(acquiredCourseModel);
         AcquiredCourse acquiredCourseAdded = customerThatAcquiredTheCourse.getAcquiredCourses().iterator().next();
 
 
@@ -78,7 +77,6 @@ public class AddAcquiredCourseTest {
         assertEquals(acquiredCourse.getValuePaid(), acquiredCourseAdded.getValuePaid());
 
 
-        Course course = acquiredCourse.getCourse();
         Course courseCreated = acquiredCourseAdded.getCourse();
         assertEquals(course.getIdCourse(), courseCreated.getIdCourse());
         assertEquals(course.getName(), courseCreated.getName());
@@ -95,6 +93,6 @@ public class AddAcquiredCourseTest {
         assertEquals(customer.getLinkedIn(), customerThatAcquiredTheCourse.getLinkedIn());
         assertEquals(customer.getCompany(), customerThatAcquiredTheCourse.getCompany());
         assertEquals(customer.getPosition(), customerThatAcquiredTheCourse.getPosition());
-
     }
+
 }

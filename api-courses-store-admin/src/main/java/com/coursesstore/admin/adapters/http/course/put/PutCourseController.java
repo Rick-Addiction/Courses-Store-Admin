@@ -1,15 +1,10 @@
 package com.coursesstore.admin.adapters.http.course.put;
 
+import com.coursesstore.admin.adapters.http.RequestValidator;
 import com.coursesstore.admin.adapters.http.course.put.dto.PutCourseConverter;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutCourse;
 import com.coursesstore.admin.core.domain.course.Course;
-import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
-import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.usecases.course.UpdateCourseRegistration;
-import com.coursesstore.admin.adapters.http.RequestValidator;
-import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutAcquiredCourse;
-import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutDesiredCourse;
 import com.coursesstore.admin.core.usecases.course.acquired.UpdateCourseAcquisitionByCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.UpdateCourseDesiredByCustomer;
 import org.slf4j.Logger;

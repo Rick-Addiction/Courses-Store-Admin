@@ -5,11 +5,13 @@ import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCo
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
-import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostAcquiredCourseByCustomer;
-import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutCourse;
+import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostAcquiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostCustomer;
+import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.customer.put.dto.RequestPutCustomer;
+import com.coursesstore.admin.adapters.http.teacher.post.dto.RequestPostTeacher;
+import com.coursesstore.admin.adapters.http.teacher.put.dto.RequestPutTeacher;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
@@ -17,6 +19,7 @@ import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.UUID;
@@ -206,6 +209,13 @@ public class DomainUtils {
 
         return requestPutCustomer;
     }
+    public static RequestPutTeacher generateRequestPutTeacher(String idTeacher){
+        RequestPutTeacher requestPutTeacher = new RequestPutTeacher();
+        requestPutTeacher.setIdTeacher(idTeacher);
+        requestPutTeacher.setName("Joel");
+
+        return requestPutTeacher;
+    }
 
     public static RequestPutCourse generateRequestPutCourse(String idCourse, String idTeacher){
         RequestPutCourse requestPutCourse = new RequestPutCourse();
@@ -237,6 +247,51 @@ public class DomainUtils {
         return requestPostDesiredCourseByCustomer;
     }
 
+    public static RequestPostTeacher generateRequestPostTeacher(){
+        RequestPostTeacher requestPostTeacher = new RequestPostTeacher();
+        requestPostTeacher.setName("Joel");
 
+        return requestPostTeacher;
+    }
+
+    public static AcquiredCourse generateAcquiredCourse(Course course){
+
+        AcquiredCourse acquiredCourse = new AcquiredCourse();
+        acquiredCourse.setCourse(course);
+        acquiredCourse.setValuePaid(BigDecimal.valueOf(1000.00).setScale(2, RoundingMode.HALF_EVEN));
+        acquiredCourse.setAcquisitionDate(LocalDate.now());
+
+        return acquiredCourse;
+    }
+
+    public static AcquiredCourse generateAcquiredCourse(){
+
+        AcquiredCourse acquiredCourse = new AcquiredCourse();
+        acquiredCourse.setCourse(generateCourse());
+        acquiredCourse.setValuePaid(BigDecimal.valueOf(1000.00).setScale(2, RoundingMode.HALF_EVEN));
+        acquiredCourse.setAcquisitionDate(LocalDate.now());
+
+        return acquiredCourse;
+    }
+
+    public static DesiredCourse generateDesiredCourse(Course course){
+
+        DesiredCourse desiredCourse = new DesiredCourse();
+        desiredCourse.setCourse(course);
+        desiredCourse.setDesireDescription("TEST");
+        desiredCourse.setDesireDate(LocalDate.now());
+
+        return desiredCourse;
+    }
+
+    public static DesiredCourse generateDesiredCourse(){
+
+        DesiredCourse desiredCourse = new DesiredCourse();
+        desiredCourse.setCourse(generateCourse());
+        desiredCourse.setDesireDescription("TEST");
+        desiredCourse.setDesireDate(LocalDate.now());
+
+        return desiredCourse;
+    }
 
 }

@@ -1,8 +1,8 @@
 package com.coursesstore.admin.adapters.database.customer;
 
+import com.coursesstore.admin.adapters.database.customer.exception.CustomerConflictException;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
-import com.coursesstore.admin.exceptions.CustomerConflictException;
 import com.coursesstore.admin.core.domain.customer.CreateCustomerPort;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;

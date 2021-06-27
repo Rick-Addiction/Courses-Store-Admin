@@ -1,8 +1,5 @@
 package com.coursesstore.admin.adapters.database.teacher;
 
-import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
-import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
-import com.coursesstore.admin.adapters.database.teacher.DeleteTeacher;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
@@ -43,7 +40,7 @@ public class DeleteTeacherTest {
 
         ///Act
         DeleteTeacher deleteTeacher = new DeleteTeacher(teacherRepository);
-        deleteTeacher.deleteTeacher(teacherToBeDeleted);
+        deleteTeacher.deleteTeacher(String.valueOf(teacherToBeDeleted.getIdTeacher()));
 
         ///Assert
         Optional<TeacherModel> optionalDeletedTeacherModel = teacherRepository.findByIdTeacher(String.valueOf(teacher.getIdTeacher()));

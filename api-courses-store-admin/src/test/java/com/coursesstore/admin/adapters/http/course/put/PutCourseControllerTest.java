@@ -1,10 +1,6 @@
 package com.coursesstore.admin.adapters.http.course.put;
 
-import com.coursesstore.admin.adapters.database.course.CourseRepository;
-import com.coursesstore.admin.adapters.database.course.CreateCourse;
-import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutCourse;
-import com.coursesstore.admin.adapters.http.customer.put.dto.RequestPutCustomer;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
@@ -44,8 +40,16 @@ public class PutCourseControllerTest {
         newCustomer = registerANewCustomer();
         newTeacher = registerANewTeacher();
         courseToUpdate = registerANewCourse(newTeacher);
-        newCustomer = registerANewAcquiredCourse(newCustomer, courseToUpdate);
-        newCustomer = registerANewDesiredCourse(newCustomer, courseToUpdate);
+
+        String idCostumer = String.valueOf(newCustomer.getIdCustomer());
+
+        registerANewAcquiredCourse(
+                idCostumer,
+                courseToUpdate);
+
+        registerANewDesiredCourse(
+                idCostumer,
+                courseToUpdate);
     }
 
     @Autowired

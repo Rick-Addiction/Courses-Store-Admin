@@ -1,9 +1,11 @@
 package com.coursesstore.admin.adapters.database.teacher;
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
 import com.coursesstore.admin.core.domain.teacher.DeleteTeacherPort;
-import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class DeleteTeacher implements DeleteTeacherPort {
@@ -14,14 +16,13 @@ public class DeleteTeacher implements DeleteTeacherPort {
         this.teacherRepository = teacherRepository; }
 
     @Override
-    public void deleteTeacher(Teacher teacher) {
+    public void deleteTeacher(String idTeacher) {
 
-        TeacherModel teacherToDelete = null;
+        Optional<TeacherModel> teacherToDelete = teacherRepository.findByIdTeacher(idTeacher);
 
-        if (teacher.getIdTeacher() != null)
-            teacherToDelete = teacherRepository.findByIdTeacher(
-                    teacher.getIdTeacher().toString()).get();
+        if(teacherToDelete.isEmpty())
+            throw new ModelException("Teacher " + idTeacher + " not Found");
 
-        teacherRepository.delete(teacherToDelete);
+        teacherRepository.delete(teacherToDelete.get());
     }
 }

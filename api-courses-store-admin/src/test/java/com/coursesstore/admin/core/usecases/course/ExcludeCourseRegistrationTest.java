@@ -1,6 +1,5 @@
 package com.coursesstore.admin.core.usecases.course;
 
-import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.DeleteCoursePort;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,9 +25,9 @@ public class ExcludeCourseRegistrationTest {
         ExcludeCourseRegistration excludeCourseRegistration = new ExcludeCourseRegistration(deleteCoursePort);
 
         ///Act
-        excludeCourseRegistration.execute(new Course());
+        excludeCourseRegistration.execute("id_course");
 
         ///Assert
-        verify(deleteCoursePort, times(1)).deleteCourse(any(Course.class));
+        verify(deleteCoursePort, times(1)).deleteCourse(any(String.class));
     }
 }

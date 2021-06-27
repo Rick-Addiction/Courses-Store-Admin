@@ -1,10 +1,12 @@
 package com.coursesstore.admin.adapters.http.customer.post;
 
 import com.coursesstore.admin.adapters.http.RequestValidator;
-import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostAcquiredCourseByCustomer;
-import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.customer.post.dto.PostCustomerConverter;
+import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostAcquiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostCustomer;
+import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesiredCourseByCustomer;
+import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
+import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.usecases.course.acquired.AddAcquiredCourseToCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.AddDesiredCourseToCustomer;
@@ -55,10 +57,10 @@ public class PostCustomerController {
 
         requestValidator.valid(body);
 
-        Customer customer = PostCustomerConverter.toDomain(idCustomer, body);
+        AcquiredCourse acquiredCourse = PostCustomerConverter.toDomainAcquiredCourse(body);
 
-        addAcquiredCourseToCustomer.execute(customer);
-        log.info("Acquired Course has been added to the Customer: {}", customer);
+        addAcquiredCourseToCustomer.execute(idCustomer,acquiredCourse);
+        log.info("Acquired Course has been added to the Customer: {}", idCustomer);
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.CREATED);
     }
@@ -68,10 +70,10 @@ public class PostCustomerController {
 
         requestValidator.valid(body);
 
-        Customer customer = PostCustomerConverter.toDomain(idCustomer, body);
+        DesiredCourse desiredCourse = PostCustomerConverter.toDomainDesiredCourse(body);
 
-        addDesiredCourseToCustomer.execute(customer);
-        log.info("Desired Course has been added to the Customer: {}", customer);
+        addDesiredCourseToCustomer.execute(idCustomer,desiredCourse);
+        log.info("Desired Course has been added to the Customer: {}", idCustomer);
 
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.CREATED);
     }

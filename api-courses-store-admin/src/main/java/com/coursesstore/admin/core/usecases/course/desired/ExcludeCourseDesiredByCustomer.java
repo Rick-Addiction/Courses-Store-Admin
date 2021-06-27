@@ -1,8 +1,6 @@
 package com.coursesstore.admin.core.usecases.course.desired;
 
 import com.coursesstore.admin.core.domain.course.desired.DeleteDesiredCoursePort;
-import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
-import com.coursesstore.admin.core.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
 @Component

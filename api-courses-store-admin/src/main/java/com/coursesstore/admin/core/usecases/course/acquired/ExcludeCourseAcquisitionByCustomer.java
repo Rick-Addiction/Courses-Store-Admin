@@ -1,7 +1,6 @@
 package com.coursesstore.admin.core.usecases.course.acquired;
 
 
-import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.acquired.DeleteAcquiredCoursePort;
 import org.springframework.stereotype.Component;
 

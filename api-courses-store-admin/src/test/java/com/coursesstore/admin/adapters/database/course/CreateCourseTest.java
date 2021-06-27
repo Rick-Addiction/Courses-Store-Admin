@@ -1,13 +1,9 @@
 package com.coursesstore.admin.adapters.database.course;
 
-import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
-import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
 import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
-import com.coursesstore.admin.core.domain.customer.Customer;
-import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

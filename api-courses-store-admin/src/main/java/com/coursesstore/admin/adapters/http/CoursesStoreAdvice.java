@@ -1,7 +1,7 @@
 package com.coursesstore.admin.adapters.http;
 
-import com.coursesstore.admin.exceptions.CustomerConflictException;
-import com.coursesstore.admin.exceptions.DataNotFoundException;
+import com.coursesstore.admin.adapters.database.DataNotFoundException;
+import com.coursesstore.admin.adapters.database.customer.exception.CustomerConflictException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
-public class CustomerController extends ResponseEntityExceptionHandler {
+public class CoursesStoreAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {

@@ -1,16 +1,15 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
+import com.coursesstore.admin.adapters.AdapterUtils;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
-import com.coursesstore.admin.adapters.database.course.CreateCourse;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
-import com.coursesstore.admin.adapters.database.customer.CreateCustomer;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
-import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
 import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
-import com.coursesstore.admin.core.domain.DomainUtils;
+import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
+import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,20 +42,18 @@ public class DeleteDesiredCourseTest {
     public void Given_a_DesiredCourse_stored_in_the_database_When_its_requested_to_delete_the_DesiredCourse_Then_it_should_be_done_successfully () {
 
         ///Arrange
-        Customer customerWithADesiredCourse = DomainUtils.generateCustomerWithADesiredCourse();
-        DesiredCourse desiredCourse = customerWithADesiredCourse.getDesiredCourses().iterator().next();
+        Customer customerWithADesiredCourse = AdapterUtils.registerANewCustomer();
+        Teacher teacher = AdapterUtils.registerANewTeacher();
+        Course course = AdapterUtils.registerANewCourse(teacher);
 
-        CreateTeacher createTeacher = new CreateTeacher(teacherRepository);
-        createTeacher.createTeacher(desiredCourse.getCourse().getTeacherResponsible());
+        String idCostumer = String.valueOf(customerWithADesiredCourse.getIdCustomer());
 
-        CreateCourse createCourse = new CreateCourse(courseRepository);
-        createCourse.createCourse(desiredCourse.getCourse());
+        DesiredCourse desiredCourse = AdapterUtils.registerANewDesiredCourse(
+                idCostumer,
+                course);
 
-        CreateCustomer createCustomer = new CreateCustomer(customerRepository);
-        createCustomer.createCustomer(customerWithADesiredCourse);
-
-        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository);
-        addDesiredCourse.addNewDesiredCourseByCustomer(customerWithADesiredCourse);
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,customerRepository,courseRepository);
+        addDesiredCourse.addNewDesiredCourseByCustomer(idCostumer,desiredCourse);
 
         ///Act
         DeleteDesiredCourse deleteDesiredCourse = new DeleteDesiredCourse(desiredCourseRepository);
@@ -68,7 +65,7 @@ public class DeleteDesiredCourseTest {
         ///Assert
         DesiredCourseKey desiredCourseKey = new DesiredCourseKey(
                 String.valueOf(customerWithADesiredCourse.getIdCustomer()),
-                String.valueOf(customerWithADesiredCourse.getDesiredCourses().iterator().next().getCourse().getIdCourse()));
+                String.valueOf(desiredCourse.getCourse().getIdCourse()));
         Optional<DesiredCourseModel> optionalDeletedDesiredCourseModel = desiredCourseRepository.findById(desiredCourseKey);
         assertTrue(optionalDeletedDesiredCourseModel.isEmpty());
     }

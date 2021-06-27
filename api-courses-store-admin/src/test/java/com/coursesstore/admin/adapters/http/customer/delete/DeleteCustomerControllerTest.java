@@ -32,21 +32,13 @@ public class DeleteCustomerControllerTest {
     @Autowired
     private CustomerRepository customerRepository;
 
-    Customer customerCreated;
     Customer customerCreatedToAcquireAndDesire;
-    AcquiredCourse acquiredCourse;
-    DesiredCourse desiredCourse;
-
+    Teacher teacher;
 
     @BeforeEach
     public void setUp(){
-        customerCreated = registerANewCustomer();
         customerCreatedToAcquireAndDesire=registerANewCustomer();
-        Teacher teacher = registerANewTeacher();
-        Course courseToAcquire = registerANewCourse(teacher);
-        Course courseToDesire = registerANewCourse(teacher);
-        acquiredCourse = registerANewAcquiredCourse(customerCreatedToAcquireAndDesire,courseToAcquire).getAcquiredCourses().iterator().next();
-        desiredCourse = registerANewDesiredCourse(customerCreatedToAcquireAndDesire,courseToDesire).getDesiredCourses().iterator().next();
+        teacher = registerANewTeacher();
     }
 
     @Autowired
@@ -56,6 +48,8 @@ public class DeleteCustomerControllerTest {
     @DisplayName("Given a valid Request to delete a Customer, When its requested to delete a Customer, Then response with the status OK")
     public void Given_a_valid_Request_to_delete_a_Customer_When_its_requested_to_delete_a_Customer_Then_response_with_the_status_OK() throws Exception {
 
+        ///Arrange
+        Customer customerCreated = registerANewCustomer();
         ///Act
         mockMvc.perform(
                 delete(REQUEST_PATH+ "/{id_customer}",String.valueOf(customerCreated.getIdCustomer()))
@@ -68,6 +62,11 @@ public class DeleteCustomerControllerTest {
     @DisplayName("Given a valid Request to delete a Acquired Course by Customer, When its requested to delete the Acquired Course, Then response with the status OK")
     public void Given_a_valid_Request_to_delete_a_Acquired_Course_by_Customer_When_its_requested_to_delete_the_Acquired_Course_Then_response_with_the_status_OK() throws Exception {
 
+        ///Arrange
+        Course courseToAcquire = registerANewCourse(teacher);
+        AcquiredCourse acquiredCourse = registerANewAcquiredCourse(
+                String.valueOf(customerCreatedToAcquireAndDesire.getIdCustomer()),
+                courseToAcquire);
         ///Act
         mockMvc.perform(
                 delete(REQUEST_PATH+ "/{id_customer}/acquire-course/{id_course}"
@@ -81,6 +80,13 @@ public class DeleteCustomerControllerTest {
     @Test
     @DisplayName("Given a valid Request to delete a Desired Course by Customer, When its requested to delete the Desired Course, Then response with the status OK")
     public void Given_a_valid_Request_to_delete_a_Desired_Course_by_Customer_When_its_requested_to_delete_the_Desired_Course_Then_response_with_the_status_OK() throws Exception {
+
+        ///Arrange
+        Course courseToDesire = registerANewCourse(teacher);
+        DesiredCourse desiredCourse =registerANewDesiredCourse(
+                String.valueOf(customerCreatedToAcquireAndDesire.getIdCustomer()),
+                courseToDesire
+        );
 
         ///Act
         mockMvc.perform(

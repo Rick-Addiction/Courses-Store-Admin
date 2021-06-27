@@ -31,7 +31,7 @@ public class FindDesiredCoursesByCustomer implements FindDesiredCoursesByCustome
         List<DesiredCourse> listDesiredCourses = new ArrayList<>();
 
         for (DesiredCourseModel c : listDesiredCoursesModel) {
-            listDesiredCourses.add(DesiredCourseConverter.toEntity(c).getDesiredCourses().iterator().next());
+            listDesiredCourses.add(DesiredCourseConverter.toCustomerWithEntity(c).getDesiredCourses().iterator().next());
         }
 
         return listDesiredCourses;

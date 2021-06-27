@@ -1,6 +1,5 @@
 package com.coursesstore.admin.core.usecases.teacher;
 
-import com.coursesstore.admin.core.domain.teacher.Teacher;
 import com.coursesstore.admin.core.domain.teacher.DeleteTeacherPort;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +10,6 @@ public class ExcludeTeacherRegistration {
 
     public ExcludeTeacherRegistration(DeleteTeacherPort deleteTeacherPort){ this.deleteTeacherPort=deleteTeacherPort; }
 
-    public void execute(Teacher teacher) { deleteTeacherPort.deleteTeacher(teacher); }
+    public void execute(String idTeacher) { deleteTeacherPort.deleteTeacher(idTeacher); }
 
 }

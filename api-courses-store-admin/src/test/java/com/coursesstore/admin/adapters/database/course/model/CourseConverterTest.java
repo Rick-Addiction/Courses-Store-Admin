@@ -5,7 +5,6 @@ import com.coursesstore.admin.adapters.database.course.CourseConverter;
 import com.coursesstore.admin.adapters.database.course.CourseModel;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -2,8 +2,8 @@ package com.coursesstore.admin.adapters.database.customer;
 
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
-import com.coursesstore.admin.core.domain.customer.UpdateCustomerPort;
 import com.coursesstore.admin.core.domain.customer.Customer;
+import com.coursesstore.admin.core.domain.customer.UpdateCustomerPort;
 import org.springframework.stereotype.Component;
 
 @Component
