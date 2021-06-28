@@ -44,8 +44,8 @@ class AcquiredCourseConverterTest {
     }
 
     @Test
-    @DisplayName("Given a valid AcquiredCourse model, When the object is converted to a AcquiredCourse entity, Then It should be done successfully")
-    void Given_a_valid_AcquiredCourse_model_When_the_object_is_converted_to_a_AcquiredCourse_entity_Then_It_should_be_done_successfully(){
+    @DisplayName("Given a valid AcquiredCourse model, When the object is converted to a Customer entity, Then It should be done successfully")
+    void Given_a_valid_AcquiredCourse_model_When_the_object_is_converted_to_a_Customer_entity_Then_It_should_be_done_successfully(){
 
         ///Arrange
         AcquiredCourseModel acquiredCourseModel = DomainUtils.generateAcquiredCourseModel();
@@ -75,6 +75,29 @@ class AcquiredCourseConverterTest {
         assertEquals(customerThatAcquiredACourse.getLinkedIn(),customerModel.getLinkedIn());
         assertEquals(customerThatAcquiredACourse.getCompany(),customerModel.getCompany());
         assertEquals(customerThatAcquiredACourse.getPosition(),customerModel.getPosition());
+    }
+
+    @Test
+    @DisplayName("Given a valid AcquiredCourse model, When the object is converted to a AcquiredCourse entity, Then It should be done successfully")
+    void Given_a_valid_AcquiredCourse_model_When_the_object_is_converted_to_a_AcquiredCourse_entity_Then_It_should_be_done_successfully(){
+
+        ///Arrange
+        AcquiredCourseModel acquiredCourseModel = DomainUtils.generateAcquiredCourseModel();
+
+        ///Act
+        AcquiredCourse acquiredCourse = AcquiredCourseConverter.toEntity(acquiredCourseModel);
+
+        ///Assert
+        assertEquals(acquiredCourse.getAcquisitionDate(),acquiredCourseModel.getAcquisitionDate());
+        assertEquals(acquiredCourse.getValuePaid(),acquiredCourseModel.getValuePaid());
+
+        Course course = acquiredCourse.getCourse();
+        CourseModel courseModel = acquiredCourseModel.getCourse();
+        assertEquals(String.valueOf(course.getIdCourse()), courseModel.getIdCourse());
+        assertEquals(course.getName(),courseModel.getName());
+        assertEquals(course.getOriginalValue(),courseModel.getOriginalValue());
+        assertEquals(String.valueOf(course.getTeacherResponsible().getIdTeacher()),courseModel.getTeacherResponsible().getIdTeacher());
+        assertEquals(course.getTeacherResponsible().getName(),courseModel.getTeacherResponsible().getName());
     }
     
 }

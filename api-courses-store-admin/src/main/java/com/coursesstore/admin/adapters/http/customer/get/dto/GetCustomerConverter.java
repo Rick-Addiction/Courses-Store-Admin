@@ -8,7 +8,7 @@ import com.coursesstore.admin.core.domain.customer.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetCustomerConverter {
+public final class GetCustomerConverter {
 
     private GetCustomerConverter() {
         throw new IllegalStateException("Utility class");
@@ -49,6 +49,7 @@ public class GetCustomerConverter {
             for (AcquiredCourse ac : listAcquiredCoursesByCustomer) {
                 var acquiredCourse = new ResponseGetAcquiredCoursesByCustomer.AcquiredCourse();
                 acquiredCourse.setCourseName(ac.getCourse().getName());
+                acquiredCourse.setIdAcquiredCourse(String.valueOf(ac.getCourse().getIdCourse()));
                 acquiredCourse.setAcquisitionDate(String.valueOf(ac.getAcquisitionDate()));
                 acquiredCourse.setValuePaid(String.valueOf(ac.getValuePaid()));
 
@@ -81,6 +82,7 @@ public class GetCustomerConverter {
             for (DesiredCourse dc : listDesiredCoursesByCustomer) {
                 var desiredCourse = new ResponseGetDesiredCoursesByCustomer.DesiredCourse();
                 desiredCourse.setCourseName(dc.getCourse().getName());
+                desiredCourse.setIdDesiredCourse(String.valueOf(dc.getCourse().getIdCourse()));
                 desiredCourse.setDesireDate(String.valueOf(dc.getDesireDate()));
                 desiredCourse.setDesireDescription(dc.getDesireDescription());
 
