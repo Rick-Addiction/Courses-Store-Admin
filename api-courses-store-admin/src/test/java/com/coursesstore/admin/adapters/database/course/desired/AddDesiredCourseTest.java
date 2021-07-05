@@ -1,6 +1,7 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
 import com.coursesstore.admin.adapters.AdapterUtils;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
@@ -20,9 +21,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -90,5 +92,58 @@ class AddDesiredCourseTest {
         assertEquals(customerWithADesiredCourse.getCompany(), customerThatDesiredACourse.getCompany());
         assertEquals(customerWithADesiredCourse.getPosition(), customerThatDesiredACourse.getPosition());
 
+    }
+
+    @Test
+    @DisplayName(
+            "Given a DesiredCourse with an invalid Course domain, When it is tried to add this new desiredCourse, Then it will throw a ModelException")
+    void Given_a_DesiredCourse_with_an_invalid_Course_domain_When_it_is_tried_to_add_this_new_desiredCourse_Then_it_will_throw_a_ModelException() {
+        ///Arrange
+        Customer customer = AdapterUtils.registerANewCustomer();
+        Course course = new Course();
+        course.setIdCourse(UUID.fromString("d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b"));
+
+        DesiredCourse desiredCourse = DomainUtils.generateDesiredCourse(course);
+
+        ///Act
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,customerRepository, courseRepository);
+
+
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> addDesiredCourse.addNewDesiredCourseByCustomer(
+                        String.valueOf(customer.getIdCustomer()),
+                        desiredCourse
+                )
+        );
+
+        assertEquals("Conflict at the adding of a new Desired Course: Course not found -  Course d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b!",exception.getMessage());
+    }
+
+    @Test
+    @DisplayName(
+            "Given an invalid Customer domain, When it is tried to add this new desiredCourse, Then it will throw a ModelException")
+    void Given_an_invalid_Customer_domain_When_it_is_tried_to_add_this_new_desiredCourse_Then_it_will_throw_a_ModelException() {
+        ///Arrange
+        Customer customer = DomainUtils.generateCustomer();
+        customer.setIdCustomer(UUID.fromString("5db4a656-5694-4c9b-b1f2-2fac451bd29f"));
+        Teacher teacher = AdapterUtils.registerANewTeacher();
+        Course course = AdapterUtils.registerANewCourse(teacher);
+
+        DesiredCourse desiredCourse = DomainUtils.generateDesiredCourse(course);
+
+        ///Act
+        AddDesiredCourse addDesiredCourse = new AddDesiredCourse(desiredCourseRepository,customerRepository, courseRepository);
+
+
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> addDesiredCourse.addNewDesiredCourseByCustomer(
+                        String.valueOf(customer.getIdCustomer()),
+                        desiredCourse
+                )
+        );
+
+        assertEquals("Conflict at the adding of a new Desired Course: Customer not found -  Customer 5db4a656-5694-4c9b-b1f2-2fac451bd29f!",exception.getMessage());
     }
 }

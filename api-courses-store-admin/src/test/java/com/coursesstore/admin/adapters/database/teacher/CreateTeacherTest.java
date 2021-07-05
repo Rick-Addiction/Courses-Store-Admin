@@ -1,5 +1,7 @@
 package com.coursesstore.admin.adapters.database.teacher;
 
+import com.coursesstore.admin.adapters.database.ModelException;
+import com.coursesstore.admin.adapters.database.course.CreateCourse;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherConverter;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
 import com.coursesstore.admin.core.domain.DomainUtils;
@@ -13,8 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -41,7 +42,23 @@ class CreateTeacherTest {
 
         assertEquals(teacher.getIdTeacher(),teacherCreated.getIdTeacher());
         assertEquals(teacher.getName(),teacherCreated.getName());
+    }
 
+    @Test
+    @DisplayName("Given an invalid Teacher domain, When it is tried to create this Teacher, Then it will throw a ModelException")
+    void Given_an_invalid_Teacher_domain_When_it_is_tried_to_create_this_Teacher_Then_it_will_throw_a_ModelException() {
+        ///Act
+        CreateTeacher createTeacher = new CreateTeacher(teacherRepository);
+
+        ///Assert
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> createTeacher.createTeacher(
+                        null
+                )
+        );
+
+        assertEquals("Conflict at the creating of a new Teacher: null",exception.getMessage());
     }
 
 }

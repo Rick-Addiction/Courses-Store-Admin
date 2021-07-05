@@ -32,7 +32,7 @@ public class FindNotAcquiredCoursesByCustomer implements FindNotAcquiredCoursesB
         List<Course> listNotAcquiredCourses = new ArrayList<>();
 
         for (CourseModel c : listCourseModels) {
-            if(!StreamSupport.stream(listAcquiredCoursesModel.spliterator(),false).noneMatch(
+            if(!StreamSupport.stream(listAcquiredCoursesModel.spliterator(),false).anyMatch(
                  acquiredCourseModel -> acquiredCourseModel.getCourse().getIdCourse().equals(c.getIdCourse())
             ))
                 listNotAcquiredCourses.add(CourseConverter.toEntity(c));

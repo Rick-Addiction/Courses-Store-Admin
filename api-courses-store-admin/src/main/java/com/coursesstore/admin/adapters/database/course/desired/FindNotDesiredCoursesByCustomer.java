@@ -32,7 +32,7 @@ public class FindNotDesiredCoursesByCustomer implements FindNotDesiredCoursesByC
         List<Course> listNotDesiredCourses = new ArrayList<>();
 
         for (CourseModel c : listCourseModels) {
-            if(!StreamSupport.stream(listDesiredCoursesModel.spliterator(),false).noneMatch(
+            if(!StreamSupport.stream(listDesiredCoursesModel.spliterator(),false).anyMatch(
                  desiredCourseModel -> desiredCourseModel.getCourse().getIdCourse().equals(c.getIdCourse())
             ))
                 listNotDesiredCourses.add(CourseConverter.toEntity(c));

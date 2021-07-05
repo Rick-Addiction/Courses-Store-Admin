@@ -28,22 +28,6 @@ public class CustomerModel {
     @OneToMany(mappedBy = "customer",fetch=FetchType.LAZY)
     private List<DesiredCourseModel> desiredCourses = new ArrayList<>();
 
-    public List<AcquiredCourseModel> getAcquiredCourses() {
-        return acquiredCourses;
-    }
-
-    public void addAcquiredCourses(AcquiredCourseModel acquiredCourse) {
-        this.acquiredCourses.add(acquiredCourse);
-    }
-
-    public List<DesiredCourseModel> getDesiredCourses() {
-        return desiredCourses;
-    }
-
-    public void addDesiredCourses(DesiredCourseModel desiredCourse) {
-        this.desiredCourses.add(desiredCourse);
-    }
-
     public String getIdCustomer() {
         return idCustomer;
     }

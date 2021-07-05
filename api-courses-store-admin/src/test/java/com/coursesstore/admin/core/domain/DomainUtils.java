@@ -5,7 +5,10 @@ import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCo
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherModel;
+import com.coursesstore.admin.adapters.http.course.post.dto.RequestPostCourse;
+import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutAcquiredCourse;
 import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutCourse;
+import com.coursesstore.admin.adapters.http.course.put.dto.RequestPutDesiredCourse;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostAcquiredCourseByCustomer;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostCustomer;
 import com.coursesstore.admin.adapters.http.customer.post.dto.RequestPostDesiredCourseByCustomer;
@@ -188,12 +191,14 @@ public class DomainUtils {
         requestPostCustomer.setLastname("Laster");
         requestPostCustomer.setEmail("email_test@testdomain.com");
         requestPostCustomer.setCompany("Robots with Love");
-        requestPostCustomer.setEmail("linkedIn.com/DinaLaster");
+        requestPostCustomer.setLinkedIn("linkedIn.com/DinaLaster");
         requestPostCustomer.setPhone("+55 11 99999-9999");
         requestPostCustomer.setPosition("CEO");
 
         return requestPostCustomer;
     }
+
+
 
     public static RequestPutCustomer generateRequestPutCustomer(String idCustomer){
 
@@ -203,7 +208,7 @@ public class DomainUtils {
         requestPutCustomer.setLastname("Laster");
         requestPutCustomer.setEmail("email_test@testdomain.com");
         requestPutCustomer.setCompany("Robots with Love");
-        requestPutCustomer.setEmail("linkedIn.com/DinaLaster");
+        requestPutCustomer.setLinkedIn("linkedIn.com/DinaLaster");
         requestPutCustomer.setPhone("+55 11 99999-9999");
         requestPutCustomer.setPosition("CEO");
 
@@ -215,6 +220,26 @@ public class DomainUtils {
         requestPutTeacher.setName("Joel");
 
         return requestPutTeacher;
+    }
+
+    public static RequestPostCourse generateRequestPostCourse(){
+        RequestPostCourse requestPostCourse = new RequestPostCourse();
+        requestPostCourse.setName("Python Advanced");
+        requestPostCourse.setOriginalValue("100.50");
+        requestPostCourse.setIdTeacherResponsible(String.valueOf(UUID.randomUUID()));
+
+        return requestPostCourse;
+
+    }
+
+    public static RequestPostCourse generateRequestPostCourse(Teacher teacher){
+        RequestPostCourse requestPostCourse = new RequestPostCourse();
+        requestPostCourse.setName("Python Advanced");
+        requestPostCourse.setOriginalValue("100.50");
+        requestPostCourse.setIdTeacherResponsible(String.valueOf(teacher.getIdTeacher()));
+
+        return requestPostCourse;
+
     }
 
     public static RequestPutCourse generateRequestPutCourse(String idCourse, String idTeacher){
@@ -236,6 +261,51 @@ public class DomainUtils {
 
         return requestPostAcquiredCourseByCustomer;
     }
+
+    public static RequestPutAcquiredCourse generateRequestPutAcquiredCourse(){
+        RequestPutAcquiredCourse requestPutAcquiredCourse = new RequestPutAcquiredCourse();
+        requestPutAcquiredCourse.setIdCourse(String.valueOf(UUID.randomUUID()));
+        requestPutAcquiredCourse.setValuePaid("50.50");
+        requestPutAcquiredCourse.setAcquisitionDate("2021-01-01");
+        requestPutAcquiredCourse.setIdAcquiredCourse(String.valueOf(UUID.randomUUID()));
+        requestPutAcquiredCourse.setIdCustomer(String.valueOf(UUID.randomUUID()));
+
+        return requestPutAcquiredCourse;
+
+    }
+
+    public static RequestPutAcquiredCourse generateRequestPutAcquiredCourse(String idCustomer, String idCourse){
+        RequestPutAcquiredCourse requestPutAcquiredCourse = new RequestPutAcquiredCourse();
+        requestPutAcquiredCourse.setIdCourse(idCourse);
+        requestPutAcquiredCourse.setValuePaid("50.50");
+        requestPutAcquiredCourse.setAcquisitionDate("2021-01-01");
+        requestPutAcquiredCourse.setIdCustomer(idCustomer);
+
+        return requestPutAcquiredCourse;
+
+    }
+
+    public static RequestPutDesiredCourse generateRequestPutDesiredCourse() {
+        RequestPutDesiredCourse requestPutDesiredCourse = new RequestPutDesiredCourse();
+        requestPutDesiredCourse.setIdCourse(String.valueOf(UUID.randomUUID()));
+        requestPutDesiredCourse.setDesireDescription("TEST DESCRIPTION");
+        requestPutDesiredCourse.setDesireDate("2021-01-01");
+        requestPutDesiredCourse.setIdCustomer(String.valueOf(UUID.randomUUID()));
+
+        return requestPutDesiredCourse;
+    }
+
+
+        public static RequestPutDesiredCourse generateRequestPutDesiredCourse(String idCustomer, String idCourse){
+            RequestPutDesiredCourse requestPutDesiredCourse = new RequestPutDesiredCourse();
+            requestPutDesiredCourse.setIdCourse(idCourse);
+            requestPutDesiredCourse.setDesireDescription("TEST DESCRIPTION");
+            requestPutDesiredCourse.setDesireDate("2021-01-01");
+            requestPutDesiredCourse.setIdCustomer(idCustomer);
+
+            return requestPutDesiredCourse;
+
+        }
 
     public static RequestPostDesiredCourseByCustomer generateRequestPostDesiredCourse(String idCourse){
 

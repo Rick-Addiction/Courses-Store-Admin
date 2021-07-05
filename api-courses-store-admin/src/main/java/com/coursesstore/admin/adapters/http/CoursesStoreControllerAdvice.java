@@ -1,7 +1,8 @@
 package com.coursesstore.admin.adapters.http;
 
 import com.coursesstore.admin.adapters.database.DataNotFoundException;
-import com.coursesstore.admin.adapters.database.customer.exception.CustomerConflictException;
+import com.coursesstore.admin.adapters.database.ModelException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,14 +17,13 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
-public class CoursesStoreAdvice extends ResponseEntityExceptionHandler {
+public class CoursesStoreControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<Object> constraintViolationExceptionHandler(ConstraintViolationException ex) {
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            errors.add(violation.getRootBeanClass().getName() + " " +
-                    violation.getPropertyPath() + ": " + violation.getMessage());
+            errors.add(getJSONPropertyName(violation.getRootBeanClass(), violation.getPropertyPath().toString()) + ": " + violation.getMessage());
         }
 
         var errorResponse = new ErrorResponse(BAD_REQUEST, ex.getLocalizedMessage(), errors);
@@ -33,16 +33,27 @@ public class CoursesStoreAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<Object> dataNotFoundExceptionHandler (DataNotFoundException ex, WebRequest request){
 
-        var errorResponse = new ErrorResponse(NOT_FOUND, ex.getLocalizedMessage());
+        var errorResponse = new ErrorResponse(NOT_FOUND, ex.getMessage());
 
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
 
-    @ExceptionHandler(CustomerConflictException.class)
-    public ResponseEntity<Object> customerConflictExceptionHandler (CustomerConflictException ex, WebRequest request){
+    @ExceptionHandler(ModelException.class)
+    public ResponseEntity<Object> modelExceptionHandler (ModelException ex, WebRequest request){
 
-        var errorResponse = new ErrorResponse(CONFLICT, ex.getLocalizedMessage());
+        var errorResponse = new ErrorResponse(BAD_REQUEST, ex.getMessage());
 
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }
+
+    public static String getJSONPropertyName(Class c, String fieldName){
+        try {
+            return c.getDeclaredField(fieldName).getAnnotation(JsonProperty.class).value();
+        } catch (NoSuchFieldException e) {
+            throw new ControllerAdviceException(
+                    String.format("Controller Advice Error - Field %s not find on the class %s",
+                    fieldName, c.getSimpleName()));
+        }
+    }
+
 }

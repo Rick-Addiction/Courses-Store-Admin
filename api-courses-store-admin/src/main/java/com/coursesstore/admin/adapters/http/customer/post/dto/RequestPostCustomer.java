@@ -1,16 +1,17 @@
 package com.coursesstore.admin.adapters.http.customer.post.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 
 public class RequestPostCustomer {
 
-    @JsonProperty("firstname")
+    @JsonProperty("first_name")
     @NotBlank
     private String firstname;
 
-    @JsonProperty("lastname")
+    @JsonProperty("last_name")
     @NotBlank
     private String lastname;
 
@@ -19,15 +20,19 @@ public class RequestPostCustomer {
     private String phone;
 
     @JsonProperty("email")
+    @NotBlank
     private String email;
 
     @JsonProperty("linkedin")
+    @NotBlank
     private String linkedIn;
 
     @JsonProperty("company")
+    @NotBlank
     private String company;
 
     @JsonProperty("position")
+    @NotBlank
     private String position;
 
 

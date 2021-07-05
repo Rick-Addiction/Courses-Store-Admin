@@ -1,7 +1,9 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
 import com.coursesstore.admin.adapters.AdapterUtils;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
+import com.coursesstore.admin.adapters.database.course.acquired.DeleteAcquiredCourse;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
@@ -19,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -68,6 +70,24 @@ class DeleteDesiredCourseTest {
                 String.valueOf(desiredCourse.getCourse().getIdCourse()));
         Optional<DesiredCourseModel> optionalDeletedDesiredCourseModel = desiredCourseRepository.findById(desiredCourseKey);
         assertTrue(optionalDeletedDesiredCourseModel.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Given an invalid DesiredCourse domain, When it is tried to delete this DesiredCourse, Then it will throw a ModelException")
+    void Given_an_invalid_DesiredCourse_domain_When_it_is_tried_to_delete_this_DesiredCourse_Then_it_will_throw_a_ModelException() {
+        ///Act
+        DeleteDesiredCourse deleteDesiredCourse = new DeleteDesiredCourse(desiredCourseRepository);
+
+        ///Assert
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> deleteDesiredCourse.deleteDesiredCourse(
+                        "d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b",
+                        "38885619-b397-4dd1-b029-61fc35f55427"
+                )
+        );
+
+        assertEquals("Desired Course not found -  Customer d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b, Course 38885619-b397-4dd1-b029-61fc35f55427!",exception.getMessage());
     }
 
 

@@ -1,5 +1,7 @@
 package com.coursesstore.admin.adapters.database.customer;
 
+import com.coursesstore.admin.adapters.database.DataNotFoundException;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.customer.Customer;
@@ -21,6 +23,7 @@ public class FindCustomerById implements FindCustomerByIdPort {
     public Customer findCustomer(String idCustomer) {
         Optional<CustomerModel> customerModel = customerRepository.findById(idCustomer);
 
-        return customerModel.map(CustomerConverter::toEntity).orElse(null);
+        return customerModel.map(CustomerConverter::toEntity)
+                .orElseThrow(() -> new DataNotFoundException("Customer not found -  Customer " + idCustomer +"!"));
     }
 }

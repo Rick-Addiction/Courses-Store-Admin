@@ -21,21 +21,4 @@ public  class DesiredCourseKey implements Serializable {
     @Column(name = "course_id")
     String courseId;
 
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-
 }

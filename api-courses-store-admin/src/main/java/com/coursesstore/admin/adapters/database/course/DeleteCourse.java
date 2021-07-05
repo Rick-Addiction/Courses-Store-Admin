@@ -19,7 +19,7 @@ public class DeleteCourse implements DeleteCoursePort {
         Optional<CourseModel> courseToDelete = courseRepository.findByIdCourse(idCourse);
 
         if(courseToDelete.isEmpty()){
-            throw new ModelException("Course " + idCourse + " not Found");
+            throw new ModelException("Course not found -  Course " + idCourse + "!");
         }
 
         courseRepository.delete(courseToDelete.get());

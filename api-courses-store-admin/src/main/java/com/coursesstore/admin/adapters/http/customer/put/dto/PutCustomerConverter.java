@@ -35,7 +35,7 @@ public class PutCustomerConverter {
 
     public static AcquiredCourse toDomain (RequestPutAcquiredCourse body){
         var acquiredCourse = new AcquiredCourse();
-        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         acquiredCourse.setAcquisitionDate(LocalDate.parse(body.getAcquisitionDate(),formatter));
         acquiredCourse.setValuePaid(NumberUtils.parseNumber(body.getValuePaid(), BigDecimal.class));
 
@@ -48,7 +48,7 @@ public class PutCustomerConverter {
     public static DesiredCourse toDomain (RequestPutDesiredCourse body){
         var desiredCourse = new DesiredCourse();
 
-        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         desiredCourse.setDesireDate(LocalDate.parse(body.getDesireDate(),formatter));
 
         desiredCourse.setDesireDescription(body.getDesireDescription());

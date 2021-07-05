@@ -1,6 +1,6 @@
 package com.coursesstore.admin.adapters.database.customer;
 
-import com.coursesstore.admin.adapters.database.customer.exception.CustomerConflictException;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
 import com.coursesstore.admin.core.domain.customer.CreateCustomerPort;
 import com.coursesstore.admin.core.domain.customer.Customer;
@@ -23,7 +23,7 @@ public class CreateCustomer implements CreateCustomerPort {
 
             return customerModel.getIdCustomer();
         } catch (Exception ex) {
-            throw new CustomerConflictException();
+            throw new ModelException(String.format("Conflict at the creating of a new Customer: %s",ex.getMessage()));
         }
     }
 }

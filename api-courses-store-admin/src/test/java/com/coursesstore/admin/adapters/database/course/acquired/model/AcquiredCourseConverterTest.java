@@ -2,6 +2,7 @@ package com.coursesstore.admin.adapters.database.course.acquired.model;
 
 import com.coursesstore.admin.adapters.database.course.CourseModel;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
+import com.coursesstore.admin.adapters.http.course.get.dto.GetCourseConverter;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
@@ -12,7 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8101"})
@@ -98,6 +105,27 @@ class AcquiredCourseConverterTest {
         assertEquals(course.getOriginalValue(),courseModel.getOriginalValue());
         assertEquals(String.valueOf(course.getTeacherResponsible().getIdTeacher()),courseModel.getTeacherResponsible().getIdTeacher());
         assertEquals(course.getTeacherResponsible().getName(),courseModel.getTeacherResponsible().getName());
+    }
+
+    @Test
+    public void testPrivateConstructor() throws Exception {
+        Constructor constructor = AcquiredCourseConverter.class.getDeclaredConstructor();
+        assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
+
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> {
+                    constructor.setAccessible(true);
+                    try{
+                        constructor.newInstance();
+                    }
+                    catch (InvocationTargetException e) {
+                        throw (IllegalStateException) e.getTargetException();
+                    }
+
+                });
+
+        assertEquals("Utility class",exception.getMessage());
     }
     
 }

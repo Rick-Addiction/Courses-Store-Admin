@@ -24,13 +24,6 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    public ErrorResponse(HttpStatus status, String message, String error) {
-        super();
-        this.status = status;
-        this.message = message;
-        errors = Arrays.asList(error);
-    }
-
     public HttpStatus getStatus() {
         return status;
     }

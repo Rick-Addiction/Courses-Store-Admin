@@ -1,6 +1,6 @@
 package com.coursesstore.admin.adapters.database.teacher;
 
-import com.coursesstore.admin.adapters.database.teacher.exception.TeacherConflictException;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.teacher.model.TeacherConverter;
 import com.coursesstore.admin.core.domain.teacher.CreateTeacherPort;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
@@ -21,7 +21,7 @@ public class CreateTeacher implements CreateTeacherPort {
             var teacherModel = TeacherConverter.toModel(teacher);
             teacherRepository.save(teacherModel);
         } catch (Exception ex) {
-            throw new TeacherConflictException();
+            throw new ModelException(String.format("Conflict at the creating of a new Teacher: %s",ex.getMessage()));
         }
     }
 }

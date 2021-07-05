@@ -1,17 +1,20 @@
 package com.coursesstore.admin.adapters.database.course.acquired;
 
 import com.coursesstore.admin.adapters.AdapterUtils;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
 import com.coursesstore.admin.adapters.database.course.desired.DesiredCourseRepository;
+import com.coursesstore.admin.adapters.database.course.desired.UpdateDesiredCourse;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.adapters.database.customer.FindCustomerById;
 import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
+import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
@@ -24,8 +27,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -106,5 +108,25 @@ class UpdateAcquiredCourseTest {
         assertEquals(customerThatAcquiredACourse.getCompany(), customerThatUpdatedTheAcquiredACourse.getCompany());
         assertEquals(customerThatAcquiredACourse.getPosition(), customerThatUpdatedTheAcquiredACourse.getPosition());
 }
+
+    @Test
+    @DisplayName("Given an invalid AcquiredCourse domain, When it is tried to update this AcquiredCourse, Then it will throw a ModelException")
+    void Given_an_invalid_AcquiredCourse_domain_When_it_is_tried_to_update_this_AcquiredCourse_Then_it_will_throw_a_ModelException() {
+        ///Arrange
+        AcquiredCourse acquiredCourse = DomainUtils.generateAcquiredCourse();
+
+        ///Act
+        UpdateAcquiredCourse updateAcquiredCourse = new UpdateAcquiredCourse(acquiredCourseRepository, customerRepository);
+
+        ///Assert
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> updateAcquiredCourse.updateAcquiredCourse(
+                        "d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b",acquiredCourse
+                )
+        );
+
+        assertEquals("Customer not found -  Customer d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b!",exception.getMessage());
+    }
     
 }

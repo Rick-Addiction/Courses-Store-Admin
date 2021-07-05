@@ -1,6 +1,9 @@
 package com.coursesstore.admin.adapters.database.teacher;
 
+import com.coursesstore.admin.adapters.database.DataNotFoundException;
+import com.coursesstore.admin.adapters.database.course.FindCourse;
 import com.coursesstore.admin.core.domain.DomainUtils;
+import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8101"})
@@ -39,5 +44,4 @@ class FindTeacherTest {
         assertNotNull(teachersList);
 
     }
-    
 }

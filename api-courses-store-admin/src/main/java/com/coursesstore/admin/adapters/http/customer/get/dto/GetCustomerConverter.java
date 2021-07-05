@@ -39,6 +39,23 @@ public final class GetCustomerConverter {
         return responseGetCustomer;
     }
 
+    public static ResponseGetCustomer toResponseGetCustomer(Customer c) {
+        var responseGetCustomer = new ResponseGetCustomer();
+        responseGetCustomer.setCustomers(new ArrayList<>());
+        var customer = new ResponseGetCustomer.Customer();
+        customer.setIdCustomer(String.valueOf(c.getIdCustomer()));
+        customer.setFirstname(c.getFirstname());
+        customer.setLastname(c.getLastname());
+        customer.setPhone(c.getPhone());
+        customer.setEmail(c.getEmail());
+        customer.setCompany(c.getCompany());
+        customer.setPosition(c.getPosition());
+        customer.setLinkedIn(c.getLinkedIn());
+
+        responseGetCustomer.getCustomers().add(customer);
+        return responseGetCustomer;
+    }
+
     public static ResponseGetAcquiredCoursesByCustomer toResponseGetAcquiredCoursesByCustomer
             (List<AcquiredCourse> listAcquiredCoursesByCustomer,List<Course> listNotAcquiredCourses) {
         var responseGetAcquiredCoursesByCustomer = new ResponseGetAcquiredCoursesByCustomer();

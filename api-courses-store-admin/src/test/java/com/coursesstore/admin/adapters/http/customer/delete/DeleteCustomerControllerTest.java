@@ -1,7 +1,6 @@
 package com.coursesstore.admin.adapters.http.customer.delete;
 
 
-import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.acquired.AcquiredCourse;
 import com.coursesstore.admin.core.domain.course.desired.DesiredCourse;
@@ -28,9 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class DeleteCustomerControllerTest {
 
     final String REQUEST_PATH = "/courses-store/customer";
-
-    @Autowired
-    private CustomerRepository customerRepository;
 
     Customer customerCreatedToAcquireAndDesire;
     Teacher teacher;

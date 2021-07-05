@@ -1,5 +1,7 @@
 package com.coursesstore.admin.adapters.database.customer;
 
+import com.coursesstore.admin.adapters.database.ModelException;
+import com.coursesstore.admin.adapters.database.course.DeleteCourse;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.customer.Customer;
@@ -12,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -46,5 +48,22 @@ class DeleteCustomerTest {
         Optional<CustomerModel> optionalDeletedCustomerModel = customerRepository.findByIdCustomer(String.valueOf(customer.getIdCustomer()));
         assertTrue(optionalDeletedCustomerModel.isEmpty());
 
+    }
+
+    @Test
+    @DisplayName("Given an invalid Customer domain, When it is tried to delete this Customer, Then it will throw a ModelException")
+    void Given_an_invalid_Customer_domain_When_it_is_tried_to_delete_this_Customer_Then_it_will_throw_a_ModelException() {
+        ///Act
+        DeleteCustomer deleteCustomer = new DeleteCustomer(customerRepository);
+
+        ///Assert
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> deleteCustomer.deleteCustomer(
+                        "d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b"
+                )
+        );
+
+        assertEquals("Customer not found -  Customer d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b!",exception.getMessage());
     }
 }

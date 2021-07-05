@@ -1,8 +1,11 @@
 package com.coursesstore.admin.adapters.database.customer;
 
+import com.coursesstore.admin.adapters.database.ModelException;
+import com.coursesstore.admin.adapters.database.course.UpdateCourse;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerConverter;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
 import com.coursesstore.admin.core.domain.DomainUtils;
+import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.customer.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,9 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8101"})
@@ -61,5 +64,26 @@ class UpdateCustomerTest {
         assertEquals(customerUpdated.getCompany(),customerToUpdate.getCompany());
         assertEquals(customerUpdated.getPosition(),customerToUpdate.getPosition());
 
+    }
+
+    @Test
+    @DisplayName("Given an invalid Customer domain, When it is tried to update this Customer, Then it will throw a ModelException")
+    void Given_an_invalid_Customer_domain_When_it_is_tried_to_update_this_Customer_Then_it_will_throw_a_ModelException() {
+        ///Arrange
+        Customer customer = DomainUtils.generateCustomer();
+        customer.setIdCustomer(UUID.fromString("d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b"));
+
+        ///Act
+        UpdateCustomer updateCustomer = new UpdateCustomer(customerRepository);
+
+        ///Assert
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> updateCustomer.updateCustomer(
+                        customer
+                )
+        );
+
+        assertEquals("Customer not found -  Customer d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b!",exception.getMessage());
     }
 }

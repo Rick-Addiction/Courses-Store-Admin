@@ -1,6 +1,7 @@
 package com.coursesstore.admin.adapters.database.course;
 
 
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.teacher.CreateTeacher;
 import com.coursesstore.admin.adapters.database.teacher.TeacherRepository;
 import com.coursesstore.admin.core.domain.DomainUtils;
@@ -13,8 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -54,6 +56,23 @@ class DeleteCourseTest {
         Optional<CourseModel> optionalDeletedCourseModel = courseRepository.findByIdCourse(String.valueOf(course.getIdCourse()));
         assertTrue(optionalDeletedCourseModel.isEmpty());
 
+    }
+
+    @Test
+    @DisplayName("Given an invalid Course domain, When it is tried to delete this Course, Then it will throw a ModelException")
+    void Given_an_invalid_Course_domain_When_it_is_tried_to_delete_this_Course_Then_it_will_throw_a_ModelException() {
+        ///Act
+        DeleteCourse deleteCourse = new DeleteCourse(courseRepository);
+
+        ///Assert
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> deleteCourse.deleteCourse(
+                        "d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b"
+                )
+        );
+
+        assertEquals("Course not found -  Course d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b!",exception.getMessage());
     }
 
 }

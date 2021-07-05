@@ -4,7 +4,6 @@ package com.coursesstore.admin.adapters.database.course.desired;
 import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.CourseModel;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
-import com.coursesstore.admin.adapters.database.course.desired.exception.DesiredCourseConflictException;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
@@ -50,7 +49,7 @@ public class AddDesiredCourse implements AddDesiredCoursePort {
             var desiredCourseModel = DesiredCourseConverter.toModel(customerModel.get(),desiredCourse);
             desiredCourseRepository.save(desiredCourseModel);
         } catch (Exception ex) {
-            throw new DesiredCourseConflictException();
+            throw new ModelException(String.format("Conflict at the adding of a new Desired Course: %s",ex.getMessage()));
         }
     }
 }

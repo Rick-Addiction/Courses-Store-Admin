@@ -1,5 +1,6 @@
 package com.coursesstore.admin.adapters.database.course;
 
+import com.coursesstore.admin.adapters.database.DataNotFoundException;
 import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.FindCoursePort;
@@ -26,7 +27,7 @@ public class FindCourse implements FindCoursePort {
         Optional<CourseModel> courseModelOptional = courseRepository.findByIdCourse(idCourse);
 
         if(courseModelOptional.isEmpty()){
-            throw new ModelException("Course not found -  Course " + idCourse +"!");
+            throw new DataNotFoundException("Course not found -  Course " + idCourse +"!");
         }
 
         var courseModel = courseModelOptional.get();
@@ -40,7 +41,6 @@ public class FindCourse implements FindCoursePort {
         teacherResponsible.setIdTeacher(UUID.fromString(courseModel.getTeacherResponsible().getIdTeacher()));
         teacherResponsible.setName(courseModel.getTeacherResponsible().getName());
         course.setTeacherResponsible(teacherResponsible);
-
 
         return course;
     }

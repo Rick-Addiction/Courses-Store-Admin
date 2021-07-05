@@ -12,6 +12,7 @@ import com.coursesstore.admin.core.usecases.course.acquired.SearchForAcquiredCou
 import com.coursesstore.admin.core.usecases.course.acquired.SearchForNotAcquiredCoursesByCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.SearchForDesiredCoursesByCustomer;
 import com.coursesstore.admin.core.usecases.course.desired.SearchForNotDesiredCoursesByCustomer;
+import com.coursesstore.admin.core.usecases.customer.SearchForAllCustomers;
 import com.coursesstore.admin.core.usecases.customer.SearchForCustomer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,18 +26,21 @@ import java.util.List;
 @RequestMapping("courses-store/customer")
 public class GetCustomerController {
 
+    private final SearchForAllCustomers searchForAllCustomers;
     private final SearchForCustomer searchForCustomer;
     private final SearchForDesiredCoursesByCustomer searchForDesiredCoursesByCustomer;
     private final SearchForAcquiredCoursesByCustomer searchForAcquiredCoursesByCustomer;
     private final SearchForNotDesiredCoursesByCustomer searchForNotDesiredCoursesByCustomer;
     private final SearchForNotAcquiredCoursesByCustomer searchForNotAcquiredCoursesByCustomer;
 
-    public GetCustomerController(SearchForCustomer searchForCustomer,
+    public GetCustomerController(SearchForAllCustomers searchForAllCustomers,
+                                 SearchForCustomer searchForCustomer,
                                  SearchForDesiredCoursesByCustomer searchForDesiredCoursesByCustomer,
                                  SearchForAcquiredCoursesByCustomer searchForAcquiredCoursesByCustomer,
                                  SearchForNotDesiredCoursesByCustomer searchForNotDesiredCoursesByCustomer,
                                  SearchForNotAcquiredCoursesByCustomer searchForNotAcquiredCoursesByCustomer) {
-        this.searchForCustomer = searchForCustomer;
+        this.searchForAllCustomers = searchForAllCustomers;
+        this.searchForCustomer=searchForCustomer;
         this.searchForAcquiredCoursesByCustomer = searchForAcquiredCoursesByCustomer;
         this.searchForDesiredCoursesByCustomer = searchForDesiredCoursesByCustomer;
         this.searchForNotDesiredCoursesByCustomer=searchForNotDesiredCoursesByCustomer;
@@ -44,12 +48,23 @@ public class GetCustomerController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ResponseGetCustomer> getCustomer() {
+    public ResponseEntity<ResponseGetCustomer> getAllCustomers() {
 
-        List<Customer> listCustomers = searchForCustomer.execute("");
+        List<Customer> listCustomers = searchForAllCustomers.execute("");
 
         var responseGetCustomer =
                 GetCustomerConverter.toResponseGetCustomer(listCustomers);
+
+        return ResponseEntity.ok(responseGetCustomer);
+    }
+
+    @GetMapping("/search/{id_customer}")
+    public ResponseEntity<ResponseGetCustomer> getCustomer(@PathVariable(value = "id_customer") String idCustomer) {
+
+        Customer customer = searchForCustomer.execute(idCustomer);
+
+        var responseGetCustomer =
+                GetCustomerConverter.toResponseGetCustomer(customer);
 
         return ResponseEntity.ok(responseGetCustomer);
     }

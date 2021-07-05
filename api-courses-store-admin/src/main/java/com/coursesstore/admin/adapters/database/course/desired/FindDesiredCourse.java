@@ -1,6 +1,7 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
 
+import com.coursesstore.admin.adapters.database.DataNotFoundException;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
@@ -28,6 +29,7 @@ public class FindDesiredCourse implements FindDesiredCoursePort {
 
         Optional<DesiredCourseModel> desiredCourseModel = desiredCourseRepository.findById(desiredCourseKey);
 
-        return desiredCourseModel.map(DesiredCourseConverter::toEntity).orElse(null);
+        return desiredCourseModel.map(DesiredCourseConverter::toEntity)
+                .orElse(null);
     }
 }

@@ -1,6 +1,6 @@
 package com.coursesstore.admin.adapters.database.course;
 
-import com.coursesstore.admin.adapters.database.course.exception.CourseConflictException;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.core.domain.course.Course;
 import com.coursesstore.admin.core.domain.course.CreateCoursePort;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class CreateCourse implements CreateCoursePort {
             var courseModel = CourseConverter.toModel(course);
             courseRepository.save(courseModel);
         } catch (Exception ex) {
-            throw new CourseConflictException();
+            throw new ModelException(String.format("Conflict at the creating of a new Course: %s",ex.getMessage()));
         }
     }
 }

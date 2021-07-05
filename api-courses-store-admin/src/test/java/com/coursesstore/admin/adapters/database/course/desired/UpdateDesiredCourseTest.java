@@ -1,7 +1,9 @@
 package com.coursesstore.admin.adapters.database.course.desired;
 
 import com.coursesstore.admin.adapters.AdapterUtils;
+import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
+import com.coursesstore.admin.adapters.database.course.UpdateCourse;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.desired.model.DesiredCourseModel;
@@ -20,9 +22,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -95,8 +97,26 @@ class UpdateDesiredCourseTest {
         assertEquals(customerWithADesiredCourse.getLinkedIn(), customerThatDesiredCourse.getLinkedIn());
         assertEquals(customerWithADesiredCourse.getCompany(), customerThatDesiredCourse.getCompany());
         assertEquals(customerWithADesiredCourse.getPosition(), customerThatDesiredCourse.getPosition());
+  }
 
+    @Test
+    @DisplayName("Given an invalid DesiredCourse domain, When it is tried to update this DesiredCourse, Then it will throw a ModelException")
+    void Given_an_invalid_DesiredCourse_domain_When_it_is_tried_to_update_this_DesiredCourse_Then_it_will_throw_a_ModelException() {
+        ///Arrange
+        DesiredCourse desiredCourse = DomainUtils.generateDesiredCourse();
 
+        ///Act
+        UpdateDesiredCourse updateDesiredCourse = new UpdateDesiredCourse(desiredCourseRepository, customerRepository);
+
+        ///Assert
+        ModelException exception = assertThrows(
+                ModelException.class,
+                () -> updateDesiredCourse.updateDesiredCourse(
+                        "d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b",desiredCourse
+                )
+        );
+
+        assertEquals("Customer not found -  Customer d6b0c519-d1ad-480c-b190-cc1f5e3f8d4b!",exception.getMessage());
     }
     
 }

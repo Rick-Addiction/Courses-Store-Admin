@@ -51,6 +51,14 @@ public class AdapterUtils {
         return customer;
     }
 
+    public static Course registerANewCourse(){
+        Course newCourse = DomainUtils.generateCourse(registerANewTeacher());
+        CreateCourse createCourse = new CreateCourse(courseRepository);
+        createCourse.createCourse(newCourse);
+
+        return newCourse;
+    }
+
     public static Course registerANewCourse(Teacher teacher){
         Course newCourse = DomainUtils.generateCourse(teacher);
         CreateCourse createCourse = new CreateCourse(courseRepository);

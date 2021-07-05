@@ -21,7 +21,7 @@ public class DeleteTeacher implements DeleteTeacherPort {
         Optional<TeacherModel> teacherToDelete = teacherRepository.findByIdTeacher(idTeacher);
 
         if(teacherToDelete.isEmpty())
-            throw new ModelException("Teacher " + idTeacher + " not Found");
+            throw new ModelException("Teacher not found - Teacher " + idTeacher + "!");
 
         teacherRepository.delete(teacherToDelete.get());
     }

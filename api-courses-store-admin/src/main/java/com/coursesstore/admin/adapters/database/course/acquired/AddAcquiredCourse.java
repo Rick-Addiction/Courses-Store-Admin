@@ -4,7 +4,6 @@ package com.coursesstore.admin.adapters.database.course.acquired;
 import com.coursesstore.admin.adapters.database.ModelException;
 import com.coursesstore.admin.adapters.database.course.CourseModel;
 import com.coursesstore.admin.adapters.database.course.CourseRepository;
-import com.coursesstore.admin.adapters.database.course.acquired.exception.AcquiredCourseConflictException;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
 import com.coursesstore.admin.adapters.database.customer.CustomerRepository;
 import com.coursesstore.admin.adapters.database.customer.model.CustomerModel;
@@ -50,7 +49,7 @@ public class AddAcquiredCourse implements AddAcquiredCoursePort {
             var acquiredCourseModel = AcquiredCourseConverter.toModel(customerModel.get(),acquiredCourse);
             acquiredCourseRepository.save(acquiredCourseModel);
         } catch (Exception ex) {
-            throw new AcquiredCourseConflictException();
+            throw new ModelException(String.format("Conflict at the adding of a new Acquired Course: %s",ex.getMessage()));
         }
     }
 }

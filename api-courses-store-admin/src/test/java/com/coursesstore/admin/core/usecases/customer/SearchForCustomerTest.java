@@ -22,10 +22,10 @@ class SearchForCustomerTest {
     void Given_a_Customer_id_When_a_new_customer_is_searched_Then_it_should_be_done_successfully(){
 
         ///Arrange
-        SearchForCustomer searchForCustomer = new SearchForCustomer(findCustomerPort);
+        SearchForAllCustomers searchForAllCustomers = new SearchForAllCustomers(findCustomerPort);
 
         ///Act
-        searchForCustomer.execute("id_customer");
+        searchForAllCustomers.execute("id_customer");
 
         ///Assert
         verify(findCustomerPort, times(1)).findCustomer(any(String.class));

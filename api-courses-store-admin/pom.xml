@@ -66,6 +66,12 @@
 			<artifactId>jacoco-maven-plugin</artifactId>
 			<version>0.8.6</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.code.bean-matchers</groupId>
+			<artifactId>bean-matchers</artifactId>
+			<version>0.13</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 

@@ -1,5 +1,6 @@
 package com.coursesstore.admin.adapters.database.teacher.model;
 
+import com.coursesstore.admin.adapters.http.course.get.dto.GetCourseConverter;
 import com.coursesstore.admin.core.domain.DomainUtils;
 import com.coursesstore.admin.core.domain.teacher.Teacher;
 import org.junit.jupiter.api.DisplayName;
@@ -8,7 +9,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -44,6 +51,27 @@ class TeacherConverterTest {
         assertEquals(String.valueOf(teacher.getIdTeacher()), teacherModel.getIdTeacher());
         assertEquals(teacher.getName(),teacherModel.getName());
 
-    }    
+    }
+
+    @Test
+    public void testPrivateConstructor() throws Exception {
+        Constructor constructor = TeacherConverter.class.getDeclaredConstructor();
+        assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
+
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> {
+                    constructor.setAccessible(true);
+                    try{
+                        constructor.newInstance();
+                    }
+                    catch (InvocationTargetException e) {
+                        throw (IllegalStateException) e.getTargetException();
+                    }
+
+                });
+
+        assertEquals("Utility class",exception.getMessage());
+    }
 
 }

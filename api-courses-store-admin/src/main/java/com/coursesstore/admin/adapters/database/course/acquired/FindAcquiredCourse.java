@@ -1,6 +1,7 @@
 package com.coursesstore.admin.adapters.database.course.acquired;
 
 
+import com.coursesstore.admin.adapters.database.DataNotFoundException;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseConverter;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseKey;
 import com.coursesstore.admin.adapters.database.course.acquired.model.AcquiredCourseModel;
@@ -28,6 +29,7 @@ public class FindAcquiredCourse implements FindAcquiredCoursePort {
 
         Optional<AcquiredCourseModel> acquiredCourseModel = acquiredCourseRepository.findById(acquiredCourseKey);
 
-        return acquiredCourseModel.map(AcquiredCourseConverter::toEntity).orElse(null);
+        return acquiredCourseModel.map(AcquiredCourseConverter::toEntity)
+                .orElse(null);
     }
 }
