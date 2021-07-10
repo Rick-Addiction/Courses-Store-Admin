@@ -7,11 +7,11 @@ import javax.validation.constraints.NotBlank;
 
 public class RequestPostCustomer {
 
-    @JsonProperty("first_name")
+    @JsonProperty("firstname")
     @NotBlank
     private String firstname;
 
-    @JsonProperty("last_name")
+    @JsonProperty("lastname")
     @NotBlank
     private String lastname;
 

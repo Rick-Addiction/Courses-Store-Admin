@@ -25,6 +25,9 @@ services:
     volumes:
       - './ui-courses-store-admin:/var/www'
       - '/var/www/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CI=true  
     depends_on:
       - "api-courses-store-admin"
 networks: 

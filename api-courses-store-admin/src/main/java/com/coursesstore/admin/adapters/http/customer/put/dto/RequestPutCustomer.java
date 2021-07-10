@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 public class RequestPutCustomer {
 
-        @JsonProperty("idCustomer")
+        @JsonProperty("id_customer")
         @NotNull
         private String idCustomer;
 

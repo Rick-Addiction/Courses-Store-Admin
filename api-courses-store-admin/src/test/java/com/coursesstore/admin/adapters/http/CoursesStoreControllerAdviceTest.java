@@ -47,7 +47,7 @@ class CoursesStoreControllerAdviceTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors[0]").value("first_name: must not be blank"));
+                .andExpect(jsonPath("$.errors[0]").value("firstname: must not be blank"));
     }
 
     @Test
