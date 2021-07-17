@@ -52,167 +52,19 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <el-dialog center width="90%" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-
-      <el-tabs v-model="activeName">
-        <el-tab-pane label="Customer" name="Customer">
-          <el-form ref="dataForm" :rules="rules" :model="temp">
-            <div class="dialog-line">
-              <label class="dialog-label" for="firstname">Firstname</label>
-              <div v-if="dialogStatus==='read'" class="dialog-input" placeholder="Firstname">{{ temp.firstname }}</div>
-              <el-input v-else v-model="temp.firstname" class="dialog-input" placeholder="Firstname" />
-
-              <label class="dialog-label" for="lastname">LastName</label>
-              <div v-if="dialogStatus==='read'" class="dialog-input">{{ temp.lastname }}</div>
-              <el-input v-else v-model="temp.lastname" class="dialog-input" placeholder="LastName" />
-            </div>
-            <div class="dialog-line">
-              <label class="dialog-label" for="phone">Phone</label>
-              <div v-if="dialogStatus==='read'" class="dialog-input">{{ temp.phone }}</div>
-              <el-input v-else v-model="temp.phone" class="dialog-input" placeholder="Phone" />
-
-              <label class="dialog-label" for="email">Email</label>
-              <div v-if="dialogStatus==='read'" class="dialog-input">{{ temp.email }}</div>
-              <el-input v-else v-model="temp.email" class="dialog-input" placeholder="Email" />
-            </div>
-            <div class="dialog-line">
-              <label class="dialog-label" for="linkedin">LinkedIn</label>
-              <div v-if="dialogStatus==='read'" class="dialog-input">{{ temp.linkedin }}</div>
-              <el-input v-else v-model="temp.linkedin" class="dialog-input" placeholder="LinkedIn" />
-            </div>
-            <div class="dialog-line">
-              <label class="dialog-label" for="company">Company</label>
-              <div v-if="dialogStatus==='read'" class="dialog-input">{{ temp.company }}</div>
-              <el-input v-else v-model="temp.company" class="dialog-input" placeholder="Company" />
-
-              <label class="dialog-label" for="position">Position</label>
-              <div v-if="dialogStatus==='read'" class="dialog-input">{{ temp.position }}</div>
-              <el-input v-else v-model="temp.position" class="dialog-input" placeholder="Position" />
-            </div>
-          </el-form>
-          <div class="dialog-footer">
-            <el-button v-if="dialogStatus==='read'" @click="changeDialogMode('edit')">
-              Edit
-            </el-button>
-            <el-button v-if="dialogStatus!=='edit' || dialogStatus!=='create'" @click="dialogFormVisible = false">
-              Cancel
-            </el-button>
-            <el-button v-if="dialogStatus=='edit'" type="primary" @click="editData()">
-              Confirm
-            </el-button>
-            <el-button v-if="dialogStatus=='create'" type="primary" @click="createData()">
-              Create
-            </el-button>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane v-if="dialogStatus==='edit' || dialogStatus==='read'" label="Courses" name="Courses">
-          <el-tabs v-model="activeName2" tab-position="left" style="height: 600px;" @tab-click="handleClick">
-            <el-tab-pane label="Acquired" name="Acquired">
-              <div class="dialog-line">
-                <el-select
-                  v-model="course"
-                  class="dialog-input"
-                  value-key="id_course"
-                  filterable
-                  remote
-                  reserve-keyword
-                  placeholder="Please enter a keyword"
-                  :remote-method="searchCoursesAvailable"
-                  :loading="listLoading"
-                >
-                  <el-option
-                    v-for="item in options"
-                    :key="item.id_course"
-                    :label="item.name"
-                    :value="item"
-                  />
-                </el-select>
-                <el-button @click="AddAcquiredCourseByCustomer()">
-                  Add
-                </el-button>
-              </div>
-              <el-table
-                :data="coursesRelatedToCustomer.acquired_courses"
-                style="width: 100%"
-              >
-                <el-table-column
-                  fixed
-                  prop="course_name"
-                  label="course_name"
-                  width="150"
-                />
-                <el-table-column
-                  prop="value_paid"
-                  label="value_paid"
-                  width="120"
-                />
-                <el-table-column
-                  prop="acquisition_date"
-                  label="acquisition_date"
-                  width="120"
-                />
-              </el-table>
-            </el-tab-pane>
-            <el-tab-pane label="Desired" name="Desired" @tab-click="UpdateDesiredCourseByCustomer">
-              <div class="dialog-line">
-                <el-select
-                  v-model="course"
-                  class="dialog-input"
-                  value-key="id_course"
-                  filterable
-                  remote
-                  reserve-keyword
-                  placeholder="Please enter a keyword"
-                  :remote-method="searchCoursesAvailable"
-                  :loading="listLoading"
-                >
-                  <el-option
-                    v-for="item in options"
-                    :key="item.id_course"
-                    :label="item.name"
-                    :value="item"
-                  />
-                </el-select>
-                <el-button @click="AddDesiredCourseByCustomer()">
-                  Add
-                </el-button>
-              </div>
-              <el-table
-                :data="coursesRelatedToCustomer.desired_courses"
-                style="width: 100%"
-              >
-                <el-table-column
-                  fixed
-                  prop="course_name"
-                  label="course_name"
-                  width="150"
-                />
-                <el-table-column
-                  prop="desire_description"
-                  label="desire_description"
-                  width="120"
-                />
-                <el-table-column
-                  prop="desire_date"
-                  label="desire_date"
-                  width="120"
-                />
-              </el-table>
-            </el-tab-pane>
-          </el-tabs>
-        </el-tab-pane>
-      </el-tabs>
-    </el-dialog>
+    <customer-dialog v-model="dialogFormVisible" :temp="temp" :dialogStatus="dialogStatus" @setDialogStatus="setDialogStatusValue" @updateTable="getAllUsers" @setDialogFormVisible="setDialogFormVisible" />
   </div>
 </template>
 
 <script>
-import { getAllCustomers, createNewCustomer, editCustomer, deleteCustomer,
-  AddAcquiredCoursesByCustomer, AddDesiredCoursesByCustomer, getAcquiredCoursesByCustomer, getDesiredCoursesByCustomer } from '/src/services/CustomerService'
+import { getAllCustomers, createNewCustomer, editCustomer, deleteCustomer} from '/src/services/CustomerService'
 import xlsx from 'xlsx'
+import customerDialog from './dialog/dialog.vue'
 
 export default {
+  components: {
+    'customer-dialog': customerDialog
+  },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -230,14 +82,9 @@ export default {
         id_course: '',
         name: ''
       },
-      coursesRelatedToCustomer: {},
-      newAcquisition: {},
       tabPosition: 'left',
-      activeName: 'Customer',
-      activeName2: 'Acquired',
-      dialogStatus: '',
+      dialogStatus: 'read',
       dialogFormVisible: false,
-      options: [],
       temp: {
         idCustomer: '',
         firstname: '',
@@ -248,25 +95,22 @@ export default {
         company: '',
         position: ''
       },
-      listLoading: false,
-      textMap: {
-        update: 'Edit',
-        create: 'Create'
-      },
-      rules: {
-        type: [{ required: true, message: 'type is required', trigger: 'change' }],
-        timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-        title: [{ required: true, message: 'title is required', trigger: 'blur' }]
-      }
+      listLoading: false
     }
-  },
-  created() {
-    this.fetchData()
   },
   mounted() {
     this.getAllUsers()
   },
   methods: {
+    setDialogStatusValue(dialogStatus) {
+      this.dialogStatus = dialogStatus
+    },
+    setDialogFormVisible(dialogFormVisible) {
+      this.dialogFormVisible = dialogFormVisible
+    },
+    childShowFun() {
+      this.dialogFormVisible = false
+    },
     getAllUsers() {
       getAllCustomers().then(response => {
         console.log('UPDATING CUSTOMERS:', response)
@@ -279,22 +123,6 @@ export default {
         }
         console.log(this.users)
       })
-    },
-    searchCoursesAvailable(query) {
-      if (query !== '') {
-        this.listLoading = true
-        this.options = []
-        setTimeout(() => {
-          this.listLoading = false
-          this.options = this.coursesRelatedToCustomer.not_acquired_courses.filter(item => {
-            console.log('query:', query)
-            return item.name.toLowerCase()
-              .indexOf(query.toLowerCase()) > -1
-          })
-        }, 200)
-      } else {
-        this.options = []
-      }
     },
     resetTemp() {
       this.temp = {
@@ -312,98 +140,18 @@ export default {
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
     },
     handleMoreDetails(row) {
-      this.temp = Object.assign({}, row) // copy obj
-      console.log('temp: ', this.temp)
+      this.temp = Object.assign({}, row)
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'read'
       this.dialogFormVisible = true
-
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    handleClick(tab, event) {
-      if (tab.label === 'Acquired') {
-        console.log('UpdateAcquiredCourseByCustomer')
-        this.UpdateAcquiredCourseByCustomer()
-      } else if (tab.label === 'Desired') {
-        console.log('UpdateDesiredCourseByCustomer')
-        this.UpdateDesiredCourseByCustomer()
-      }
-    },
-    UpdateAcquiredCourseByCustomer() {
-      console.log('UpdateAcquiredCourseByCustomer')
-      getAcquiredCoursesByCustomer(this.temp.idCustomer).then(response => {
-        if (response.not_acquired_courses != null) {
-          this.coursesRelatedToCustomer.not_acquired_courses = response.not_acquired_courses.map(item => {
-            return { id_course: `${item.id_course}`, name: `${item.name}` }
-          })
-        }
-        this.coursesRelatedToCustomer.acquired_courses = response.acquired_courses
-        this.coursesRelatedToCustomer.not_acquired_courses = response.not_acquired_courses
-        this.options = this.coursesRelatedToCustomer.not_acquired_courses
-        console.log('courses: ', this.coursesRelatedToCustomer)
-        console.log('options: ', this.options)
-      })
-    },
-    UpdateDesiredCourseByCustomer() {
-      getDesiredCoursesByCustomer(this.temp.idCustomer).then(response => {
-        if (response.not_desired_courses != null) {
-          this.coursesRelatedToCustomer.not_desired_courses = response.not_desired_courses.map(item => {
-            return { id_course: `${item.id_course}`, name: `${item.name}` }
-          })
-        }
-        this.coursesRelatedToCustomer.desired_courses = response.desired_courses
-        this.coursesRelatedToCustomer.not_desired_courses = response.not_desired_courses
-        this.options = this.coursesRelatedToCustomer.not_desired_courses
-        console.log('courses: ', this.coursesRelatedToCustomer)
-        console.log('options: ', this.options)
-      })
-    },
-    AddAcquiredCourseByCustomer() {
-      this.newAcquisition = {
-        id_course: this.course.id_course,
-        acquisition_date: '18/04/2021',
-        value_paid: 123
-      }
-
-      AddAcquiredCoursesByCustomer(this.temp.idCustomer, this.newAcquisition).then(() => {
-        this.UpdateAcquiredCourseByCustomer()
-      })
-
-      this.$nextTick(() => {
-        this.course.id_course = ''
-        this.course.name = ''
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    AddDesiredCourseByCustomer() {
-      this.newDesire = {
-        id_course: this.course.id_course,
-        desire_date: '18/04/2021',
-        desire_description: 'DESCRIPTION'
-      }
-
-      AddDesiredCoursesByCustomer(this.temp.idCustomer, this.newDesire).then(() => {
-        this.UpdateDesiredCourseByCustomer()
-      }
-      )
-
-      this.$nextTick(() => {
-        this.course.id_course = ''
-        this.course.name = ''
-        this.$refs['dataForm'].clearValidate()
-      })
+      console.log('MORE DETAILS:', this.temp)
     },
     changeDialogMode(dialogMode) {
       this.dialogStatus = dialogMode
       this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
+        //this.$refs['dataForm'].clearValidate()
       })
     },
     editData() {
@@ -416,23 +164,6 @@ export default {
             this.$notify({
               title: 'Success',
               message: 'Edited Successfully',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    createData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          createNewCustomer(this.temp).then(() => {
-            console.log(this.temp)
-            this.getAllUsers()
-            this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
               type: 'success',
               duration: 2000
             })
