@@ -26,16 +26,22 @@ export async function createNewCustomer(newCustomer) {
   })
 }
 
-export async function AddAcquiredCoursesByCustomer(idCustomer, newAcquisition) {
-  console.log('new Acquisition', newAcquisition)
+export async function addAcquiredCoursesByCustomer(idCustomer, newAcquisition) {
+  var addAcquiredCoursesByCustomerPayload = {
+    id_course: newAcquisition.idCourse,
+    acquisition_date: newAcquisition.acquisitionDate,
+    value_paid: newAcquisition.valuePaid
+  }
+
+  console.log('new Acquisition', addAcquiredCoursesByCustomerPayload)
   const response = await fetch('/courses-store/customer/' + idCustomer + '/acquire-course', {
     method: 'POST',
-    body: JSON.stringify(newAcquisition),
+    body: JSON.stringify(addAcquiredCoursesByCustomerPayload),
     headers: { 'Content-type': 'application/json; charset=UTF-8' }
   })
 }
 
-export async function AddDesiredCoursesByCustomer(idCustomer, newDesire) {
+export async function addDesiredCoursesByCustomer(idCustomer, newDesire) {
   console.log('new Desire', newDesire)
   const response = await fetch('/courses-store/customer/' + idCustomer + '/desire-course', {
     method: 'POST',
@@ -45,10 +51,21 @@ export async function AddDesiredCoursesByCustomer(idCustomer, newDesire) {
 }
 
 export async function editCustomer(customerToEdit) {
-  console.log(JSON.stringify(customerToEdit))
+  var editCustomerPayload = {
+    id_customer: customerToEdit.idCustomer,
+    firstname: customerToEdit.firstname,
+    lastname: customerToEdit.lastname,
+    phone: customerToEdit.phone,
+    email: customerToEdit.email,
+    linkedin: customerToEdit.linkedin,
+    company: customerToEdit.company,
+    position: customerToEdit.position
+  }
+
+  console.log(JSON.stringify(editCustomerPayload))
   await fetch('/courses-store/customer/update', {
     method: 'PUT',
-    body: JSON.stringify(customerToEdit),
+    body: JSON.stringify(editCustomerPayload),
     headers: { 'Content-type': 'application/json; charset=UTF-8' }
   })
 }

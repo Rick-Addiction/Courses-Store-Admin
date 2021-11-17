@@ -7,11 +7,8 @@
         :label="item.title"
         :name="item.name"
       >
-        <component :is="item.content" :temp="temp" :update="item.updateContent" @updateComplete="restoreTabs" />
+        <component :is="item.content" :current-customer="currentCustomer" :update="item.updateContent" @updateComplete="restoreTabs" />
       </el-tab-pane>
-      <!--       <el-tab-pane label="Desired" name="Desired" @tab-click="UpdateDesiredCourseByCustomer">
-        <desired-courses-tab :temp="temp" />
-      </el-tab-pane> -->
     </el-tabs></div>
 </template>
 
@@ -25,7 +22,7 @@ export default {
     'desired-courses-tab': desiredCoursesTab
   },
   props: {
-    temp: {
+    currentCustomer: {
       type: Object,
       default: null
     }

@@ -1,30 +1,30 @@
 <template>
   <div>
-    <el-form ref="dataForm" :rules="rules" :model="temp">
+    <el-form ref="dataForm" :rules="rules" :model="currentCustomer">
       <div class="dialog-line">
         <label class="dialog-label" for="firstname">Firstname</label>
-        <div class="dialog-input" placeholder="Firstname">{{ temp.firstname }}</div>
+        <div class="dialog-input" placeholder="Firstname">{{ currentCustomer.firstname }}</div>
 
         <label class="dialog-label" for="lastname">LastName</label>
-        <div class="dialog-input">{{ temp.lastname }}</div>
+        <div class="dialog-input">{{ currentCustomer.lastname }}</div>
       </div>
       <div class="dialog-line">
         <label class="dialog-label" for="phone">Phone</label>
-        <div class="dialog-input">{{ temp.phone }}</div>
+        <div class="dialog-input">{{ currentCustomer.phone }}</div>
 
         <label class="dialog-label" for="email">Email</label>
-        <div class="dialog-input">{{ temp.email }}</div>
+        <div class="dialog-input">{{ currentCustomer.email }}</div>
       </div>
       <div class="dialog-line">
         <label class="dialog-label" for="linkedin">LinkedIn</label>
-        <div class="dialog-input">{{ temp.linkedin }}</div>
+        <div class="dialog-input">{{ currentCustomer.linkedin }}</div>
       </div>
       <div class="dialog-line">
         <label class="dialog-label" for="company">Company</label>
-        <div class="dialog-input">{{ temp.company }}</div>
+        <div class="dialog-input">{{ currentCustomer.company }}</div>
 
         <label class="dialog-label" for="position">Position</label>
-        <div class="dialog-input">{{ temp.position }}</div>
+        <div class="dialog-input">{{ currentCustomer.position }}</div>
       </div>
     </el-form>
     <div class="dialog-footer">
@@ -38,9 +38,9 @@
 <script>
 export default {
   props: {
-    temp: {
+    currentCustomer: {
       type: Object,
-      default: null
+      required: true
     }
   },
   data() {
@@ -62,6 +62,12 @@ export default {
       },
       activeName: 'Customer',
       activeName2: 'Acquired'
+    }
+  },
+  watch: {
+    currentCustomer: function(newVal) {
+      console.log('NEW VALUE')
+      console.log(newVal)
     }
   },
   methods: {

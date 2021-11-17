@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import { AddDesiredCoursesByCustomer, getDesiredCoursesByCustomer } from '/src/services/CustomerService'
+import { addDesiredCoursesByCustomer, getDesiredCoursesByCustomer } from '/src/services/CustomerService'
 
 export default {
   props: {
-    temp: {
+    currentCustomer: {
       type: Object,
       required: true
     },
@@ -86,7 +86,7 @@ export default {
         desire_description: 'DESCRIPTION'
       }
 
-      AddDesiredCoursesByCustomer(this.temp.idCustomer, this.newDesire).then(() => {
+      addDesiredCoursesByCustomer(this.currentCustomer.idCustomer, this.newDesire).then(() => {
         this.UpdateDesiredCourseByCustomer()
       }
       )
@@ -98,7 +98,7 @@ export default {
       })
     },
     UpdateDesiredCourseByCustomer() {
-      getDesiredCoursesByCustomer(this.temp.idCustomer).then(response => {
+      getDesiredCoursesByCustomer(this.currentCustomer.idCustomer).then(response => {
         if (response.not_desired_courses != null) {
           this.coursesRelatedToCustomer.not_desired_courses = response.not_desired_courses.map(item => {
             return { id_course: `${item.id_course}`, name: `${item.name}` }

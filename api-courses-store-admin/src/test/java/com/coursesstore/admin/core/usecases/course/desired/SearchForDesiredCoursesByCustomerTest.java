@@ -28,6 +28,6 @@ class SearchForDesiredCoursesByCustomerTest {
         searchForDesiredCoursesByCustomer.execute("id_desired_course");
 
         ///Assert
-        verify(findDesiredCoursesByCustomerPort, times(1)).findDesiredCourse(any(String.class));
+        verify(findDesiredCoursesByCustomerPort, times(1)).findDesiredCourses(any(String.class));
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"spring.h2.console.enabled=true","server.port=8100"})
@@ -37,8 +37,8 @@ class FindAcquiredCoursesByCustomerTest {
     private TeacherRepository teacherRepository;
 
     @Test
-    @DisplayName("Given a valid id of an AcquiredCourse stored in the database, When its searched for this Course, Then return the AcquiredCourse searched")
-    void Given_a_valid_id_of_an_AcquiredCourse_stored_in_the_database_When_its_searched_for_this_Course_Then_return_the_AcquiredCourse_searched() {
+    @DisplayName("Given a valid id of an Customer stored in the database who acquired a course, When its searched for the courses they acquired, Then return the AcquiredCourses searched")
+    void Given_a_valid_id_of_an_Customer_stored_in_the_database_who_acquired_a_course_When_its_searched_for_the_courses_they_acquired_Then_return_the_AcquiredCourse_searched() {
 
         ///Arrange
         Customer customer = AdapterUtils.registerANewCustomer();
@@ -57,6 +57,33 @@ class FindAcquiredCoursesByCustomerTest {
 
         ///Assert
         assertNotNull(acquiredCoursesList);
+
+    }
+
+    @Test
+    @DisplayName("Given a valid id of an Customer stored in the database who doesn't acquired a course, When its searched for the courses they acquired, Then return an empty list")
+    void Given_a_valid_id_of_an_Customer_stored_in_the_database_who_doesnt_acquired_a_course_When_its_searched_for_the_courses_they_acquired_Then_return_an_empty_list() {
+
+        ///Arrange
+
+        Customer customerWhoAcquiredACourse = AdapterUtils.registerANewCustomer();
+        Teacher teacher = AdapterUtils.registerANewTeacher();
+        Course course = AdapterUtils.registerANewCourse(teacher);
+        AdapterUtils.registerANewAcquiredCourse(
+                String.valueOf(customerWhoAcquiredACourse.getIdCustomer()),
+                course);
+
+        Customer customerWhoDoesntAcquiredACourse = AdapterUtils.registerANewCustomer();
+
+        ///Act
+        FindAcquiredCoursesByCustomer findAcquiredCoursesByCustomer = new FindAcquiredCoursesByCustomer(acquiredCourseRepository);
+
+        var acquiredCoursesList = findAcquiredCoursesByCustomer.findAcquiredCourses(
+                String.valueOf(customerWhoDoesntAcquiredACourse.getIdCustomer())
+        );
+
+        ///Assert
+        assertEquals(0,acquiredCoursesList.size());
 
     }
 

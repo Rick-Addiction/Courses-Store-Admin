@@ -18,11 +18,22 @@
           :value="item"
         />
       </el-select>
-      <el-button @click="AddAcquiredCourseByCustomer()">
-        Add
-      </el-button>
     </div>
+    <el-form ref="dataForm" :model="newAcquisition">
+      <div class="dialog-line">
+        <label class="dialog-label" for="acquisitionDate">Acquisition Date</label>
+        <el-form-item prop="firstname" class="dialog-input">
+          <el-input v-model="newAcquisition.acquisitionDate" placeholder="Acquisition Date" />
+        </el-form-item>
+        <label class="dialog-label" for="valuePaid">Value Paid</label>
+        <el-input v-model="newAcquisition.valuePaid" class="dialog-input" placeholder="Value Paid" />
+      </div>
+    </el-form>
+    <el-button @click="AddAcquiredCourseByCustomer()">
+      Add
+    </el-button>
     <el-table
+      v-loading="tableLoading"
       :data="coursesRelatedToCustomer.acquired_courses"
       style="width: 100%"
     >
@@ -47,11 +58,11 @@
 </template>
 
 <script>
-import { AddAcquiredCoursesByCustomer, getAcquiredCoursesByCustomer } from '/src/services/CustomerService'
+import { addAcquiredCoursesByCustomer, getAcquiredCoursesByCustomer } from '/src/services/CustomerService'
 
 export default {
   props: {
-    temp: {
+    currentCustomer: {
       type: Object,
       required: true
     },
@@ -68,7 +79,13 @@ export default {
         id_course: '',
         name: ''
       },
-      options: []
+      options: [],
+      newAcquisition: {
+        idCourse: '',
+        acquisitionDate: '',
+        valuePaid: ''
+      },
+      tableLoading: false
     }
   },
   watch: {
@@ -77,29 +94,28 @@ export default {
         this.UpdateAcquiredCourseByCustomer()
         this.$emit('updateComplete')
       }
+    },
+    currentCustomer: function() {
+      this.UpdateAcquiredCourseByCustomer()
     }
   },
   methods: {
     AddAcquiredCourseByCustomer() {
-      var newAcquisition = {
-        id_course: this.course.id_course,
-        acquisition_date: '18/04/2021',
-        value_paid: 123
-      }
+      this.newAcquisition.idCourse = this.course.id_course
 
-      AddAcquiredCoursesByCustomer(this.temp.idCustomer, newAcquisition).then(() => {
+      addAcquiredCoursesByCustomer(this.currentCustomer.idCustomer, this.newAcquisition).then(() => {
         this.UpdateAcquiredCourseByCustomer()
       })
 
       this.$nextTick(() => {
         this.course.id_course = ''
         this.course.name = ''
-        // this.$refs['dataForm'].clearValidate()
       })
     },
     UpdateAcquiredCourseByCustomer() {
       console.log('UpdateAcquiredCourseByCustomer')
-      getAcquiredCoursesByCustomer(this.temp.idCustomer).then(response => {
+      this.tableLoading=true
+      getAcquiredCoursesByCustomer(this.currentCustomer.idCustomer).then(response => {
         if (response.not_acquired_courses != null) {
           this.coursesRelatedToCustomer.not_acquired_courses = response.not_acquired_courses.map(item => {
             return { id_course: `${item.id_course}`, name: `${item.name}` }
@@ -110,6 +126,7 @@ export default {
         this.options = this.coursesRelatedToCustomer.not_acquired_courses
         console.log('courses: ', this.coursesRelatedToCustomer)
         console.log('options: ', this.options)
+        this.tableLoading = false
       })
     },
     handleClick() {

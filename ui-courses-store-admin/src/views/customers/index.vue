@@ -20,7 +20,7 @@
     </div>
     <el-table
       v-loading="listLoading"
-      :data="users"
+      :data="customers"
       element-loading-text="Loading"
       border
       fit
@@ -52,18 +52,26 @@
         </template>
       </el-table-column>
     </el-table>
-    <customer-dialog v-model="dialogFormVisible" :temp="temp" :dialogStatus="dialogStatus" @setDialogStatus="setDialogStatusValue" @updateTable="getAllUsers" @setDialogFormVisible="setDialogFormVisible" />
+    <main-dialog
+      v-model="dialogFormVisible"
+      :is-visible="dialogFormVisible"
+      :current-customer="currentCustomer"
+      :dialog-status="dialogStatus"
+      @setDialogStatus="setDialogStatusValue"
+      @refreshCustomersTable="refreshCustomersTable"
+      @setDialogFormVisible="setDialogFormVisible"
+    />
   </div>
 </template>
 
 <script>
-import { getAllCustomers, createNewCustomer, editCustomer, deleteCustomer} from '/src/services/CustomerService'
+import { getAllCustomers, createNewCustomer, deleteCustomer } from '/src/services/CustomerService'
 import xlsx from 'xlsx'
-import customerDialog from './dialog/dialog.vue'
+import mainDialog from './maindialog/maindialog.vue'
 
 export default {
   components: {
-    'customer-dialog': customerDialog
+    'main-dialog': mainDialog
   },
   filters: {
     statusFilter(status) {
@@ -77,7 +85,7 @@ export default {
   },
   data() {
     return {
-      users: [],
+      customers: [],
       course: {
         id_course: '',
         name: ''
@@ -85,10 +93,10 @@ export default {
       tabPosition: 'left',
       dialogStatus: 'read',
       dialogFormVisible: false,
-      temp: {
+      currentCustomer: {
         idCustomer: '',
         firstname: '',
-        lastName: '',
+        lastname: '',
         phone: '',
         email: '',
         linkedin: '',
@@ -99,7 +107,7 @@ export default {
     }
   },
   mounted() {
-    this.getAllUsers()
+    this.refreshCustomersTable()
   },
   methods: {
     setDialogStatusValue(dialogStatus) {
@@ -108,24 +116,24 @@ export default {
     setDialogFormVisible(dialogFormVisible) {
       this.dialogFormVisible = dialogFormVisible
     },
-    childShowFun() {
-      this.dialogFormVisible = false
-    },
-    getAllUsers() {
+    refreshCustomersTable() {
+      this.listLoading = true
       getAllCustomers().then(response => {
         console.log('UPDATING CUSTOMERS:', response)
+        this.resetTemp()
         if (response.customers != null) {
-          this.users = response.customers
-          this.numberOfUsers = this.users.length
+          this.customers = response.customers
+          this.numberOfCustomers = this.customers.length
         } else {
-          this.users = []
-          this.numberOfUsers = 0
+          this.customers = []
+          this.numberOfCustomers = 0
         }
-        console.log(this.users)
+        console.log(this.customers)
+        this.listLoading = false
       })
     },
     resetTemp() {
-      this.temp = {
+      this.currentCustomer = {
         idCustomer: '',
         firstname: '',
         lastname: '',
@@ -142,41 +150,18 @@ export default {
       this.dialogFormVisible = true
     },
     handleMoreDetails(row) {
-      this.temp = Object.assign({}, row)
-      this.temp.timestamp = new Date(this.temp.timestamp)
+      this.currentCustomer = Object.assign({}, row)
       this.dialogStatus = 'read'
       this.dialogFormVisible = true
-      console.log('MORE DETAILS:', this.temp)
     },
     changeDialogMode(dialogMode) {
       this.dialogStatus = dialogMode
-      this.$nextTick(() => {
-        //this.$refs['dataForm'].clearValidate()
-      })
-    },
-    editData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          editCustomer(this.temp).then(() => {
-            console.log(this.temp)
-            this.getAllUsers()
-            this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Edited Successfully',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
     },
     deleteData(row) {
-      console.log('YUPPPP')
       console.log(row)
-      this.temp = Object.assign({}, row)
-      deleteCustomer(this.temp.idCustomer).then(() => {
-        this.getAllUsers()
+      this.currentCustomer = Object.assign({}, row)
+      deleteCustomer(this.currentCustomer.idCustomer).then(() => {
+        this.refreshCustomersTable()
         this.$notify({
           title: 'Success',
           message: 'Deleted Successfully',
@@ -216,14 +201,14 @@ export default {
               // Edit data
               for (var i = 0; i < ws.length; i++) {
                 this.resetTemp()
-                this.temp.firstname = ws[i].firstname
-                this.temp.lastname = ws[i].lastname
-                this.temp.phone = ws[i].phone
-                this.temp.email = ws[i].email
-                this.temp.linkedin = ws[i].linkedin
-                this.temp.company = ws[i].company
-                this.temp.position = ws[i].position
-                excellist.push(this.temp)
+                this.currentCustomer.firstname = ws[i].firstname
+                this.currentCustomer.lastname = ws[i].lastname
+                this.currentCustomer.phone = ws[i].phone
+                this.currentCustomer.email = ws[i].email
+                this.currentCustomer.linkedin = ws[i].linkedin
+                this.currentCustomer.company = ws[i].company
+                this.currentCustomer.position = ws[i].position
+                excellist.push(this.currentCustomer)
               }
               resolve(excellist)
               // At this point, you get an array containing objects that need to be processed
@@ -251,7 +236,7 @@ export default {
         var response = await registerCostumers(fileContents[i])
       }
       console.log('DONE')
-      this.getAllUsers()
+      this.getAllCustomers()
       this.listLoading = false
       this.$notify({
         title: 'Success',

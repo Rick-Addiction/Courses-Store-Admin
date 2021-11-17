@@ -19,10 +19,10 @@ public class FindDesiredCoursesByCustomer implements FindDesiredCoursesByCustome
     }
 
     @Override
-    public List<DesiredCourse> findDesiredCourse(String customerId) {
+    public List<DesiredCourse> findDesiredCourses(String customerId) {
         Iterable<DesiredCourseModel> listDesiredCoursesModel;
 
-        listDesiredCoursesModel = desiredCourseRepository.findAll();
+        listDesiredCoursesModel = desiredCourseRepository.findByCustomerId(customerId);
 
         List<DesiredCourse> listDesiredCourses = new ArrayList<>();
 

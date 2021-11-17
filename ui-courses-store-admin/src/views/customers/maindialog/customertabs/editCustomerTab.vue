@@ -1,62 +1,57 @@
 <template>
   <div>
-    <el-form ref="dataForm" :rules="rules" :model="temp">
+    <el-form ref="dataForm" :rules="rules" :model="customerToEdit">
       <div class="dialog-line">
         <label class="dialog-label" for="firstname">Firstname</label>
         <el-form-item prop="firstname" class="dialog-input">
-          <el-input v-model="temp.firstname" placeholder="Firstname" />
+          <el-input v-model="customerToEdit.firstname" placeholder="Firstname" />
         </el-form-item>
 
         <label class="dialog-label" for="lastname">LastName</label>
-        <el-input v-model="temp.lastname" class="dialog-input" placeholder="LastName" />
+        <el-input v-model="customerToEdit.lastname" class="dialog-input" placeholder="LastName" />
       </div>
       <div class="dialog-line">
         <label class="dialog-label" for="phone">Phone</label>
-        <el-input v-model="temp.phone" class="dialog-input" placeholder="Phone" />
+        <el-input v-model="customerToEdit.phone" class="dialog-input" placeholder="Phone" />
 
         <label class="dialog-label" for="email">Email</label>
-        <el-input v-model="temp.email" class="dialog-input" placeholder="Email" />
+        <el-input v-model="customerToEdit.email" class="dialog-input" placeholder="Email" />
       </div>
       <div class="dialog-line">
         <label class="dialog-label" for="linkedin">LinkedIn</label>
-        <el-input v-model="temp.linkedin" class="dialog-input" placeholder="LinkedIn" />
+        <el-input v-model="customerToEdit.linkedin" class="dialog-input" placeholder="LinkedIn" />
       </div>
       <div class="dialog-line">
         <label class="dialog-label" for="company">Company</label>
-        <el-input v-model="temp.company" class="dialog-input" placeholder="Company" />
+        <el-input v-model="customerToEdit.company" class="dialog-input" placeholder="Company" />
 
         <label class="dialog-label" for="position">Position</label>
-        <el-input v-model="temp.position" class="dialog-input" placeholder="Position" />
+        <el-input v-model="customerToEdit.position" class="dialog-input" placeholder="Position" />
       </div>
     </el-form>
     <div class="dialog-footer">
-      <el-button @click="dialogFormVisible = false">
+      <el-button @click="$emit('closeDialog', false)">
         Cancel
       </el-button>
-      <el-button @click="createData()">
-        Create
+      <el-button type="primary" @click="editCustomer()">
+        Confirm
       </el-button>
     </div>
   </div>
 </template>
 
 <script>
-import { createNewCustomer } from '/src/services/CustomerService'
+import { editCustomer } from '/src/services/CustomerService'
 
 export default {
   props: {
-    temp: {
+    customerToEdit: {
       type: Object,
-      default: null
+      required: true
     }
   },
   data() {
     return {
-      visibleForm: true,
-      textMap: {
-        update: 'Edit',
-        create: 'Create'
-      },
       rules: {
         firstname: [
           // trigger:'blur' -> trigger when focus is lost
@@ -66,22 +61,18 @@ export default {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
         timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
         title: [{ required: true, message: 'title is required', trigger: 'blur' }]
-      },
-      activeName: 'Customer',
-      activeName2: 'Acquired'
+      }
     }
   },
   methods: {
-    createData() {
+    editCustomer() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createNewCustomer(this.temp).then(() => {
-            console.log(this.temp)
-            this.$emit('updateTable')
-            this.localVisible = false
+          editCustomer(this.customerToEdit).then(() => {
+            this.$emit('closeDialog', true)
             this.$notify({
               title: 'Success',
-              message: 'Created Successfully',
+              message: 'Edited Successfully',
               type: 'success',
               duration: 2000
             })

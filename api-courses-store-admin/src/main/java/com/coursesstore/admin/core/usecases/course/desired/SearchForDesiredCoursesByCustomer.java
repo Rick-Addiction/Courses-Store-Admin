@@ -17,7 +17,7 @@ public class SearchForDesiredCoursesByCustomer {
 
     public List<DesiredCourse> execute(String customerId){
 
-        return findDesiredCoursesByCustomerPort.findDesiredCourse(customerId);
+        return findDesiredCoursesByCustomerPort.findDesiredCourses(customerId);
     }
 
 

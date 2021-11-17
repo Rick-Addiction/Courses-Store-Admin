@@ -20,9 +20,7 @@ public class FindAcquiredCoursesByCustomer implements FindAcquiredCoursesByCusto
 
     @Override
     public List<AcquiredCourse> findAcquiredCourses(String customerId) {
-        Iterable<AcquiredCourseModel> listAcquiredCoursesModel;
-
-        listAcquiredCoursesModel = acquiredCourseRepository.findAll();
+        Iterable<AcquiredCourseModel> listAcquiredCoursesModel = acquiredCourseRepository.findByCustomerId(customerId);
 
         List<AcquiredCourse> listAcquiredCourses = new ArrayList<>();
 
