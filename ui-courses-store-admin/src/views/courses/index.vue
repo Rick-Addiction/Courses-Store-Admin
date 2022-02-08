@@ -49,10 +49,11 @@
           <div class="dialog-input" v-if="dialogStatus==='read'" placeholder="Teacher Responsible">{{temp.teacher.teacherName}}</div>
           <el-select v-else
             v-model=temp.teacher class="dialog-input"
+            value-key="idTeacher"
             filterable
             remote
             reserve-keyword
-            placeholder="Please enter a keyword"
+            :placeholder="temp.teacher ? '' : 'Please enter a keyword'"
             :remote-method="remoteMethod"
             :loading="listLoading">
             <el-option
@@ -109,7 +110,10 @@ export default {
         idCourse: '',
         name: '',
         originalValue: '',
-        teacher: {}
+        teacher: {
+          idTeacher:'',
+          teacherName:''
+        }
       },
       listLoading: false,
       textMap: {
@@ -131,7 +135,6 @@ export default {
   methods: {
     remoteMethod(query) {
         if (query !== '') {
-          this.listLoading = true;
           this.options=[];
           setTimeout(() => {
             this.listLoading = false;
@@ -152,7 +155,6 @@ export default {
         else{
           this.courses = []
         }       
-        console.log(this.courses)
         this.listLoading = false
       })
     },
@@ -161,7 +163,7 @@ export default {
         idCourse: '',        
         name: '',
         originalValue: '',
-        teacher: {}
+        teacher: ''
       }
       this.options=[]
     },
