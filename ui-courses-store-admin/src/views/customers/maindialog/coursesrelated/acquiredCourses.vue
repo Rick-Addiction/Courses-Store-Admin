@@ -100,11 +100,25 @@ export default {
     }
   },
   methods: {
+    ResetNewAcquisition() {
+      this.newAcquisition = {
+          idCourse: '',
+          acquisitionDate: '',
+          valuePaid: ''
+        }
+    },
     AddAcquiredCourseByCustomer() {
       this.newAcquisition.idCourse = this.course.id_course
 
       addAcquiredCoursesByCustomer(this.currentCustomer.idCustomer, this.newAcquisition).then(() => {
+        this.$notify({
+              title: 'Success',
+              message: 'Acquired course added Successfully',
+              type: 'success',
+              duration: 2000
+            })
         this.UpdateAcquiredCourseByCustomer()
+        this.ResetNewAcquisition()
       })
 
       this.$nextTick(() => {
@@ -113,6 +127,7 @@ export default {
       })
     },
     UpdateAcquiredCourseByCustomer() {
+      this.options=[]
       console.log('UpdateAcquiredCourseByCustomer')
       this.tableLoading=true
       getAcquiredCoursesByCustomer(this.currentCustomer.idCustomer).then(response => {
@@ -123,7 +138,6 @@ export default {
         }
         this.coursesRelatedToCustomer.acquired_courses = response.acquired_courses
         this.coursesRelatedToCustomer.not_acquired_courses = response.not_acquired_courses
-        this.options = this.coursesRelatedToCustomer.not_acquired_courses
         console.log('courses: ', this.coursesRelatedToCustomer)
         console.log('options: ', this.options)
         this.tableLoading = false
@@ -145,8 +159,6 @@ export default {
               .indexOf(query.toLowerCase()) > -1
           })
         }, 200)
-      } else {
-        this.options = []
       }
     }
   }
