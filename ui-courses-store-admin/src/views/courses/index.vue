@@ -7,7 +7,7 @@
     </div>
     <el-table
       v-loading="listLoading"
-      :data="users"
+      :data="courses"
       element-loading-text="Loading"
       border
       fit
@@ -101,7 +101,7 @@ export default {
   },
   data() {
     return {
-      users: [],
+      courses: [],
       activeName: 'Course',
       dialogStatus: '',
       dialogFormVisible: false,
@@ -125,11 +125,8 @@ export default {
       list: []
     }
   },
-  created() {
-    this.fetchData()
-  },  
   mounted() {
-    this.getAllUsers()
+    this.refreshCoursesTable()
   },
   methods: {
     remoteMethod(query) {
@@ -145,18 +142,18 @@ export default {
           }, 200);
         }
       },
-    getAllUsers() {
+    refreshCoursesTable() {
+      this.listLoading = true
       getAllCourses().then(response => {
         console.log("UPDATING Courses:",response)
         if(response.courses != null){
-          this.users = response.courses
-          this.numberOfUsers = this.users.length
+          this.courses = response.courses
         } 
         else{
-          this.users = []
-          this.numberOfUsers = 0
+          this.courses = []
         }       
-        console.log(users)
+        console.log(this.courses)
+        this.listLoading = false
       })
     },
     resetTemp() {
@@ -213,7 +210,7 @@ export default {
         if (valid) {
           editCourse(this.temp).then(() => {
             console.log(this.temp)
-            this.getAllUsers()
+            this.refreshCoursesTable()
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
@@ -230,7 +227,7 @@ export default {
         if (valid) {
           createNewCourse(this.temp).then(() => {
             console.log(this.temp)
-            this.getAllUsers()
+            this.refreshCoursesTable()
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
@@ -246,7 +243,7 @@ export default {
     deleteData(row){
       this.temp = Object.assign({}, row)
       deleteCourse(this.temp.idCourse).then(() =>{        
-            this.getAllUsers()
+            this.refreshCoursesTable()
             this.$notify({
               title: 'Success',
               message: 'Deleted Successfully',

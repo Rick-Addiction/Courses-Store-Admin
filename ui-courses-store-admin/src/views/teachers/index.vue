@@ -17,7 +17,7 @@
     </div>
     <el-table
       v-loading="listLoading"
-      :data="users"
+      :data="teachers"
       element-loading-text="Loading"
       border
       fit
@@ -68,7 +68,7 @@
   </el-tab-pane>
   <el-tab-pane label="Courses" name="Courses" v-if="dialogStatus==='edit' || dialogStatus==='read'">
         <el-table
-        :data="users"
+        :data="teachers"
         style="width: 100%"
         height="50%">
           <el-table-column
@@ -126,7 +126,7 @@ export default {
   },
   data() {
     return {
-      users: [],
+      teachers: [],
       activeName: 'Teacher',
       dialogStatus: '',
       dialogFormVisible: false,
@@ -146,25 +146,22 @@ export default {
       }
     }
   },
-  created() {
-    this.fetchData()
-  },  
   mounted() {
-    this.getAllUsers()
+    this.refreshTeachersTable()
   },
   methods: {
-    getAllUsers() {
+    refreshTeachersTable() {
+      this.listLoading = true
       getAllTeachers().then(response => {
         console.log("UPDATING Teachers:",response)
         if(response.teachers != null){
-          this.users = response.teachers
-          this.numberOfUsers = this.users.length
+          this.teachers = response.teachers
         } 
         else{
-          this.users = []
-          this.numberOfUsers = 0
+          this.teachers = []
         }       
-        console.log(users)
+        console.log(this.teachers)
+        this.listLoading = false
       })
     },
     resetTemp() {
@@ -201,7 +198,7 @@ export default {
         if (valid) {
           editTeacher(this.temp).then(() => {
             console.log(this.temp)
-            this.getAllUsers()
+            this.refreshTeachersTable()
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
@@ -218,7 +215,7 @@ export default {
         if (valid) {
           createNewTeacher(this.temp).then(() => {
             console.log(this.temp)
-            this.getAllUsers()
+            this.refreshTeachersTable()
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
@@ -235,7 +232,7 @@ export default {
       console.log(row)
       this.temp = Object.assign({}, row)
       deleteTeacher(this.temp.idTeacher).then(() =>{        
-            this.getAllUsers()
+            this.refreshTeachersTable()
             this.$notify({
               title: 'Success',
               message: 'Deleted Successfully',
@@ -304,7 +301,7 @@ export default {
                var response = await registerTeachers(fileContents[i])
         }
          console.log("DONE");
-        this.getAllUsers();
+        this.refreshTeachersTable();
         this.listLoading= false;
         this.$notify({
               title: 'Success',
